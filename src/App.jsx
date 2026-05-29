@@ -877,18 +877,20 @@ function SearchBar({ value, onChange, onClear, allTopics, onSelectTopic }) {
              The utility line is permanent (never disappears) and visually tied to the search. */}
           <div className="wd-search rounded-2xl border shadow-sm overflow-hidden"
                style={{ borderColor: "var(--trust)", background: "var(--paper-2)" }}>
-            {/* Permanent utility label — what searching gets you. Brand promise anchored to the action. */}
+            {/* Permanent utility label — what searching gets you. Brand promise anchored to the action.
+                Hidden on mobile (where vertical space is precious and the placeholder already explains
+                the search); shown on desktop where there's room for the brand-promise framing. */}
             <p
-              className="px-4 sm:px-5 pt-3 pb-2 text-center text-xs sm:text-sm font-medium"
+              className="hidden sm:block px-4 sm:px-5 pt-3 pb-2 text-center text-xs sm:text-sm font-medium"
               style={{ color: "var(--trust-deep)", borderBottom: "1px solid var(--line)", background: "var(--trust-soft)" }}
             >
               {SEARCH_MICRO_LINE}
             </p>
-            {/* The actual input row */}
-            <div className="flex items-center gap-3 px-4 sm:px-5 py-3.5 sm:py-4">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden style={{ flexShrink: 0 }}>
-                <circle cx="11" cy="11" r="7" stroke="var(--trust)" strokeWidth="2" />
-                <path d="M21 21l-4.3-4.3" stroke="var(--trust)" strokeWidth="2" strokeLinecap="round" />
+            {/* The actual input row — sized to be the dominant, inviting action on the page */}
+            <div className="flex items-center gap-3 px-4 sm:px-5 py-4 sm:py-4">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden style={{ flexShrink: 0 }}>
+                <circle cx="11" cy="11" r="7" stroke="var(--trust)" strokeWidth="2.4" />
+                <path d="M21 21l-4.3-4.3" stroke="var(--trust)" strokeWidth="2.4" strokeLinecap="round" />
               </svg>
               <div className="relative w-full min-w-0">
                 <input
@@ -897,14 +899,14 @@ function SearchBar({ value, onChange, onClear, allTopics, onSelectTopic }) {
                   onFocus={() => setFocused(true)}
                   onKeyDown={handleKey}
                   placeholder=""
-                  className="w-full min-w-0 bg-transparent text-base sm:text-lg outline-none"
+                  className="w-full min-w-0 bg-transparent text-lg sm:text-xl outline-none"
                   style={{ color: "var(--ink)" }}
                   aria-label="Search health claims"
                   aria-autocomplete="list"
                   aria-expanded={showSuggestions}
                 />
                 {!value && (
-                  <span className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-sm sm:text-base" style={{ color: "var(--ink-soft)", opacity: 0.7 }}>
+                  <span className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-base sm:text-lg font-medium" style={{ color: "var(--ink-soft)", opacity: 0.65 }}>
                     <span className="show-md">Search a supplement, test, or health claim…</span>
                     <span className="show-sm">Search any health topic…</span>
                   </span>
@@ -1259,6 +1261,7 @@ function SubscribeForm({ tone = "card" }) {
 }
 
 function CategoryNav({ active, onPick }) {
+  const [trustOpen, setTrustOpen] = useState(false);
   return (
     <nav className="no-print px-4 mt-4 sm:mt-6" aria-label="Categories">
       <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-1.5 sm:gap-2">
@@ -1273,18 +1276,47 @@ function CategoryNav({ active, onPick }) {
           </button>
         ))}
       </div>
-      <div className="mx-auto mt-2 sm:mt-3 flex max-w-3xl flex-wrap items-center justify-center gap-1 sm:gap-1.5">
+
+      {/* Trust & Policy — collapsed behind a toggle on mobile to save space; always shown on desktop.
+          The `sm:flex` row is the desktop version; the mobile toggle is `sm:hidden`. */}
+      <div className="hidden sm:flex mx-auto mt-3 max-w-3xl flex-wrap items-center justify-center gap-1.5">
         <span className="label-eyebrow mr-1" style={{ color: "var(--ink-soft)", opacity: 0.7, fontSize: "9px" }}>Trust &amp; policy:</span>
         {TRUST_PAGES.map((c) => (
           <button
             key={c.slug}
             onClick={() => onPick(c.slug)}
-            className={`chip rounded-full border px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-medium ${active === c.slug ? "chip-active" : ""}`}
+            className={`chip rounded-full border px-2.5 py-1 text-xs font-medium ${active === c.slug ? "chip-active" : ""}`}
             style={{ borderColor: "var(--line)", color: active === c.slug ? "var(--paper)" : "var(--ink-soft)" }}
           >
             {c.label}
           </button>
         ))}
+      </div>
+
+      {/* Mobile-only: a single "More" toggle that expands the Trust & Policy chips */}
+      <div className="sm:hidden mt-2 text-center">
+        <button
+          onClick={() => setTrustOpen((o) => !o)}
+          className="btn label-eyebrow inline-flex items-center gap-1"
+          style={{ color: "var(--ink-soft)", fontSize: "10px", background: "transparent", border: "none" }}
+        >
+          <span>Trust &amp; policy</span>
+          <span aria-hidden style={{ transform: trustOpen ? "rotate(45deg)" : "none", transition: "transform .15s", fontSize: 13, color: "var(--trust)" }}>+</span>
+        </button>
+        {trustOpen && (
+          <div className="mt-2 flex flex-wrap items-center justify-center gap-1">
+            {TRUST_PAGES.map((c) => (
+              <button
+                key={c.slug}
+                onClick={() => onPick(c.slug)}
+                className={`chip rounded-full border px-2 py-0.5 text-[10px] font-medium ${active === c.slug ? "chip-active" : ""}`}
+                style={{ borderColor: "var(--line)", color: active === c.slug ? "var(--paper)" : "var(--ink-soft)" }}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );
