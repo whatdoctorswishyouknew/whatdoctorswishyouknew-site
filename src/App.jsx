@@ -31,10 +31,10 @@ const SIGNATURE = "The truth isn't for sale. This is WhatDoctorsWishYouKnew.com"
    The design rule: zero work for the sender, maximum context for the receiver,
    meet the receiver in the channel they actually use. */
 
-// Friend share — used by the floating button across all general pages.
-// Receiver-tuned: "made me think of you" is the personalization that creates engagement obligation.
+// Friend share — used when someone hits the share button on the homepage, Mission, Landing, etc.
+// Locked short and human: reads like a real text from a real friend, never like a marketing pitch.
 const MISSION_SHARE_MESSAGE =
-  "This made me think of you. Doctor-built site, no ads, no sponsors — just the honest answer. :)";
+  "So helpful! Thought I would share. :)";
 
 // Doctor share — pasted into a patient portal message. Calibrated as a *gratitude message*
 // with a verdict attached, not a task with gratitude attached. The doctor receives it as a
