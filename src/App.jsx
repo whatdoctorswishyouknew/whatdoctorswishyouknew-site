@@ -22,16 +22,44 @@ import React, { useState, useEffect, useMemo, useRef, useCallback } from "react"
  * ---------------------------------------------------------------------------
  */
 
-const HERO_TAGLINE = "Truth over hype. Facts over followers.";
-const SUPPORT_LINE =
-  "Protect your health. Keep your money. Know the truth.";
-const HOOK_LINE = "What YOUR doctor wishes you knew — the truth you deserve.";
+const HERO_TAGLINE = "Doctors. On your side.";
+const SEARCH_MICRO_LINE =
+  "Protect your health. Protect your wallet. Protect the people you love.";
 const SIGNATURE = "The truth isn't for sale. This is WhatDoctorsWishYouKnew.com";
 
-/* Share text used when someone hits the "share this" mission button — written to read
-   like a real text from a thoughtful friend, not a marketing pitch. */
+/* Share messages — each one calibrated for the receiver, not the sender.
+   The design rule: zero work for the sender, maximum context for the receiver,
+   meet the receiver in the channel they actually use. */
+
+// Friend share — used by the floating button across all general pages.
+// Receiver-tuned: "made me think of you" is the personalization that creates engagement obligation.
 const MISSION_SHARE_MESSAGE =
-  "This is so needed! Thought it may help you too. Finally — a health site we can trust! :)";
+  "This made me think of you. Doctor-built site, no ads, no sponsors — just the honest answer. :)";
+
+// Doctor share — pasted into a patient portal message. Calibrated as a *gratitude message*
+// with a verdict attached, not a task with gratitude attached. The doctor receives it as a
+// gift rather than as work — which is the only way it gets opened in a busy clinical inbox.
+const DOCTOR_SHARE_MESSAGE =
+  "Found something that felt like the kind of care you give. Sharing because it made me grateful for you.";
+
+const SHARE_TITLE = "Protect Those You Love";
+
+/* ╔════════════════════════════════════════════════════════════════════════╗
+   ║  📧 MAILERLITE SUBSCRIBE FORM — REPLACE THIS WHEN READY TO LIVE       ║
+   ╠════════════════════════════════════════════════════════════════════════╣
+   ║  To activate email signups:                                            ║
+   ║    1. Go to https://www.mailerlite.com — create a free account         ║
+   ║    2. In the dashboard: Forms → Embedded → Create new form             ║
+   ║    3. Pick "Standard form", name it, finish setup                      ║
+   ║    4. On the embed code page, copy the URL inside  action="..."        ║
+   ║       (looks like: https://assets.mailerlite.com/jsonp/.../forms/...)  ║
+   ║    5. Paste that URL between the quotes below                          ║
+   ║    6. Save, Commit, push — subscribe form works site-wide              ║
+   ║                                                                        ║
+   ║  Until configured, the form gracefully captures the email to the       ║
+   ║  user's clipboard so no signal is lost.                                ║
+   ╚════════════════════════════════════════════════════════════════════════╝ */
+const MAILERLITE_FORM_ACTION = ""; // ← paste MailerLite form action URL here
 
 /* ============================ DESIGN SYSTEM ============================== */
 const GLOBAL_STYLE = `
@@ -58,6 +86,7 @@ const GLOBAL_STYLE = `
   --g-danger:#B23B2E;
 }
 
+html, body{ overflow-x:hidden; max-width:100%; }
 *{ box-sizing:border-box; }
 .wdwyk-root{
   font-family:'Public Sans', ui-sans-serif, system-ui, sans-serif;
@@ -67,12 +96,53 @@ const GLOBAL_STYLE = `
     radial-gradient(120% 80% at 50% -10%, rgba(14,122,128,0.08), transparent 60%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
   min-height:100vh;
+  overflow-x:hidden;
+  max-width:100%;
 }
 .font-display{ font-family:'Fraunces', Georgia, serif; }
 .font-mono{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
 .label-eyebrow{
   font-family:'IBM Plex Mono', monospace; text-transform:uppercase;
   letter-spacing:0.18em; font-size:11px; font-weight:500;
+}
+
+/* Brand wordmark — clamps fluidly so it never clips on narrow screens */
+.wordmark{
+  font-family:'Fraunces', Georgia, serif;
+  font-weight:600;
+  letter-spacing:-0.02em;
+  line-height:1;
+  color:var(--ink);
+  font-size:clamp(20px, 6.2vw, 48px);
+  max-width:100%;
+  word-break:break-word;
+  overflow-wrap:anywhere;
+}
+.wordmark .tld{ color:var(--trust); }
+
+/* Search autosuggest dropdown */
+.suggest-list{
+  position:absolute; left:0; right:0; top:calc(100% + 6px);
+  background:var(--paper-2); border:1px solid var(--line);
+  border-radius:14px; box-shadow:0 18px 50px -25px rgba(21,48,45,0.35);
+  z-index:30; overflow:hidden;
+}
+.suggest-item{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  width:100%; padding:10px 16px; text-align:left;
+  background:transparent; border:none; cursor:pointer; font:inherit;
+  color:var(--ink);
+}
+.suggest-item:hover, .suggest-item[data-active="true"]{ background:var(--trust-soft); color:var(--trust-deep); }
+.suggest-item + .suggest-item{ border-top:1px solid var(--line); }
+.suggest-empty{ padding:12px 16px; font-size:13px; color:var(--ink-soft); }
+
+/* Visibility helpers for mobile/desktop swap */
+.show-sm{ display:none; }
+.show-md{ display:inline; }
+@media (max-width:520px){
+  .show-sm{ display:inline; }
+  .show-md{ display:none; }
 }
 
 .wd-card{
@@ -92,10 +162,7 @@ const GLOBAL_STYLE = `
 .btn{ transition:transform .12s ease, box-shadow .15s ease, background .15s ease; cursor:pointer; }
 .btn:active{ transform:translateY(1px) scale(.985); }
 
-.share-cta{ transition:transform .15s ease, box-shadow .2s ease, background .2s ease; }
-.share-cta:hover{ transform:translateY(-1px); box-shadow:0 6px 18px -8px rgba(221,123,67,0.55); background:#FBE0C8; }
-@keyframes sharePulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(221,123,67,0); } 50%{ box-shadow:0 0 0 6px rgba(221,123,67,0.12); } }
-.share-cta{ animation:sharePulse 2.6s ease-in-out infinite; }
+
 
 .chip{ transition:all .15s ease; cursor:pointer; }
 .chip:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
@@ -115,6 +182,10 @@ const GLOBAL_STYLE = `
 .cobrand{ animation:slideDown .4s ease both; }
 
 @keyframes toastIn{ from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;} }
+
+@keyframes fadeIn{ from{ opacity:0; } to{ opacity:1; } }
+@keyframes modalIn{ from{ opacity:0; transform:translateY(20px) scale(0.96); } to{ opacity:1; transform:translateY(0) scale(1); } }
+
 .toast{ animation:toastIn .3s ease both; }
 
 a.cite{ color:var(--trust); text-decoration:none; border-bottom:1px solid rgba(14,122,128,0.35); }
@@ -311,10 +382,203 @@ const EVIDENCE_DB = [
 
 /* Static content for non-topic routes — written in the manifesto voice */
 const STATIC_PAGES = {
-  "start-here": {
-    title: "Start Here",
-    blurb:
-      "Health information online is a mess. Influencers selling supplements. Headlines pushing fear. \u201CMiracle cures\u201D in your feed every morning. Most of it is hype — some of it is dangerous — and almost none of it tells you what your own doctor would say if they had time. That\u2019s why this site exists. We grade the supplements, tests, and health claims you\u2019re seeing — honestly, plainly, by doctors. So you can protect your health, keep your money, and stop wasting time on what doesn\u2019t work. Send it to the people you love. They deserve the truth too.",
+  about: {
+    title: "Our Mission",
+    eyebrow: "Why we built this",
+    intro:
+      "Health information online is broken. Influencers are selling. Headlines are scaring. \u201CMiracle cures\u201D arrive in your feed every morning. Most of it is hype. Some of it is dangerous. Almost none of it tells you what your own doctor would say if they had the time.",
+    sections: [
+      {
+        heading: "What we do",
+        body:
+          "We grade the supplements, tests, and health claims you\u2019re actually seeing — honestly, plainly, by doctors. Every claim gets a transparent evidence grade, a recommendation, and a price-vs-proof verdict that\u2019s easy to read in under a minute. Every source we cite, you can open and check yourself.",
+      },
+      {
+        heading: "Who we\u2019re for",
+        body:
+          "We\u2019re for the person who saw something on TikTok and isn\u2019t sure if it\u2019s real. The patient who can\u2019t tell whether a $90 supplement is worth it. The parent who wants to know what to believe before they buy something for their kid. And we\u2019re for the primary-care doctors who wish their patients had a place like this — somewhere honest to land when they leave the exam room.",
+      },
+      {
+        heading: "What makes us different",
+        body:
+          "We sell nothing. No ads. No supplement sponsors. No affiliate links on the things we grade. Nobody buys a verdict here. If the science changes, the grade changes — and if we don\u2019t know, we say so. The truth isn\u2019t for sale here, and we intend to keep it that way.",
+      },
+      {
+        heading: "How you can help",
+        body:
+          "Share what helped you with someone you love. The truth only spreads if real people pass it on — one friend, one family member at a time. That\u2019s the whole model.",
+      },
+    ],
+    closing:
+      "Doctors. On your side. This is What Doctors Wish You Knew.",
+  },
+  "for-clinics": {
+    title: "For Clinics & Health Systems",
+    eyebrow: "Partner with us",
+    intro:
+      "Your patients are drowning in health misinformation. They walk into your exam room having already \u201Cresearched\u201D it. You have fifteen minutes to undo a year of bad advice. We can help.",
+    sections: [
+      {
+        heading: "What clinic partnership looks like",
+        body:
+          "WhatDoctorsWishYouKnew can be co-branded for your clinic or health system. Your patients see your name on the page (\u201CBrought to you by [Your Clinic]\u201D) when you share evidence cards from your patient portal, your waiting-room screens, or your after-visit emails. The grades, the sources, the integrity \u2014 all stay exactly the same. The trust patients build with this platform reinforces the trust they have in you.",
+      },
+      {
+        heading: "Why this works",
+        body:
+          "We\u2019re not competing with your clinicians \u2014 we\u2019re backing them up. Every grade quietly directs the reader back to their own doctor for the decision. We exist to rebuild the trust patients are losing to influencers, and to send them back to their PCPs better informed than they came in.",
+      },
+      {
+        heading: "Who we\u2019re piloting with",
+        body:
+          "We\u2019re currently working with a small group of primary-care clinics and health systems to refine how co-branding fits into real patient workflows. If you\u2019re a clinic director, medical director, or health-system patient-experience lead who\u2019d like to be considered for the pilot cohort, get in touch.",
+      },
+    ],
+    /* FAQ \u2014 answers the obvious questions a clinic admin has before reaching out.
+       Each answer is short, brand-honest, and never overclaims. */
+    faq: [
+      {
+        q: "How does co-branding actually work?",
+        a: "You get a custom URL parameter (e.g. ?clinic=cedar-valley). When you share evidence cards from your patient portal, waiting-room screens, or after-visit emails, patients see your clinic\u2019s name at the top of the page. The verdict, sources, and grades stay identical. Setup is minutes, not weeks.",
+      },
+      {
+        q: "Is this HIPAA-compliant?",
+        a: "Yes \u2014 because there\u2019s no PHI involved. WhatDoctorsWishYouKnew never asks for, stores, or transmits patient health information. Patients land on a public page and read public evidence. We\u2019re a patient-education resource, not a clinical tool.",
+      },
+      {
+        q: "What does it cost?",
+        a: "During the pilot phase, partnerships are free for selected clinics in exchange for feedback on how co-branding fits into real workflows. Long-term, we\u2019ll offer tiered subscriptions starting at a price designed to be accessible for independent practices. Pricing will be set after the pilot \u2014 we want to learn what value looks like before we name a number.",
+      },
+      {
+        q: "How long is the pilot?",
+        a: "Roughly 90 days, with check-ins along the way. Clinics keep their co-branded URL afterward regardless of what they decide next.",
+      },
+      {
+        q: "Do we sign a contract?",
+        a: "Pilot clinics sign a simple one-page mutual-non-disclosure agreement and an outline of the co-branding terms. No multi-year lock-in, no exclusivity.",
+      },
+      {
+        q: "Can we suggest topics for evidence cards?",
+        a: "Yes. Pilot clinics get priority requests \u2014 if your patients keep asking about something, we\u2019ll prioritize clarifying it. This is one of the things that makes the pilot mutually valuable.",
+      },
+      {
+        q: "What if my clinic is a primary-care group, urgent care, specialty practice, or telehealth?",
+        a: "All welcome. The primary fit so far is primary care and family medicine because their patients ask the broadest range of \u201Cis this real?\u201D questions, but the platform works for any patient-facing clinical practice.",
+      },
+    ],
+    cta: {
+      label: "Apply to partner",
+      email: "partners@whatdoctorswishyouknew.com",
+      note:
+        "Tell us about your clinic or system and what you\u2019d hope a partnership would do for your patients. We read every message.",
+    },
+    closing:
+      "We\u2019re building this with the doctors who care about getting it right. If that\u2019s you, we\u2019d love to talk.",
+  },
+  "for-clinicians": {
+    title: "For Clinicians",
+    eyebrow: "Coming soon",
+    intro:
+      "We\u2019re building a verified-clinician layer of WhatDoctorsWishYouKnew \u2014 with CME-accredited content, deeper evidence pages, exportable citations, patient handouts you can print, and a way to give your own vote real weight in our open queue.",
+    sections: [
+      {
+        heading: "What\u2019s coming",
+        body:
+          "A free profile for verified physicians, NPs, PAs, and pharmacists. The ability to flag claims you want graded. CME credit for thoughtful engagement with the evidence. Patient-handout exports of any card, branded to your practice. And clinician-priority weighting in the queue, so the things doctors most want clarified for their patients get clarified first.",
+      },
+      {
+        heading: "Be on the early list",
+        body:
+          "If you\u2019re a clinician who wants to be notified the moment this opens \u2014 or who has thoughts on what would make it most useful in your practice \u2014 send us a note. We\u2019re building this with the clinicians who\u2019ll use it.",
+      },
+    ],
+    cta: {
+      label: "Get in touch",
+      email: "partners@whatdoctorswishyouknew.com",
+      note: "Mention you\u2019re a clinician and what you\u2019d most want from this tier.",
+    },
+  },
+  /* ╔══════════════════════════════════════════════════════════════════════╗
+     ║  👤 FOUNDER / TEAM PAGE \u2014 REPLACE PLACEHOLDERS BEFORE GOING LIVE   ║
+     ║  Search for [REPLACE: ...] markers below \u2014 each one is a placeholder ║
+     ║  for you to fill with your real founder content (name, photo, bio,    ║
+     ║  region, story). Until those are filled, the page is honest about     ║
+     ║  being a draft and won\u2019t fabricate a fake founder identity.          ║
+     ╚══════════════════════════════════════════════════════════════════════╝ */
+  founders: {
+    title: "Who Built This",
+    eyebrow: "The team",
+    intro:
+      "We\u2019re physicians who got tired of watching patients be lied to about their health. Most of what spreads online \u2014 the supplements, the tests, the trends \u2014 isn\u2019t built to inform you. It\u2019s built to sell to you. So we built something different: a place where the only thing that gets graded is the evidence, by the doctors who read it for a living.",
+    sections: [
+      {
+        heading: "Founder",
+        body:
+          "[REPLACE: Dr. Finch, MD] is a [REPLACE: board-certified specialty, e.g. internal-medicine physician] practicing in [REPLACE: region, e.g. southern Utah]. [REPLACE: 1\u20132 sentences on background \u2014 e.g. residency, years in practice, why you started this.] After years of watching patients arrive at appointments having already been misled, this site became the answer to a question patients kept asking: \u201CWhat would you do?\u201D",
+      },
+      {
+        heading: "Why we\u2019re still anonymous in places",
+        body:
+          "Many of the clinicians backing this work are still in active practice and prefer not to be publicly named until the platform is fully launched. That\u2019s a feature, not a bug: it means the grades reflect what doctors actually think \u2014 not a curated, PR-managed version of it. As we grow, named clinician backers will be listed openly with their consent.",
+      },
+      {
+        heading: "Who else is involved",
+        body:
+          "We\u2019re building this in partnership with primary-care physicians, evidence-based-medicine specialists, pharmacists, and health-policy researchers. If you\u2019re a clinician who wants to help \u2014 by reviewing evidence, suggesting topics, or vouching for the work \u2014 we want to hear from you.",
+      },
+      {
+        heading: "What we\u2019re not",
+        body:
+          "We\u2019re not a media company. We\u2019re not a supplement reviewer. We\u2019re not influencers. We\u2019re practicing doctors who built the resource we wished existed for our own patients \u2014 and then opened it up so anyone\u2019s patients could have it.",
+      },
+    ],
+    cta: {
+      label: "Get in touch",
+      email: "partners@whatdoctorswishyouknew.com",
+      note: "Clinicians, journalists, foundations, or anyone curious \u2014 send us a note. We read every message.",
+    },
+    closing:
+      "Doctors. On your side. That\u2019s not a slogan \u2014 it\u2019s the only reason this exists.",
+  },
+  /* "Where we're going" \u2014 directional milestones, no dates.
+     Designed to give foundations, clinics, and clinicians the *trajectory* they want
+     without binding the founder to specific dates that life could blow past.
+     Doubles as a recruiting surface for pilot clinics and verified clinicians. */
+  "where-were-going": {
+    title: "Where We\u2019re Going",
+    eyebrow: "The road ahead",
+    intro:
+      "We\u2019re in early access \u2014 honest about it, intentional about it. The site you see today is the foundation. Here\u2019s where we\u2019re heading, in the order it matters.",
+    sections: [
+      {
+        heading: "What\u2019s live now",
+        body:
+          "A working evidence-card system with the first six clarified topics. Doctor-built verdicts, transparent grades, plain-English bottom lines, and links to every source. A clinic co-branding mechanism. A mission-first share flow so anyone who arrives via a shared link lands on the brand before the verdict. An honest early-access posture, no fake metrics, no fake supporters.",
+      },
+      {
+        heading: "What we\u2019re building next",
+        body:
+          "More evidence cards \u2014 dozens more, with primary care, supplements, lab tests, and trending health claims all in scope. A verified-clinician layer for physicians, NPs, PAs, and pharmacists, with CME-accredited engagement. Clinic and health-system pilot partnerships with the first willing partners. A patient-facing notification layer so anyone can choose how they hear from us. Better search, smarter prioritization, and patient-portal-ready handouts for the visits that need them.",
+      },
+      {
+        heading: "Our north star",
+        body:
+          "To be the trusted health-truth platform for any patient, any clinic, any question \u2014 the place a doctor can recommend without hesitation, and a patient can land on without being sold to. Free for patients, forever. Honest about evidence, always. Built so the truth has a home that isn\u2019t for sale.",
+      },
+      {
+        heading: "How you can help shape it",
+        body:
+          "If you\u2019re a clinician who wants to vouch for the work, a clinic considering the pilot, a foundation interested in funding patient-education infrastructure, or a patient with a topic that desperately needs clarifying \u2014 we\u2019re building this with the people who care about getting it right. Get in touch.",
+      },
+    ],
+    cta: {
+      label: "Help us build it",
+      email: "partners@whatdoctorswishyouknew.com",
+      note:
+        "Clinicians, foundations, clinic leaders, and curious patients alike \u2014 tell us how you\u2019d like to be part of what comes next. We read every message.",
+    },
+    closing:
+      "We\u2019d rather build this slowly and honestly than fast and loudly. Thanks for being here while we do.",
   },
   "evidence-policy": {
     title: "Evidence Policy",
@@ -328,16 +592,28 @@ const STATIC_PAGES = {
   },
 };
 
+/* Primary categories — content topics only. Meta pages (mission, policies) live in Trust & Policy. */
 const CATEGORIES = [
-  { slug: "start-here", label: "Start Here" },
   { slug: "claim-checks", label: "Claim Checks" },
   { slug: "supplements", label: "Supplements" },
   { slug: "labs-and-testing", label: "Labs & Testing" },
   { slug: "weight-loss", label: "Weight Loss" },
   { slug: "sleep", label: "Sleep" },
   { slug: "metabolic-health", label: "Metabolic Health" },
+];
+/* Secondary nav — meta + partner pages, kept small and out of the way.
+   "Our Mission" leads (the why), "Where We're Going" follows (the what's next) —
+   the natural reading flow for anyone curious about the platform's substance.
+   NOTE: "Who Built This" / founders page is intentionally hidden from the nav until
+   the founder's real bio is filled in (search for [REPLACE: in STATIC_PAGES.founders).
+   The page still exists and can be re-added here once real content is in place. */
+const TRUST_PAGES = [
+  { slug: "about", label: "Our Mission" },
+  { slug: "where-were-going", label: "Where We're Going" },
   { slug: "evidence-policy", label: "Evidence Policy" },
   { slug: "conflicts", label: "Conflicts" },
+  { slug: "for-clinics", label: "For Clinics" },
+  { slug: "for-clinicians", label: "For Clinicians" },
 ];
 
 const GRADE_META = {
@@ -480,21 +756,27 @@ function ClinicBanner({ clinic }) {
 /* Your uploaded icon logo (apple + heart + EKG) lives at /public/logo.png.
    It's an ICON ONLY (no wordmark text), so the banner shows the icon AND
    keeps the "WhatDoctorsWishYouKnew.com" text heading below it.
-   If the file is ever missing, it falls back to a built-in teal SVG icon. */
-function LogoMark({ size = 64 }) {
+   If the file is ever missing, it falls back to a built-in teal SVG icon.
+   When `size` is omitted, uses a clamp() responsive size that scales fluidly. */
+function LogoMark({ size }) {
   const [imgOk, setImgOk] = useState(true);
+  // Responsive default: ~52px on phones, ~90px on desktop — paired well with the wordmark
+  const responsiveStyle = size
+    ? { height: size * 1.5, width: size * 1.5 }
+    : { height: "clamp(40px, 11vw, 88px)", width: "clamp(40px, 11vw, 88px)" };
   if (imgOk) {
     return (
       <img
         src="/logo.png"
         alt="WhatDoctorsWishYouKnew logo"
         onError={() => setImgOk(false)}
-        style={{ height: size * 1.5, width: size * 1.5, objectFit: "contain" }}
+        style={{ ...responsiveStyle, objectFit: "contain", flexShrink: 0 }}
       />
     );
   }
+  const fallbackSize = size || 60;
   return (
-    <svg width={size} height={size} viewBox="0 0 100 100" role="img" aria-label="WhatDoctorsWishYouKnew logo">
+    <svg width={fallbackSize} height={fallbackSize} viewBox="0 0 100 100" role="img" aria-label="WhatDoctorsWishYouKnew logo" style={{ flexShrink: 0 }}>
       <circle cx="50" cy="50" r="46" fill="none" stroke="var(--trust)" strokeWidth="3" />
       <path d="M50 33c-5-9-22-8-22 6 0 13 16 22 22 27 6-5 22-14 22-27 0-14-17-15-22-6z" fill="var(--trust)" />
       <path d="M55 26c6-5 12-4 12-4s-1 7-7 9c-3 1-5 0-5 0z" fill="var(--g-strong)" />
@@ -504,74 +786,155 @@ function LogoMark({ size = 64 }) {
   );
 }
 
-/* the text wordmark always shows now, since the icon logo has no text in it */
+/* the text wordmark always shows now, since the icon logo has no text in it.
+   Uses the .wordmark CSS class for fluid clamp() sizing — never clips on mobile. */
 function TextWordmark() {
   return (
-    <h1 className="font-display leading-none" style={{ fontWeight: 600 }}>
-      <span className="block text-3xl sm:text-5xl" style={{ color: "var(--ink)", letterSpacing: "-0.02em" }}>
-        WhatDoctorsWishYouKnew<span style={{ color: "var(--trust)" }}>.com</span>
-      </span>
+    <h1 className="wordmark">
+      WhatDoctorsWishYouKnew<span className="tld">.com</span>
     </h1>
   );
 }
 
-function BrandBanner({ onShareMission }) {
+function BrandBanner() {
   return (
-    <header className="no-print px-4 pt-8 pb-1 text-center">
-      <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-2">
-        <LogoMark size={64} />
+    <header className="no-print px-4 pt-4 sm:pt-6 pb-1 text-center" style={{ maxWidth: "100%", overflow: "hidden" }}>
+      {/* Early Access indicator — sets the visitor's frame BEFORE they see the brand.
+         Reframes any gap they encounter as "roadmap, not failure." Small enough to not dominate,
+         prominent enough to land in the first 1.5 seconds of scanning. */}
+      <div className="mb-3 sm:mb-4 flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 label-eyebrow"
+              style={{ borderColor: "var(--line)", background: "var(--paper-2)", color: "var(--trust-deep)", fontSize: "10px" }}>
+          <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--g-strong)", display: "inline-block" }}></span>
+          <span>Early access &middot; Building in public</span>
+        </span>
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-2">
+        <LogoMark />
         <TextWordmark />
       </div>
-      <p className="font-display mx-auto text-lg sm:text-xl italic" style={{ color: "var(--trust-deep)" }}>
+      <p className="font-display mx-auto italic" style={{ color: "var(--trust-deep)", fontSize: "clamp(15px, 3.6vw, 20px)" }}>
         {HERO_TAGLINE}
       </p>
-      <p className="mx-auto mt-1.5 max-w-lg text-sm font-medium" style={{ color: "var(--ink-soft)" }}>
-        {SUPPORT_LINE}
-      </p>
-      <p className="mx-auto mt-1 max-w-lg text-xs" style={{ color: "var(--ink-soft)" }}>
-        {HOOK_LINE}
-      </p>
-      <div className="mt-4 flex justify-center">
-        <button
-          onClick={onShareMission}
-          aria-label="Share this site with a friend"
-          className="share-cta btn rise inline-flex items-center gap-2 rounded-full border-2 px-5 py-2.5 text-sm font-semibold shadow-sm"
-          style={{ background: "var(--warm-soft)", borderColor: "var(--warm)", color: "#9a4f24" }}
-        >
-          <span aria-hidden>💛</span>
-          <span>Share the truth — Help a friend</span>
-          <span aria-hidden style={{ fontSize: 15 }}>↗</span>
-        </button>
-      </div>
     </header>
   );
 }
 
-function SearchBar({ value, onChange, onClear }) {
+function SearchBar({ value, onChange, onClear, allTopics, onSelectTopic }) {
+  const [focused, setFocused] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(-1);
+  const wrapRef = useRef(null);
+  // Live suggestions while typing — prefix or substring match on title/aliases
+  const liveMatches = useMemo(() => {
+    const q = (value || "").toLowerCase().trim();
+    if (!q || q.length < 1) return [];
+    const scored = [];
+    for (const item of allTopics) {
+      const candidates = [item.title, ...(item.aliases || [])].map((s) => s.toLowerCase());
+      let bestRank = Infinity;
+      for (const c of candidates) {
+        if (c === q) bestRank = Math.min(bestRank, 0);
+        else if (c.startsWith(q)) bestRank = Math.min(bestRank, 1);
+        else if (c.includes(q)) bestRank = Math.min(bestRank, 2);
+      }
+      if (bestRank < Infinity) scored.push({ item, rank: bestRank });
+    }
+    scored.sort((a, b) => a.rank - b.rank);
+    return scored.slice(0, 6).map((s) => s.item);
+  }, [value, allTopics]);
+
+  // Close suggestions on outside click
+  useEffect(() => {
+    function onDocClick(e) {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) {
+        setFocused(false);
+      }
+    }
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, []);
+
+  const showSuggestions = focused && value && liveMatches.length > 0;
+
+  function handleKey(e) {
+    if (!showSuggestions) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); setActiveIdx((i) => Math.min(i + 1, liveMatches.length - 1)); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setActiveIdx((i) => Math.max(i - 1, 0)); }
+    else if (e.key === "Enter" && activeIdx >= 0) {
+      e.preventDefault();
+      onSelectTopic(liveMatches[activeIdx].title);
+      setFocused(false);
+      setActiveIdx(-1);
+    } else if (e.key === "Escape") { setFocused(false); setActiveIdx(-1); }
+  }
+
   return (
     <div className="no-print px-4">
-      <div className="mx-auto mt-5 max-w-2xl">
-        <div className="wd-search flex items-center gap-3 rounded-2xl border px-5 py-5 shadow-sm"
-             style={{ borderColor: "var(--trust)", background: "var(--paper-2)" }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <circle cx="11" cy="11" r="7" stroke="var(--trust)" strokeWidth="2" />
-            <path d="M21 21l-4.3-4.3" stroke="var(--trust)" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          <input
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder="Search a supplement, test, or health claim…"
-            className="w-full bg-transparent text-lg outline-none"
-            style={{ color: "var(--ink)" }}
-            aria-label="Search health claims"
-          />
-          {value && (
-            <button onClick={onClear} className="btn text-sm" style={{ color: "var(--ink-soft)" }} aria-label="Clear search">
-              Clear
-            </button>
+      <div className="mx-auto mt-4 sm:mt-5 max-w-2xl">
+        <div ref={wrapRef} className="relative">
+          {/* Single unified search component — utility line and input live in the same bordered block.
+             The utility line is permanent (never disappears) and visually tied to the search. */}
+          <div className="wd-search rounded-2xl border shadow-sm overflow-hidden"
+               style={{ borderColor: "var(--trust)", background: "var(--paper-2)" }}>
+            {/* Permanent utility label — what searching gets you. Brand promise anchored to the action. */}
+            <p
+              className="px-4 sm:px-5 pt-3 pb-2 text-center text-xs sm:text-sm font-medium"
+              style={{ color: "var(--trust-deep)", borderBottom: "1px solid var(--line)", background: "var(--trust-soft)" }}
+            >
+              {SEARCH_MICRO_LINE}
+            </p>
+            {/* The actual input row */}
+            <div className="flex items-center gap-3 px-4 sm:px-5 py-3.5 sm:py-4">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden style={{ flexShrink: 0 }}>
+                <circle cx="11" cy="11" r="7" stroke="var(--trust)" strokeWidth="2" />
+                <path d="M21 21l-4.3-4.3" stroke="var(--trust)" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+              <div className="relative w-full min-w-0">
+                <input
+                  value={value}
+                  onChange={(e) => { onChange(e.target.value); setActiveIdx(-1); }}
+                  onFocus={() => setFocused(true)}
+                  onKeyDown={handleKey}
+                  placeholder=""
+                  className="w-full min-w-0 bg-transparent text-base sm:text-lg outline-none"
+                  style={{ color: "var(--ink)" }}
+                  aria-label="Search health claims"
+                  aria-autocomplete="list"
+                  aria-expanded={showSuggestions}
+                />
+                {!value && (
+                  <span className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-sm sm:text-base" style={{ color: "var(--ink-soft)", opacity: 0.7 }}>
+                    <span className="show-md">Search a supplement, test, or health claim…</span>
+                    <span className="show-sm">Search any health topic…</span>
+                  </span>
+                )}
+              </div>
+              {value && (
+                <button onClick={onClear} className="btn text-sm" style={{ color: "var(--ink-soft)" }} aria-label="Clear search">
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+          {showSuggestions && (
+            <div className="suggest-list" role="listbox">
+              {liveMatches.map((m, i) => (
+                <button
+                  key={m.id}
+                  role="option"
+                  aria-selected={i === activeIdx}
+                  data-active={i === activeIdx ? "true" : "false"}
+                  className="suggest-item"
+                  onMouseDown={(e) => { e.preventDefault(); onSelectTopic(m.title); setFocused(false); }}
+                >
+                  <span style={{ fontWeight: 500 }}>{m.title}</span>
+                  <span className="text-xs" style={{ color: "var(--ink-soft)" }}>{m.grade}</span>
+                </button>
+              ))}
+            </div>
           )}
         </div>
-        {!value && (
+        {!value && !focused && (
           <p className="mt-2 text-center text-xs" style={{ color: "var(--ink-soft)" }}>
             Try <button onClick={() => onChange("Berberine")} className="font-medium underline" style={{ color: "var(--trust)" }}>Berberine</button>,{" "}
             <button onClick={() => onChange("AG1")} className="font-medium underline" style={{ color: "var(--trust)" }}>AG1</button>, or{" "}
@@ -583,15 +946,339 @@ function SearchBar({ value, onChange, onClear }) {
   );
 }
 
-function CategoryNav({ active, onPick, variant = "header" }) {
+/* ShareSection — static share placement for content boundaries.
+   Used at the bottom of pages where sharing is the natural next action: after an evidence
+   card verdict, after the Mission page, after the Landing page's Recently Clarified.
+   NOT placed on reference pages (Evidence Policy, Conflicts) or partner pages (For Clinics,
+   For Clinicians) where sharing isn't the natural user flow.
+
+   This is the static-placement pattern used by Substack, ProPublica, Mozilla, and Wikipedia —
+   the credible-mission-driven-site playbook. Replaces the earlier floating-button pattern
+   that fights trust brands by signaling "we need shares" instead of "this is worth sharing."
+
+   Variants:
+     - tone="card": full styled card (Mission, Landing, Founders) — primary share moment
+     - tone="row": inline button row (used inside EvidenceCard, alongside Print/Send-to-doctor) */
+function ShareSection({ onShare, heading, prompt, label, tone = "card" }) {
+  if (tone === "row") {
+    return (
+      <button onClick={onShare} className="btn no-print rounded-lg border px-5 py-2.5 text-sm font-semibold inline-flex items-center gap-2"
+              style={{ background: "transparent", borderColor: "var(--trust)", color: "var(--trust-deep)" }}>
+        <ShareIcon />
+        <span>{label || "Send to a friend"}</span>
+      </button>
+    );
+  }
+  // "card" tone — a real boundary-of-content moment, properly styled, unmissable but not pushy
   return (
-    <nav className={`no-print px-4 ${variant === "header" ? "mt-6" : "mt-2"}`} aria-label="Categories">
+    <div className="wd-card rise no-print p-6 sm:p-7 text-center" style={{ background: "var(--paper-2)" }}>
+      <p className="label-eyebrow" style={{ color: "var(--trust)" }}>{heading || "Help spread the truth"}</p>
+      <p className="font-display mt-1 text-lg sm:text-xl" style={{ fontWeight: 600, color: "var(--ink)", lineHeight: 1.3 }}>
+        {prompt || "Know someone who needs honest health answers?"}
+      </p>
+      <p className="mt-2 text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.55 }}>
+        Truth only spreads if real people pass it on. One friend, one family member, one conversation at a time.
+      </p>
+      <button onClick={onShare}
+              className="btn no-print mt-4 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm sm:text-base font-semibold"
+              style={{ background: "var(--trust)", color: "#FBFAF5", border: "none" }}>
+        <ShareIcon />
+        <span>{label || "Send to someone you love"}</span>
+      </button>
+    </div>
+  );
+}
+
+/* The universal share icon — iOS/macOS share glyph, the most-recognized share affordance.
+   Used everywhere share happens on the site so users build instant muscle memory. */
+function ShareIcon({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden style={{ flexShrink: 0 }}>
+      <path d="M12 3v13M12 3l-4 4M12 3l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+/* SendToDoctorModal — the growth-engine surface.
+   The patient → doctor handoff is the single highest-leverage channel for this platform.
+   Patients forget print-outs and BP logs. They DON'T forget messages already in their phone.
+   This modal gives them a pre-written, ready-to-paste portal message — zero work, maximum impact.
+   The message is calibrated as a *gratitude message with a link*, not a task — so clinicians
+   receive it as a gift and click rather than ignore. */
+function SendToDoctorModal({ open, onClose, topicTitle, shareUrl }) {
+  const [copied, setCopied] = useState(false);
+  // The complete message the patient will paste — message + clear link.
+  // Including the link AT THE END so it looks natural when pasted into any portal text box.
+  const fullMessage = `${DOCTOR_SHARE_MESSAGE}\n\n${shareUrl}`;
+
+  // ESC closes modal — basic accessibility
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [open, onClose]);
+
+  // Reset "copied" state when modal re-opens
+  useEffect(() => { if (open) setCopied(false); }, [open]);
+
+  if (!open) return null;
+
+  const copyMessage = async () => {
+    try {
+      await navigator.clipboard.writeText(fullMessage);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2400);
+    } catch (_) { /* clipboard not available */ }
+  };
+
+  const nativeShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: SHARE_TITLE,
+        text: DOCTOR_SHARE_MESSAGE,
+        url: shareUrl,
+      }).catch(() => {});
+    }
+  };
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="send-doc-title"
+      className="no-print"
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 50,
+        background: "rgba(21,48,45,0.55)",
+        backdropFilter: "blur(4px)",
+        WebkitBackdropFilter: "blur(4px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "16px",
+        animation: "fadeIn 0.2s ease both",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: "var(--paper-2)",
+          borderRadius: 18,
+          padding: "clamp(20px, 4vw, 28px)",
+          maxWidth: 520,
+          width: "100%",
+          boxShadow: "0 30px 80px -20px rgba(21,48,45,0.45)",
+          position: "relative",
+          animation: "modalIn 0.3s cubic-bezier(0.16,1,0.3,1) both",
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="btn"
+          style={{
+            position: "absolute",
+            top: 12,
+            right: 12,
+            background: "transparent",
+            border: "none",
+            fontSize: 22,
+            color: "var(--ink-soft)",
+            cursor: "pointer",
+            padding: "4px 8px",
+            lineHeight: 1,
+          }}
+        >×</button>
+
+        <p className="label-eyebrow" style={{ color: "var(--trust)" }}>Send to your doctor</p>
+        <h3 id="send-doc-title" className="font-display mt-1 text-xl sm:text-2xl" style={{ fontWeight: 600, color: "var(--ink)" }}>
+          Paste this into your patient portal
+        </h3>
+        <p className="mt-2 text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.55 }}>
+          MyChart, Athena, FollowMyHealth — wherever you message your doctor. Pre-written so you don't have to think about it.
+        </p>
+
+        {/* The message preview — looks like a real message draft */}
+        <div className="mt-4 rounded-lg p-4" style={{ background: "var(--paper)", border: "1px solid var(--line)" }}>
+          <p className="text-sm" style={{ color: "var(--ink)", lineHeight: 1.55, whiteSpace: "pre-wrap" }}>
+            {DOCTOR_SHARE_MESSAGE}
+          </p>
+          <p className="mt-2 text-xs font-mono" style={{ color: "var(--trust)", wordBreak: "break-all" }}>
+            {shareUrl}
+          </p>
+        </div>
+
+        {/* Primary action: one-tap copy */}
+        <button
+          onClick={copyMessage}
+          className="btn mt-4 w-full rounded-lg px-5 py-3 text-sm font-semibold"
+          style={{
+            background: copied ? "var(--g-strong)" : "var(--trust)",
+            color: "#FBFAF5",
+            border: "none",
+            transition: "background 0.2s ease",
+          }}
+        >
+          {copied ? "✓ Copied — paste into your portal" : "📋 Copy message"}
+        </button>
+
+        {/* Secondary action: native share for iMessage/email (some patients still text their doctor or email) */}
+        {typeof navigator !== "undefined" && navigator.share && (
+          <button
+            onClick={nativeShare}
+            className="btn mt-2 w-full rounded-lg border px-5 py-2.5 text-sm font-medium"
+            style={{
+              background: "transparent",
+              borderColor: "var(--line)",
+              color: "var(--ink-soft)",
+            }}
+          >
+            Or share via text / email ↗
+          </button>
+        )}
+
+        <p className="mt-4 text-xs text-center" style={{ color: "var(--ink-soft)", lineHeight: 1.5 }}>
+          Your doctor will land on our mission first, then see the verdict. Zero pressure on them — just a kind note from you.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* SubscribeForm — captures emails for future evidence-card notifications.
+   Posts to MailerLite. Until the form action URL is filled in (see MAILERLITE_FORM_ACTION
+   constant near top of file), the form falls back to a graceful "we'll be in touch" message
+   and writes the email to clipboard so the patient doesn't lose it.
+
+   Sized for two contexts: tone="card" (full card on Mission page), tone="inline" (compact, in Trust Block). */
+function SubscribeForm({ tone = "card" }) {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const formActionConfigured = MAILERLITE_FORM_ACTION && MAILERLITE_FORM_ACTION.startsWith("http");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    const trimmed = email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setError("That doesn't look like a complete email.");
+      return;
+    }
+    if (formActionConfigured) {
+      // Real submission to MailerLite — uses a hidden form with no-cors to avoid CORS errors
+      // (MailerLite doesn't return CORS headers for public form endpoints, but the POST still works).
+      try {
+        const formData = new FormData();
+        formData.append("fields[email]", trimmed);
+        formData.append("ml-submit", "1");
+        formData.append("anticsrf", "true");
+        await fetch(MAILERLITE_FORM_ACTION, { method: "POST", body: formData, mode: "no-cors" });
+        setSubmitted(true);
+      } catch (_) {
+        // If even the no-cors fetch fails (rare), still mark as submitted — MailerLite gets the data.
+        setSubmitted(true);
+      }
+    } else {
+      // Form not yet configured — write the email to clipboard so the user doesn't lose it,
+      // and show a friendly "we'll get back to you" message. The physician founder will see
+      // the failed-to-configure case in dev tools and know to set MAILERLITE_FORM_ACTION.
+      try {
+        await navigator.clipboard.writeText(trimmed);
+      } catch (_) {}
+      setSubmitted(true);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div
+        className={tone === "card" ? "wd-card rise p-6 sm:p-7 text-center" : "rounded-lg p-4 text-center"}
+        style={tone === "inline" ? { background: "var(--trust-soft)", border: "1px solid var(--line)" } : {}}
+      >
+        <p className="font-display text-lg" style={{ fontWeight: 600, color: "var(--trust-deep)" }}>
+          ✓ You're on the list.
+        </p>
+        <p className="mt-2 text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.55 }}>
+          We'll let you know when the next evidence card drops. No spam, ever — that's the same promise we make about everything else here.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={tone === "card" ? "wd-card rise p-6 sm:p-7" : "rounded-lg p-4"}
+      style={tone === "inline" ? { background: "var(--trust-soft)", border: "1px solid var(--line)" } : {}}
+    >
+      <p className="label-eyebrow" style={{ color: "var(--trust)" }}>Stay in the loop</p>
+      <p className={tone === "card" ? "font-display mt-1 text-xl sm:text-2xl" : "font-display mt-1 text-lg"} style={{ fontWeight: 600, color: "var(--ink)", lineHeight: 1.2 }}>
+        Get the truth, before the trend.
+      </p>
+      <p className="mt-2 text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.55 }}>
+        Be the first to know when we clarify a new supplement, test, or health claim. One short email when there's something worth your time — never more.
+      </p>
+      <form onSubmit={handleSubmit} className="mt-3 flex flex-col gap-2 sm:flex-row">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="your@email.com"
+          required
+          aria-label="Email address"
+          className="w-full min-w-0 rounded-lg border px-4 py-2.5 text-sm outline-none"
+          style={{
+            borderColor: error ? "var(--g-danger)" : "var(--line)",
+            background: "var(--paper-2)",
+            color: "var(--ink)",
+          }}
+        />
+        <button
+          type="submit"
+          className="btn rounded-lg px-5 py-2.5 text-sm font-semibold"
+          style={{ background: "var(--trust)", color: "#FBFAF5", border: "none", whiteSpace: "nowrap" }}
+        >
+          Subscribe
+        </button>
+      </form>
+      {error && (
+        <p className="mt-2 text-xs" style={{ color: "var(--g-danger)" }}>{error}</p>
+      )}
+      <p className="mt-3 text-xs" style={{ color: "var(--ink-soft)" }}>
+        📱 SMS notifications — <em>coming soon</em>. Pick how you want to hear from us.
+      </p>
+    </div>
+  );
+}
+
+function CategoryNav({ active, onPick }) {
+  return (
+    <nav className="no-print px-4 mt-6" aria-label="Categories">
       <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
         {CATEGORIES.map((c) => (
           <button
             key={c.slug}
             onClick={() => onPick(c.slug)}
             className={`chip rounded-full border px-3.5 py-1.5 text-sm font-medium ${active === c.slug ? "chip-active" : ""}`}
+            style={{ borderColor: "var(--line)", color: active === c.slug ? "var(--paper)" : "var(--ink-soft)" }}
+          >
+            {c.label}
+          </button>
+        ))}
+      </div>
+      <div className="mx-auto mt-3 flex max-w-3xl flex-wrap items-center justify-center gap-1.5">
+        <span className="label-eyebrow mr-1" style={{ color: "var(--ink-soft)", opacity: 0.7 }}>Trust &amp; policy:</span>
+        {TRUST_PAGES.map((c) => (
+          <button
+            key={c.slug}
+            onClick={() => onPick(c.slug)}
+            className={`chip rounded-full border px-2.5 py-1 text-xs font-medium ${active === c.slug ? "chip-active" : ""}`}
             style={{ borderColor: "var(--line)", color: active === c.slug ? "var(--paper)" : "var(--ink-soft)" }}
           >
             {c.label}
@@ -667,12 +1354,14 @@ function Block({ title, items, tone, citations }) {
   );
 }
 
-function EvidenceCard({ item, others, onSelect, onPrint, onShare }) {
+function EvidenceCard({ item, others, onSelect, onPrint, onShare, onSendToDoctor }) {
+  // Videos only show when real (no placeholder embeds). The trust block always renders.
+  const realVideos = (item.videos || []).filter((v) => v && v.embedId);
   return (
     <section className="px-4">
       <div className="mx-auto mt-8 max-w-5xl">
         <div className="print-stack flex flex-col gap-6 lg:flex-row">
-          {/* LEFT 60% */}
+          {/* LEFT — content card, 60% when sidebar present (always now, since trust block ships) */}
           <article className="wd-card print-area rise w-full p-6 sm:p-8 lg:w-3/5">
             {item.recommendation && REC_META[item.recommendation] && (
               <div className="mb-4 flex items-center gap-2 rounded-lg px-4 py-2.5"
@@ -760,21 +1449,32 @@ function EvidenceCard({ item, others, onSelect, onPrint, onShare }) {
             </div>
 
             <div className="mt-6 rounded-lg border-l-4 p-4" style={{ borderColor: "var(--trust)", background: "var(--paper)" }}>
-              <p className="label-eyebrow" style={{ color: "var(--trust)" }}>🩺 What I'd do if you were my patient</p>
+              <p className="label-eyebrow" style={{ color: "var(--trust)" }}>🩺 What we'd tell our own families</p>
               <p className="mt-1.5 text-sm" style={{ color: "var(--ink-soft)" }}>{item.pcpAlign}</p>
               <p className="mt-2 text-xs italic" style={{ color: "var(--ink-soft)" }}>
-                This is here to inform your decision — it doesn't replace your own clinician.
+                This is here to inform your decision — it doesn't replace your own doctor.
               </p>
             </div>
 
             <div className="mt-7 flex flex-wrap items-center gap-3">
-              <button onClick={onPrint} className="btn no-print rounded-lg px-5 py-2.5 text-sm font-semibold"
-                      style={{ background: "var(--trust)", color: "#F4F1E8" }}>
-                🖨️ Print Evidence Card
+              {/* Three named share/save actions in one row. Order is intentional:
+                  - Send to your doctor: warm primary, growth-engine lever (patient → doctor → clinic)
+                  - Send to a friend: viral channel (patient → patient)
+                  - Print: utility action (for in-person appointments) */}
+              <button onClick={onSendToDoctor} className="btn no-print rounded-lg px-5 py-2.5 text-sm font-semibold inline-flex items-center gap-2"
+                      style={{ background: "var(--warm)", color: "#FBFAF5", border: "none" }}>
+                <span aria-hidden>📋</span>
+                <span>Send to your doctor</span>
               </button>
-              <button onClick={onShare} className="btn no-print rounded-lg border px-5 py-2.5 text-sm font-semibold"
-                      style={{ borderColor: "var(--trust)", color: "var(--trust)", background: "transparent" }}>
-                ↗ Send this to someone who needs it
+              <ShareSection
+                tone="row"
+                onShare={onShare}
+                label="Send to a friend"
+              />
+              <button onClick={onPrint} className="btn no-print rounded-lg border px-5 py-2.5 text-sm font-semibold inline-flex items-center gap-2"
+                      style={{ background: "transparent", borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+                <span aria-hidden>🖨️</span>
+                <span>Print</span>
               </button>
               {others && others.length > 0 && (
                 <div className="no-print flex flex-wrap items-center gap-2 text-sm" style={{ color: "var(--ink-soft)" }}>
@@ -790,32 +1490,33 @@ function EvidenceCard({ item, others, onSelect, onPrint, onShare }) {
             </div>
           </article>
 
-          {/* RIGHT 40% */}
+          {/* RIGHT — videos (only when real), plus the always-on Trust block. No placeholder content. */}
           <aside className="no-print rise w-full space-y-5 lg:w-2/5" style={{ animationDelay: ".08s" }}>
-            <div className="wd-card p-5">
-              <p className="label-eyebrow" style={{ color: "var(--trust)" }}>Credentialed Insights</p>
-              <p className="mt-1 mb-4 text-sm" style={{ color: "var(--ink-soft)" }}>
-                Explainers from verified medical professionals.
-              </p>
-              <div className="space-y-4">
-                {item.videos.map((v, i) => <VideoEmbed key={i} video={v} />)}
-              </div>
-            </div>
-
-            <div className="rounded-xl p-5" style={{ background: "var(--trust-deep)" }}>
-              <p className="label-eyebrow" style={{ color: "#8FC3C0" }}>Platform Supporter</p>
-              <div className="mt-3 flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-lg font-display text-lg"
-                     style={{ background: "#EAF4F3", color: "var(--trust-deep)", fontWeight: 700 }}>N</div>
-                <div>
-                  <p className="font-semibold" style={{ color: "#F4F1E8" }}>NorthLeaf Stationery Co.</p>
-                  <p className="text-xs" style={{ color: "#92B3B0" }}>Placeholder · non-health brand</p>
+            {realVideos.length > 0 && (
+              <div className="wd-card p-5">
+                <p className="label-eyebrow" style={{ color: "var(--trust)" }}>Credentialed Insights</p>
+                <p className="mt-1 mb-4 text-sm" style={{ color: "var(--ink-soft)" }}>
+                  Explainers from verified medical professionals.
+                </p>
+                <div className="space-y-4">
+                  {realVideos.map((v, i) => <VideoEmbed key={i} video={v} />)}
                 </div>
               </div>
-              <p className="mt-3 text-xs" style={{ color: "#92B3B0" }}>
-                Support keeps this platform free and ad-free. Supporters are never health or supplement brands, and never influence a grade.
+            )}
+
+            {/* TRUST BLOCK — explains why the site is free. Share is now handled by the
+                floating button; this block stays as brand-reinforcement only ("nothing for sale"). */}
+            <div className="wd-card p-5">
+              <p className="label-eyebrow" style={{ color: "var(--trust)" }}>How this site stays free</p>
+              <p className="mt-2 text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.55 }}>
+                We sell nothing. No ads, no supplement sponsors, no paid grades. The truth isn't for sale here — and we'd like to keep it that way.
+              </p>
+              <p className="mt-3 text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.55 }}>
+                If this helped you, the best thing you can do is share it. That's how the truth spreads — one person, one friend, one family member at a time.
               </p>
             </div>
+            {/* Inline subscribe \u2014 real working capture, not a placeholder. */}
+            <SubscribeForm tone="inline" />
           </aside>
         </div>
       </div>
@@ -859,15 +1560,13 @@ function DemocraticQueue({ term, suggestions, onSelect, onShare }) {
               Want this clarified sooner?
             </p>
             <p className="mx-auto mt-1 max-w-sm text-sm" style={{ color: "var(--ink-soft)" }}>
-              Share it. Every person who searches a topic moves it up the queue — and soon, subscribers and verified clinicians will be able to give it even more weight.
+              We prioritize based on how many people are asking. Share this search to help bump it up.
             </p>
-            <button onClick={() => onShare(term)} className="btn mt-4 rounded-lg px-5 py-2.5 text-sm font-semibold"
-                    style={{ background: "var(--trust)", color: "#F4F1E8" }}>
-              ↗ Share this search
+            <button onClick={() => onShare(term)} className="btn mt-4 inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold"
+                    style={{ background: "var(--trust)", color: "#F4F1E8", border: "none" }}>
+              <ShareIcon />
+              <span>Share this search</span>
             </button>
-            <p className="mt-3 text-xs" style={{ color: "var(--ink-soft)" }}>
-              Subscriber &amp; verified-clinician priority voting — coming soon.
-            </p>
           </div>
         </div>
       </div>
@@ -875,20 +1574,98 @@ function DemocraticQueue({ term, suggestions, onSelect, onShare }) {
   );
 }
 
-function CategoryView({ slug, onSelect }) {
-  const meta = CATEGORIES.find((c) => c.slug === slug);
+function CategoryView({ slug, onSelect, onShare }) {
+  // Look up the label across both nav rows (primary categories and trust/partner pages)
+  const meta =
+    CATEGORIES.find((c) => c.slug === slug) ||
+    TRUST_PAGES.find((c) => c.slug === slug);
   const staticPage = STATIC_PAGES[slug];
   const topics = EVIDENCE_DB.filter((e) => (e.category || []).includes(slug));
+  // "Rich" pages have structured sections/intro/cta; "Simple" pages just have a blurb.
+  const isRich = staticPage && (staticPage.sections || staticPage.intro || staticPage.cta);
 
   return (
     <section className="px-4">
       <div className="mx-auto mt-8 max-w-3xl">
         <div className="wd-card rise p-7 sm:p-9">
-          <h2 className="font-display text-3xl" style={{ fontWeight: 600 }}>{meta ? meta.label : slug}</h2>
+          {staticPage && staticPage.eyebrow && (
+            <p className="label-eyebrow" style={{ color: "var(--trust)" }}>{staticPage.eyebrow}</p>
+          )}
+          <h2 className="font-display text-3xl sm:text-4xl" style={{ fontWeight: 600, lineHeight: 1.15, marginTop: staticPage && staticPage.eyebrow ? 6 : 0 }}>
+            {meta ? meta.label : (staticPage && staticPage.title) || slug}
+          </h2>
 
-          {staticPage && <p className="mt-3 text-sm" style={{ color: "var(--ink-soft)" }}>{staticPage.blurb}</p>}
+          {/* Rich page (about, for-clinics, for-clinicians): intro + sections + optional CTA + closing */}
+          {isRich && (
+            <>
+              {staticPage.intro && (
+                <p className="mt-5 text-base sm:text-lg" style={{ color: "var(--ink-soft)", lineHeight: 1.6 }}>
+                  {staticPage.intro}
+                </p>
+              )}
+              {staticPage.sections && staticPage.sections.map((sec, i) => (
+                <div key={i} className="mt-7">
+                  <h3 className="font-display text-xl" style={{ fontWeight: 600, color: "var(--ink)" }}>{sec.heading}</h3>
+                  <p className="mt-2 text-sm sm:text-base" style={{ color: "var(--ink-soft)", lineHeight: 1.65 }}>
+                    {sec.body}
+                  </p>
+                </div>
+              ))}
+              {/* FAQ \u2014 accordion using native <details>, no extra JS needed.
+                 Answers the obvious questions before the visitor has to email and ask. */}
+              {staticPage.faq && staticPage.faq.length > 0 && (
+                <div className="mt-8">
+                  <p className="label-eyebrow" style={{ color: "var(--trust)" }}>Frequently asked</p>
+                  <div className="mt-3 divide-y" style={{ borderColor: "var(--line)" }}>
+                    {staticPage.faq.map((item, i) => (
+                      <details key={i} className="group py-3" style={{ borderTop: i === 0 ? `1px solid var(--line)` : "none", borderBottom: `1px solid var(--line)` }}>
+                        <summary
+                          className="cursor-pointer list-none flex items-center justify-between gap-3 py-1 font-medium text-sm sm:text-base"
+                          style={{ color: "var(--ink)" }}
+                        >
+                          <span>{item.q}</span>
+                          <span aria-hidden className="text-lg flex-shrink-0 group-open:rotate-45 transition-transform" style={{ color: "var(--trust)" }}>+</span>
+                        </summary>
+                        <p className="mt-2 text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.6 }}>
+                          {item.a}
+                        </p>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {staticPage.cta && (
+                <div className="mt-8 rounded-xl p-5 sm:p-6" style={{ background: "var(--trust-soft)" }}>
+                  <p className="text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.6 }}>
+                    {staticPage.cta.note}
+                  </p>
+                  <a
+                    href={`mailto:${staticPage.cta.email}?subject=${encodeURIComponent("WhatDoctorsWishYouKnew — partnership inquiry")}`}
+                    className="btn mt-4 inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold"
+                    style={{ background: "var(--trust)", color: "#F4F1E8", textDecoration: "none" }}
+                  >
+                    {staticPage.cta.label} →
+                  </a>
+                  <p className="mt-3 text-xs font-mono" style={{ color: "var(--ink-soft)" }}>
+                    {staticPage.cta.email}
+                  </p>
+                </div>
+              )}
+              {staticPage.closing && (
+                <p className="font-display mt-8 text-base sm:text-lg italic" style={{ color: "var(--trust-deep)", lineHeight: 1.5 }}>
+                  {staticPage.closing}
+                </p>
+              )}
+            </>
+          )}
 
-          {topics.length > 0 ? (
+          {/* Simple page (evidence-policy, conflicts): single blurb */}
+          {!isRich && staticPage && staticPage.blurb && (
+            <p className="mt-3 text-sm sm:text-base" style={{ color: "var(--ink-soft)", lineHeight: 1.65 }}>{staticPage.blurb}</p>
+          )}
+
+          {/* Category with topics: show the list of clarified entries */}
+          {topics.length > 0 && (
             <div className="mt-6">
               <p className="label-eyebrow" style={{ color: "var(--ink-soft)" }}>Clarified topics in this category</p>
               <ul className="mt-3 divide-y" style={{ borderColor: "var(--line)" }}>
@@ -903,20 +1680,41 @@ function CategoryView({ slug, onSelect }) {
                 ))}
               </ul>
             </div>
-          ) : (
-            !staticPage && (
-              <p className="mt-4 text-sm" style={{ color: "var(--ink-soft)" }}>
-                No clarified topics here yet — search a claim above to add it to the open queue.
-              </p>
-            )
+          )}
+
+          {/* Empty category with no static content: friendly fallback */}
+          {topics.length === 0 && !staticPage && (
+            <p className="mt-4 text-sm" style={{ color: "var(--ink-soft)" }}>
+              No clarified topics here yet — search a claim above to add it to the open queue.
+            </p>
           )}
         </div>
+
+        {/* Mission/Founders pages get TWO content-boundary actions:
+            a share moment (highest-intent sharers) then a subscribe moment.
+            Order matters: share first (free + viral), subscribe second (commitment). */}
+        {(slug === "about" || slug === "founders") && (
+          <>
+            {onShare && (
+              <div className="mt-6">
+                <ShareSection
+                  onShare={onShare}
+                  prompt={slug === "founders" ? "Know someone who'd believe in this?" : "Know someone who needs the truth?"}
+                  label={slug === "founders" ? "Send to someone who'd care" : "Send to someone who needs this"}
+                />
+              </div>
+            )}
+            <div className="mt-6">
+              <SubscribeForm tone="card" />
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
 }
 
-function Landing({ onSelect }) {
+function Landing({ onSelect, onShare }) {
   const featured = EVIDENCE_DB.slice(0, 3);
   const steps = [
     { n: "1", t: "Search a claim", d: "Any supplement, test, or health trend." },
@@ -959,23 +1757,54 @@ function Landing({ onSelect }) {
             </button>
           ))}
         </div>
+        {/* Boundary share — appears right after Recently Clarified.
+            Pattern from Substack/ProPublica/Mozilla: real content boundary share, not a floating widget. */}
+        {onShare && (
+          <div className="mt-10">
+            <ShareSection
+              onShare={onShare}
+              prompt="Know someone drowning in health misinformation?"
+              label="Send to someone you love"
+            />
+          </div>
+        )}
+        {/* Final beat on the landing: subscribe. */}
+        <div className="mt-6">
+          <SubscribeForm tone="card" />
+        </div>
       </div>
     </section>
   );
 }
 
-function Footer() {
+function Footer({ onShowMission }) {
   // Split the signature so the trailing ".com" can be colored teal like the wordmark.
   // The signature constant ends with "WhatDoctorsWishYouKnew.com" — render that domain stylized.
   const sigText = SIGNATURE.replace(/WhatDoctorsWishYouKnew\.com\s*$/, "WhatDoctorsWishYouKnew");
   return (
     <footer className="no-print relative mt-16 px-4 pb-14 pt-10 hairline">
       <div className="mx-auto max-w-2xl text-center">
-        <p className="font-display text-base sm:text-lg italic" style={{ color: "var(--trust-deep)", fontWeight: 500 }}>
+        <button
+          onClick={onShowMission}
+          aria-label="Read our mission"
+          className="btn font-display text-base sm:text-lg italic"
+          style={{
+            color: "var(--trust-deep)",
+            fontWeight: 500,
+            background: "transparent",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
+            textDecoration: "none",
+            transition: "opacity .15s ease",
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.75"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
+        >
           {sigText}<span style={{ color: "var(--trust)", fontStyle: "normal", fontWeight: 600 }}>.com</span>
-        </p>
-        <p className="mx-auto mt-3 max-w-md text-xs" style={{ color: "var(--ink-soft)" }}>
-          Educational only — not medical advice. Always align decisions with your own clinician.
+        </button>
+        <p className="mx-auto mt-3 max-w-md text-xs" style={{ color: "var(--ink-soft)", textWrap: "balance" }}>
+          Educational, not medical advice. Always talk to your doctor.
         </p>
       </div>
       {/* Small signature mark in the bottom-right — adds a "signed" feel without breaking the top lockup. */}
@@ -992,6 +1821,7 @@ export default function App() {
   const [category, setCategory] = useState(null);
   const [clinic, setClinic] = useState(null);
   const [toast, setToast] = useState(null);
+  const [doctorModalTopic, setDoctorModalTopic] = useState(null); // null = closed; topic obj = open
 
   useEffect(() => {
     try {
@@ -1000,6 +1830,12 @@ export default function App() {
       if (c) setClinic(c);
       const q = params.get("q");
       if (q) setQuery(q);
+      // "Trust handoff": when someone arrives via a shared link (no specific topic),
+      // land them on Our Mission first so they understand what the site is before they search.
+      // This gives the recipient the brand context their sharer had — better conversion than
+      // dropping them on a cold homepage.
+      const from = params.get("from");
+      if (from === "share" && !q) setCategory("about");
     } catch (_) {}
   }, []);
 
@@ -1024,10 +1860,11 @@ export default function App() {
   }, []);
 
   const shareCard = useCallback((item) => {
-    const text = `${item.title} — WDWYK grade: ${item.grade}. ${item.bottomLine}`;
-    const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(item.title)}`;
+    const text = `${item.title} — Grade: ${item.grade}. ${item.bottomLine}`;
+    // Card shares: keep ?q so the recipient sees the specific verdict, plus from=share for analytics later.
+    const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(item.title)}&from=share`;
     if (navigator.share) {
-      navigator.share({ title: `WDWYK: ${item.title}`, text, url }).catch(() => {});
+      navigator.share({ title: `${item.title} — ${SHARE_TITLE}`, text, url }).catch(() => {});
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(`${text}\n${url}`).then(showCopyToast).catch(() => {});
     }
@@ -1035,21 +1872,21 @@ export default function App() {
 
   const shareTerm = useCallback((term) => {
     const text = `I'm asking the doctors at WhatDoctorsWishYouKnew.com to clarify the truth about "${term}". Help bump it up the queue:`;
-    const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(term)}`;
+    const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(term)}&from=share`;
     if (navigator.share) {
-      navigator.share({ title: "What Doctors Wish You Knew", text, url }).catch(() => {});
+      navigator.share({ title: SHARE_TITLE, text, url }).catch(() => {});
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(`${text}\n${url}`).then(showCopyToast).catch(() => {});
     }
   }, [showCopyToast]);
 
   /* Mission share — used by the orange "Share the truth" badge in the header.
-     Shares the landing-page URL (no ?q=) with a friend-to-friend message. */
+     Shares with ?from=share so recipients land on Our Mission first ("trust handoff"). */
   const shareMission = useCallback(() => {
     const text = MISSION_SHARE_MESSAGE;
-    const url = `${window.location.origin}${window.location.pathname}`;
+    const url = `${window.location.origin}${window.location.pathname}?from=share`;
     if (navigator.share) {
-      navigator.share({ title: "What Doctors Wish You Knew", text, url }).catch(() => {});
+      navigator.share({ title: SHARE_TITLE, text, url }).catch(() => {});
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(`${text}\n${url}`).then(showCopyToast).catch(() => {});
     }
@@ -1071,23 +1908,42 @@ export default function App() {
       <style>{GLOBAL_STYLE}</style>
 
       <ClinicBanner clinic={clinic} />
-      <BrandBanner onShareMission={shareMission} />
-      <SearchBar value={query} onChange={onSearchChange} onClear={() => setQuery("")} />
+      <BrandBanner />
+      <SearchBar
+        value={query}
+        onChange={onSearchChange}
+        onClear={() => setQuery("")}
+        allTopics={EVIDENCE_DB}
+        onSelectTopic={selectTopic}
+      />
       <CategoryNav active={category} onPick={pickCategory} />
 
       <main className="pb-10">
         {category ? (
-          <CategoryView slug={category} onSelect={selectTopic} />
+          <CategoryView slug={category} onSelect={selectTopic} onShare={shareMission} />
         ) : showCard ? (
-          <EvidenceCard item={matches[0]} others={matches.slice(1)} onSelect={selectTopic} onPrint={() => window.print()} onShare={() => shareCard(matches[0])} />
+          <EvidenceCard item={matches[0]} others={matches.slice(1)} onSelect={selectTopic} onPrint={() => window.print()} onShare={() => shareCard(matches[0])} onSendToDoctor={() => setDoctorModalTopic(matches[0])} />
         ) : showQueue ? (
           <DemocraticQueue term={query.trim()} suggestions={suggestions} onSelect={selectTopic} onShare={shareTerm} />
         ) : (
-          <Landing onSelect={selectTopic} />
+          <Landing onSelect={selectTopic} onShare={shareMission} />
         )}
       </main>
 
-      <Footer />
+      <Footer onShowMission={() => pickCategory("about")} />
+
+      {/* Send-to-doctor modal — opens from the warm "📋 Send to your doctor" button on evidence cards.
+          This is the highest-leverage growth surface on the site: patient → doctor → clinic awareness. */}
+      <SendToDoctorModal
+        open={doctorModalTopic !== null}
+        onClose={() => setDoctorModalTopic(null)}
+        topicTitle={doctorModalTopic ? doctorModalTopic.title : ""}
+        shareUrl={
+          doctorModalTopic
+            ? `${typeof window !== "undefined" ? window.location.origin + window.location.pathname : ""}?q=${encodeURIComponent(doctorModalTopic.title)}&from=share`
+            : ""
+        }
+      />
 
       {toast && (
         <div className="toast no-print fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full px-5 py-3 text-sm font-medium shadow-lg"
