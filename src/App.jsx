@@ -106,17 +106,20 @@ html, body{ overflow-x:hidden; max-width:100%; }
   letter-spacing:0.18em; font-size:11px; font-weight:500;
 }
 
-/* Brand wordmark — clamps fluidly so it never clips on narrow screens */
+/* Brand wordmark — sized so the full ".com" stays on one line at every viewport width.
+   Earlier version used word-break:anywhere which let the browser butcher ".com" into ".co" + "m"
+   on narrow screens. Fix: no word-breaking ever; just scale the font tightly so it always fits. */
 .wordmark{
   font-family:'Fraunces', Georgia, serif;
   font-weight:600;
   letter-spacing:-0.02em;
   line-height:1;
   color:var(--ink);
-  font-size:clamp(20px, 6.2vw, 48px);
+  /* Tighter mobile scaling: 4.8vw at 390px viewport = ~19px (fits the full 26-char wordmark in one line).
+     Desktop cap at 44px. Never breaks across lines. */
+  font-size:clamp(16px, 4.8vw, 44px);
   max-width:100%;
-  word-break:break-word;
-  overflow-wrap:anywhere;
+  white-space:nowrap;
 }
 .wordmark .tld{ color:var(--trust); }
 
@@ -763,7 +766,7 @@ function LogoMark({ size }) {
   // Responsive default: ~52px on phones, ~90px on desktop — paired well with the wordmark
   const responsiveStyle = size
     ? { height: size * 1.5, width: size * 1.5 }
-    : { height: "clamp(40px, 11vw, 88px)", width: "clamp(40px, 11vw, 88px)" };
+    : { height: "clamp(32px, 8vw, 72px)", width: "clamp(32px, 8vw, 72px)" };
   if (imgOk) {
     return (
       <img
@@ -798,22 +801,20 @@ function TextWordmark() {
 
 function BrandBanner() {
   return (
-    <header className="no-print px-4 pt-4 sm:pt-6 pb-1 text-center" style={{ maxWidth: "100%", overflow: "hidden" }}>
-      {/* Early Access indicator — sets the visitor's frame BEFORE they see the brand.
-         Reframes any gap they encounter as "roadmap, not failure." Small enough to not dominate,
-         prominent enough to land in the first 1.5 seconds of scanning. */}
-      <div className="mb-3 sm:mb-4 flex justify-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 label-eyebrow"
-              style={{ borderColor: "var(--line)", background: "var(--paper-2)", color: "var(--trust-deep)", fontSize: "10px" }}>
-          <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--g-strong)", display: "inline-block" }}></span>
+    <header className="no-print px-4 pt-3 sm:pt-6 pb-1 text-center" style={{ maxWidth: "100%", overflow: "hidden" }}>
+      {/* Early Access indicator — sets the visitor's frame BEFORE they see the brand. */}
+      <div className="mb-2 sm:mb-4 flex justify-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 label-eyebrow"
+              style={{ borderColor: "var(--line)", background: "var(--paper-2)", color: "var(--trust-deep)", fontSize: "9px" }}>
+          <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--g-strong)", display: "inline-block" }}></span>
           <span>Early access &middot; Building in public</span>
         </span>
       </div>
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-2">
+      <div className="flex flex-nowrap items-center justify-center gap-2 sm:gap-3 mb-1 sm:mb-2">
         <LogoMark />
         <TextWordmark />
       </div>
-      <p className="font-display mx-auto italic" style={{ color: "var(--trust-deep)", fontSize: "clamp(15px, 3.6vw, 20px)" }}>
+      <p className="font-display mx-auto italic" style={{ color: "var(--trust-deep)", fontSize: "clamp(14px, 3.4vw, 20px)" }}>
         {HERO_TAGLINE}
       </p>
     </header>
@@ -1259,26 +1260,26 @@ function SubscribeForm({ tone = "card" }) {
 
 function CategoryNav({ active, onPick }) {
   return (
-    <nav className="no-print px-4 mt-6" aria-label="Categories">
-      <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
+    <nav className="no-print px-4 mt-4 sm:mt-6" aria-label="Categories">
+      <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-1.5 sm:gap-2">
         {CATEGORIES.map((c) => (
           <button
             key={c.slug}
             onClick={() => onPick(c.slug)}
-            className={`chip rounded-full border px-3.5 py-1.5 text-sm font-medium ${active === c.slug ? "chip-active" : ""}`}
+            className={`chip rounded-full border px-3 py-1 sm:px-3.5 sm:py-1.5 text-xs sm:text-sm font-medium ${active === c.slug ? "chip-active" : ""}`}
             style={{ borderColor: "var(--line)", color: active === c.slug ? "var(--paper)" : "var(--ink-soft)" }}
           >
             {c.label}
           </button>
         ))}
       </div>
-      <div className="mx-auto mt-3 flex max-w-3xl flex-wrap items-center justify-center gap-1.5">
-        <span className="label-eyebrow mr-1" style={{ color: "var(--ink-soft)", opacity: 0.7 }}>Trust &amp; policy:</span>
+      <div className="mx-auto mt-2 sm:mt-3 flex max-w-3xl flex-wrap items-center justify-center gap-1 sm:gap-1.5">
+        <span className="label-eyebrow mr-1" style={{ color: "var(--ink-soft)", opacity: 0.7, fontSize: "9px" }}>Trust &amp; policy:</span>
         {TRUST_PAGES.map((c) => (
           <button
             key={c.slug}
             onClick={() => onPick(c.slug)}
-            className={`chip rounded-full border px-2.5 py-1 text-xs font-medium ${active === c.slug ? "chip-active" : ""}`}
+            className={`chip rounded-full border px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-medium ${active === c.slug ? "chip-active" : ""}`}
             style={{ borderColor: "var(--line)", color: active === c.slug ? "var(--paper)" : "var(--ink-soft)" }}
           >
             {c.label}
