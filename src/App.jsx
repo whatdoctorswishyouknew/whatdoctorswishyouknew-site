@@ -818,7 +818,7 @@ function BrandBanner() {
         {HERO_TAGLINE}
       </p>
       <p className="mx-auto" style={{ color: '#51636b', fontSize: 'clamp(12px, 2.6vw, 15px)', maxWidth: '54ch', marginTop: '10px', lineHeight: 1.5 }}>
-        Any health question, one honest answer — physician-verified, free from ads and influencers. The answers your doctor would give you with all the time in the world, to protect your health, your wallet, and the people you love.
+        Any health question, one honest answer — what your doctor would tell you if they had all the time in the world.
       </p>
       <p className="font-display" style={{ color: 'var(--trust-deep)', fontWeight: 700, letterSpacing: '0.05em', marginTop: '8px', fontSize: 'clamp(12px, 2.6vw, 14px)' }}>
         #TruthMatters
@@ -1763,21 +1763,7 @@ function Landing({ onSelect, onShare }) {
   return (
     <section className="px-4">
       <div className="mx-auto mt-6 max-w-3xl">
-        {/* how it works */}
-        <div className="grid gap-3 sm:grid-cols-3">
-          {steps.map((s) => (
-            <div key={s.n} className="flex items-start gap-3 rounded-lg p-3" style={{ background: "var(--paper-2)", border: "1px solid var(--line)" }}>
-              <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold"
-                    style={{ background: "var(--trust-soft)", color: "var(--trust-deep)" }}>{s.n}</span>
-              <div>
-                <p className="text-sm font-semibold" style={{ color: "var(--ink)" }}>{s.t}</p>
-                <p className="text-xs" style={{ color: "var(--ink-soft)" }}>{s.d}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <p className="label-eyebrow text-center mt-8" style={{ color: "var(--ink-soft)" }}>Recently clarified</p>
+                <p className="label-eyebrow text-center mt-2" style={{ color: "var(--ink-soft)" }}>Recently clarified</p>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
           {featured.map((t, i) => (
             <button key={t.id} onClick={() => onSelect(t.title)}
