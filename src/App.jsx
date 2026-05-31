@@ -24,7 +24,7 @@ import React, { useState, useEffect, useMemo, useRef, useCallback } from "react"
 
 const HERO_TAGLINE = "Truth matters. Protect those you love.";
 const SEARCH_MICRO_LINE =
-  "Protect your health. Protect your wallet. Protect the people you love.";
+  "From doctors and the experts they trust · No ads, ever · every answer backed by credentialed sources.";
 const SIGNATURE = "The truth isn't for sale. This is WhatDoctorsWishYouKnew.com";
 
 /* Share messages — each one calibrated for the receiver, not the sender.
@@ -83,7 +83,7 @@ const GLOBAL_STYLE = `
   --g-mixed:#B07A1A;
   --g-minimal:#5B6660;
   --g-none:#3F4844;
-  --g-danger:#B23B2E;
+  --g-danger:#9A5A3C;
 }
 
 html, body{ overflow-x:hidden; max-width:100%; }
@@ -630,9 +630,9 @@ const GRADE_META = {
 /* Recommendation = "what should I do?" — separate from evidence grade ("how good is the science?").
    This is the at-a-glance traffic light. Wording is deliberately not a medical order. */
 const REC_META = {
-  worth:    { label: "Worth it",          dot: "🟢", color: "#1E7F5C", bg: "#E5F2EC" },
-  consider: { label: "Worth considering", dot: "🟡", color: "#B07A1A", bg: "#F7EFD9" },
-  skip:     { label: "Skip the hype",     dot: "🔴", color: "#B23B2E", bg: "#F7E4E1" },
+  worth:    { label: "Worth it",          dot: "●", color: "#1E7F5C", bg: "#E5F2EC" },
+  consider: { label: "Worth considering", dot: "●", color: "#B07A1A", bg: "#F7EFD9" },
+  skip:     { label: "Not worth it",     dot: "●", color: "#9A5A3C", bg: "#F4EBE6" },
   early:    { label: "Too early to tell", dot: "⚪", color: "#5B6660", bg: "#ECEAE3" },
 };
 
