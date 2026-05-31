@@ -817,6 +817,12 @@ function BrandBanner() {
       <p className="font-display mx-auto italic" style={{ color: "var(--trust-deep)", fontSize: "clamp(14px, 3.4vw, 20px)" }}>
         {HERO_TAGLINE}
       </p>
+      <p className="mx-auto" style={{ color: '#51636b', fontSize: 'clamp(12px, 2.6vw, 15px)', maxWidth: '54ch', marginTop: '10px', lineHeight: 1.5 }}>
+        Any health question, one honest answer — physician-verified, free from ads and influencers. The answers your doctor would give you with all the time in the world, to protect your health, your wallet, and the people you love.
+      </p>
+      <p className="font-display" style={{ color: 'var(--trust-deep)', fontWeight: 700, letterSpacing: '0.05em', marginTop: '8px', fontSize: 'clamp(12px, 2.6vw, 14px)' }}>
+        #TruthMatters
+      </p>
     </header>
   );
 }
