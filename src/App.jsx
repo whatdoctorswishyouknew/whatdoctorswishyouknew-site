@@ -22,7 +22,7 @@ import React, { useState, useEffect, useMemo, useRef, useCallback } from "react"
  * ---------------------------------------------------------------------------
  */
 
-const HERO_TAGLINE = "Doctors. On your side.";
+const HERO_TAGLINE = "Truth matters. Protect those you love.";
 const SEARCH_MICRO_LINE =
   "Protect your health. Protect your wallet. Protect the people you love.";
 const SIGNATURE = "The truth isn't for sale. This is WhatDoctorsWishYouKnew.com";
@@ -413,7 +413,7 @@ const STATIC_PAGES = {
       },
     ],
     closing:
-      "Doctors. On your side. This is What Doctors Wish You Knew.",
+      "Truth matters. Protect those you love. This is What Doctors Wish You Knew.",
   },
   "for-clinics": {
     title: "For Clinics & Health Systems",
@@ -541,7 +541,7 @@ const STATIC_PAGES = {
       note: "Clinicians, journalists, foundations, or anyone curious \u2014 send us a note. We read every message.",
     },
     closing:
-      "Doctors. On your side. That\u2019s not a slogan \u2014 it\u2019s the only reason this exists.",
+      "Truth matters. Protect those you love. That\u2019s not a slogan \u2014 it\u2019s the only reason this exists.",
   },
   /* "Where we're going" \u2014 directional milestones, no dates.
      Designed to give foundations, clinics, and clinicians the *trajectory* they want
