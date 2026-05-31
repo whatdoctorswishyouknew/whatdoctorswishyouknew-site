@@ -803,7 +803,7 @@ function BrandBanner() {
   return (
     <header className="no-print px-4 pt-3 sm:pt-6 pb-1 text-center" style={{ maxWidth: "100%", overflow: "hidden" }}>
       {/* Early Access indicator — sets the visitor's frame BEFORE they see the brand. */}
-      <div className="mb-2 sm:mb-4 flex justify-center">
+      <div className="no-print" style={{ position: "fixed", top: "10px", right: "12px", zIndex: 50 }}>
         <span className="inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 label-eyebrow"
               style={{ borderColor: "var(--line)", background: "var(--paper-2)", color: "var(--trust-deep)", fontSize: "9px" }}>
           <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--g-strong)", display: "inline-block" }}></span>
