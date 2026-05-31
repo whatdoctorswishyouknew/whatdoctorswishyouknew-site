@@ -921,6 +921,7 @@ function SearchBar({ value, onChange, onClear, allTopics, onSelectTopic }) {
                   Clear
                 </button>
               )}
+              <button onClick={() => { if (liveMatches[0]) { onSelectTopic(liveMatches[0].title); setFocused(false); } }} className="btn rounded-xl px-5 py-2.5 text-sm font-semibold" style={{ background: "var(--warm)", color: "#FBFAF5", border: "none", flexShrink: 0 }}>Search</button>
             </div>
           </div>
           {showSuggestions && (
@@ -1772,9 +1773,16 @@ function Landing({ onSelect, onShare }) {
                 <p className="font-display text-xl" style={{ fontWeight: 600, color: "var(--ink)", lineHeight: 1.25 }}>{t.title}</p>
                 <p className="mt-1.5 text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.5 }}>{t.bottomLine}</p>
               </button>
-              <div className="mt-4 flex items-center justify-between border-t pt-3" style={{ borderColor: "var(--line)" }}>
+              {t.worthIt && (t.worthIt.consider || t.worthIt.time) && (
+                <p className="mt-3 border-l-2 pl-3 text-sm" style={{ borderColor: "var(--warm)", color: "var(--ink-soft)" }}><span style={{ fontWeight: 600, color: "var(--ink)" }}>What to do: </span>{t.worthIt.consider || t.worthIt.time}</p>
+              )}
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t pt-3" style={{ borderColor: "var(--line)" }}>
                 <GradeBadge grade={t.grade} />
-                <button onClick={() => onSelect(t.title)} className="btn text-xs font-semibold" style={{ color: "var(--trust)" }}>Sources ({t.citations ? t.citations.length : 0}) →</button>
+                <div className="flex items-center gap-3">
+                  <button onClick={() => onSelect(t.title)} className="btn text-xs font-semibold" style={{ color: "var(--warm)" }}>Your doctor</button>
+                  <button onClick={() => onSelect(t.title)} className="btn text-xs font-semibold" style={{ color: "var(--trust)" }}>Share</button>
+                  <button onClick={() => onSelect(t.title)} className="btn text-xs font-semibold" style={{ color: "var(--trust)" }}>Sources ({t.citations ? t.citations.length : 0})</button>
+                </div>
               </div>
             </div>
           ))}
