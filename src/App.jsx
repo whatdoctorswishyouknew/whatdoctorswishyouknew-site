@@ -814,7 +814,7 @@ function BrandBanner() {
         <LogoMark />
         <TextWordmark />
       </div>
-      <p className="font-display mx-auto italic" style={{ color: "var(--trust-deep)", fontSize: "clamp(14px, 3.4vw, 20px)" }}>
+      <p className="font-display mx-auto italic" style={{ color: "var(--trust-deep)", fontSize: "clamp(32px, 6.5vw, 56px)" }}>
         {HERO_TAGLINE}
       </p>
       <p className="mx-auto" style={{ color: '#51636b', fontSize: 'clamp(12px, 2.6vw, 15px)', maxWidth: '54ch', marginTop: '10px', lineHeight: 1.5 }}>
@@ -1765,21 +1765,20 @@ function Landing({ onSelect, onShare }) {
       <div className="mx-auto mt-6 max-w-3xl">
                 <p className="label-eyebrow text-center mt-2" style={{ color: "var(--ink-soft)" }}>Recently clarified</p>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          {featured.map((t, i) => (
-            <button key={t.id} onClick={() => onSelect(t.title)}
-                    className="wd-card btn rise p-4 text-left" style={{ animationDelay: `${i * 0.06}s` }}>
-              <div className="flex flex-wrap items-center gap-2">
+          {featured.map((t) => (
+            <div key={t.id} className="wd-card rise p-5 text-left">
+              {t.recommendation && REC_META[t.recommendation] && (
+                <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold" style={{ background: REC_META[t.recommendation].bg, color: REC_META[t.recommendation].color }}>{REC_META[t.recommendation].dot} {REC_META[t.recommendation].label}</span>
+              )}
+              <button onClick={() => onSelect(t.title)} className="btn mt-3 block w-full text-left">
+                <p className="font-display text-xl" style={{ fontWeight: 600, color: "var(--ink)", lineHeight: 1.25 }}>{t.title}</p>
+                <p className="mt-1.5 text-sm" style={{ color: "var(--ink-soft)", lineHeight: 1.5 }}>{t.bottomLine}</p>
+              </button>
+              <div className="mt-4 flex items-center justify-between border-t pt-3" style={{ borderColor: "var(--line)" }}>
                 <GradeBadge grade={t.grade} />
-                {t.recommendation && REC_META[t.recommendation] && (
-                  <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold"
-                        style={{ background: REC_META[t.recommendation].bg, color: REC_META[t.recommendation].color }}>
-                    {REC_META[t.recommendation].dot} {REC_META[t.recommendation].label}
-                  </span>
-                )}
+                <button onClick={() => onSelect(t.title)} className="btn text-xs font-semibold" style={{ color: "var(--trust)" }}>Sources ({t.citations ? t.citations.length : 0}) →</button>
               </div>
-              <p className="font-display mt-3 text-lg" style={{ fontWeight: 600 }}>{t.title}</p>
-              <p className="mt-1 text-xs" style={{ color: "var(--ink-soft)" }}>{t.bottomLine}</p>
-            </button>
+            </div>
           ))}
         </div>
         {/* Boundary share — appears right after Recently Clarified.
