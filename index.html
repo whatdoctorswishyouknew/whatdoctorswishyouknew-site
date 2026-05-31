@@ -274,6 +274,25 @@
 </div>
 
 <!-- ================= SUPPLEMENT (Berberine) ================= -->
+<div id="noresult" class="hide">
+  <div class="navhost"></div>
+  <div class="wrap" style="padding-top:36px;padding-bottom:44px;max-width:780px;">
+    <div class="eyebrow" style="text-align:left;color:var(--warm-deep);margin:0 0 8px;">Not clarified yet</div>
+    <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">We haven’t clarified <span id="nr-q">that</span> yet.</h1>
+    <p class="muted" style="margin:0 0 18px;max-width:640px;">We clarify one topic at a time, carefully. Want this one next? Tell us and we’ll prioritise it — and email you the moment it’s ready.</p>
+    <div class="card" style="max-width:540px;">
+      <b>Request this topic</b>
+      <div class="nrform" style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+        <input type="email" placeholder="your@email.com" style="flex:1;min-width:200px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;" />
+        <button class="btn warm" type="button">Request it</button>
+      </div>
+    </div>
+    <p class="muted small" style="margin:24px 0 6px;">Already clarified — try one of these:</p>
+    <div class="tries"><a>Seed oils</a> · <a>Berberine</a> · <a>GERD</a> · <a>Ozempic</a> · <a>Full-body MRI</a> · <a>Headache</a></div>
+  </div>
+  <footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+</div>
+
 <div id="supp" class="hide">
 <div class="navhost"></div>
 <div class="wrap">
@@ -594,40 +613,30 @@
 </div>
 
 <script>
-  document.querySelectorAll('.navhost').forEach(h=>h.appendChild(document.getElementById('navtpl').content.cloneNode(true)));
-  var VIEWS=['home','supp','claim','dx','med','test','sym','partner'];
-  function pickRole(el){el.parentNode.querySelectorAll('.rolechip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
-  function show(v){
-    VIEWS.forEach(id=>document.getElementById(id).classList.toggle('hide', id!==v));
-    VIEWS.forEach(id=>document.getElementById('t-'+id).classList.toggle('active', id===v));
-    window.scrollTo(0,0);
-  }
-
-  // ---- live functionality: route search/cards/links to the answer views ----
-  function route(q){
-    q=(q||'').toLowerCase();
-    var map=[['seed oil','claim'],['inflammation','claim'],['berberine','supp'],
-      ['gerd','dx'],['reflux','dx'],['heartburn','dx'],
-      ['ozempic','med'],['semaglutide','med'],['wegovy','med'],['glp','med'],
-      ['mri','test'],['full-body','test'],['full body','test'],
-      ['headache','sym'],['migraine','sym']];
-    for(var i=0;i<map.length;i++){ if(q.indexOf(map[i][0])>-1){ show(map[i][1]); return true; } }
-    return false;
-  }
+  document.querySelectorAll('.navhost').forEach(function(h){ h.appendChild(document.getElementById('navtpl').content.cloneNode(true)); });
+  var VIEWS=['home','noresult','supp','claim','dx','med','test','sym','partner'];
+  function pickRole(el){ el.parentNode.querySelectorAll('.rolechip').forEach(function(c){c.classList.remove('on');}); el.classList.add('on'); }
+  function show(v){ if(VIEWS.indexOf(v)<0) v='home'; VIEWS.forEach(function(id){ var n=document.getElementById(id); if(n) n.classList.toggle('hide', id!==v); }); window.scrollTo(0,0); }
+  var MAP=[['seed oil','claim'],['inflammation','claim'],['canola','claim'],['berberine','supp'],['blood sugar','supp'],['gerd','dx'],['reflux','dx'],['heartburn','dx'],['ozempic','med'],['semaglutide','med'],['wegovy','med'],['glp','med'],['mri','test'],['full-body','test'],['full body','test'],['headache','sym'],['migraine','sym']];
+  function route(q){ q=(q||'').toLowerCase().trim(); if(!q){ show('home'); return true; } for(var i=0;i<MAP.length;i++){ if(q.indexOf(MAP[i][0])>-1 || MAP[i][0].indexOf(q)>-1){ show(MAP[i][1]); return true; } } var el=document.getElementById('nr-q'); if(el) el.textContent='“'+q+'”'; show('noresult'); return false; }
+  function thanks(node, msg){ var p=document.createElement('p'); p.textContent=msg; p.style.cssText='color:var(--teal-deep);font-size:13.5px;margin:10px 0 0;font-weight:600;'; node.replaceWith(p); }
+  function curTitle(){ for(var i=0;i<VIEWS.length;i++){ var n=document.getElementById(VIEWS[i]); if(n && !n.classList.contains('hide')){ var h=n.querySelector('h1,h3'); return h?h.textContent.trim():''; } } return ''; }
+  function shareThis(title){ var url=location.origin+location.pathname; var text=(title?title+' — ':'')+'Honest health answers, no ads. WhatDoctorsWishYouKnew.com'; if(navigator.share){ navigator.share({title:'What Doctors Wish You Knew',text:text,url:url}).catch(function(){}); } else if(navigator.clipboard){ navigator.clipboard.writeText(text+' '+url).then(function(){ alert('Link copied — share it with someone who needs it.'); }).catch(function(){}); } }
   function wireSite(){
-    document.querySelectorAll('.search').forEach(function(s){
-      var inp=s.querySelector('input'), btn=s.querySelector('button');
-      if(inp){ inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); route(inp.value); } }); }
-      if(btn && /search/i.test(btn.textContent)){ btn.addEventListener('click',function(){ route(inp?inp.value:''); }); }
-    });
-    document.querySelectorAll('#home .card').forEach(function(c){
-      var h=c.querySelector('h3'); if(!h) return; c.style.cursor='pointer';
-      c.addEventListener('click',function(e){ if(e.target.closest('a.act')) return; route(h.textContent); });
-    });
-    document.querySelectorAll('#home .tries a').forEach(function(a){ a.style.cursor='pointer'; a.addEventListener('click',function(){ if(!route(a.textContent)) show('home'); }); });
+    document.querySelectorAll('.search').forEach(function(s){ var inp=s.querySelector('input'), btn=s.querySelector('button'); if(inp){ inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); route(inp.value); } }); } if(btn && /search/i.test(btn.textContent)){ btn.addEventListener('click',function(){ route(inp?inp.value:''); }); } });
+    document.querySelectorAll('#home .card').forEach(function(c){ var h=c.querySelector('h3'); if(!h) return; c.style.cursor='pointer'; c.addEventListener('click',function(e){ if(e.target.closest('a')) return; route(h.textContent); }); });
+    document.querySelectorAll('.tries a').forEach(function(a){ a.style.cursor='pointer'; a.addEventListener('click',function(){ route(a.textContent); }); });
     document.querySelectorAll('.brand').forEach(function(b){ b.style.cursor='pointer'; b.addEventListener('click',function(){ show('home'); }); });
     document.querySelectorAll('.navlinks a').forEach(function(a){ a.style.cursor='pointer'; a.addEventListener('click',function(){ var t=a.textContent.toLowerCase(); show(t.indexOf('clinician')>-1?'partner':'home'); }); });
-    document.querySelectorAll('.btn.warm').forEach(function(b){ if(/^\s*join/i.test(b.textContent)){ b.style.cursor='pointer'; b.addEventListener('click',function(){ show('partner'); }); } });
+    document.querySelectorAll('footer a').forEach(function(a){ if(a.getAttribute('href')) return; a.style.cursor='pointer'; a.addEventListener('click',function(){ var t=a.textContent.toLowerCase(); var p=(t.indexOf('clinic')>-1||t.indexOf('hospital')>-1||t.indexOf('foundation')>-1||t.indexOf('health system')>-1||t.indexOf('contribute')>-1); show(p?'partner':'home'); }); });
+    document.querySelectorAll('.btn.warm').forEach(function(b){ var t=b.textContent.trim().toLowerCase();
+      if(t==='join'){ b.style.cursor='pointer'; b.addEventListener('click',function(){ show('partner'); }); }
+      else if(t.indexOf('become a founding')>-1){ b.addEventListener('click',function(e){ e.preventDefault(); thanks(b.closest('.joinform')||b, 'You’re in. Welcome, founding member — we’ll email you as we clarify new topics.'); }); }
+      else if(t.indexOf('register interest')>-1){ b.addEventListener('click',function(e){ e.preventDefault(); thanks(b.closest('.pform')||b, 'Thanks — we’ve registered your interest and will be in touch.'); }); }
+      else if(t.indexOf('request')>-1){ b.addEventListener('click',function(e){ e.preventDefault(); thanks(b.closest('.nrform')||b, 'Thank you — we’ve logged your request and will email you when it’s ready.'); }); }
+    });
+    document.querySelectorAll('a.act').forEach(function(a){ var t=a.textContent.toLowerCase(); if(t.indexOf('print')>-1||t.indexOf('one-pager')>-1) return; a.style.cursor='pointer'; a.addEventListener('click',function(){ shareThis(curTitle()+(t.indexOf('doctor')>-1?' (for my doctor)':'')); }); });
+    document.querySelectorAll('.joinform input,.nrform input').forEach(function(inp){ inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); var b=inp.parentNode.querySelector('button'); if(b) b.click(); } }); });
   }
   wireSite();
 </script>
