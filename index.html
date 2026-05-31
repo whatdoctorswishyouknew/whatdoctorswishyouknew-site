@@ -1,18 +1,635 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>What Doctors Wish You Knew — Truth matters. Protect those you love.</title>
-    <meta name="description" content="Any health question, one honest answer — physician-verified, free from ads and influencers. The answers your doctor would give you with all the time in the world, to protect your health, your wallet, and the people you love." />
-    <meta property="og:title" content="What Doctors Wish You Knew" />
-    <meta property="og:description" content="Truth matters. Protect those you love." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>What Doctors Wish You Knew — Truth matters. Protect those you love.</title>
+<link rel="icon" type="image/png" href="/logo.png" />
+<style>
+  :root{
+    --cream:#FAF7F2; --card:#FFFFFF; --ink:#21303A; --muted:#5B6B72;
+    --teal:#0E7490; --teal-deep:#0F766E; --navy:#1F3A5F; --warm:#DC8A5A; --warm-deep:#B96A3D;
+    --line:#E9E3D7; --line-soft:#F0EBE0; --tint:#E7F1F0; --tint-line:#CFE3DF;
+    --warn-bg:#FBF2DF; --warn-line:#EAD49A; --warn-ink:#7A5613;
+    --serif:Georgia,'Iowan Old Style','Times New Roman',serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:var(--teal);text-decoration:none;} a:hover{text-decoration:underline;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px;}
+  .muted{color:var(--muted);} .small{font-size:13px;}
+
+  .viewbar{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line);}
+  .viewbar .wrap{display:flex;align-items:center;gap:8px;height:46px;flex-wrap:wrap;}
+  .viewbar b{font-size:12px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;}
+  .vbtn{font:inherit;font-size:12.5px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:5px 12px;border-radius:999px;cursor:pointer;}
+  .vbtn.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+  .vspace{flex:1;}
+
+  nav.site{background:#fff;border-bottom:1px solid var(--line);}
+  nav.site .wrap{display:flex;align-items:center;height:70px;gap:26px;}
+  .brand{display:flex;align-items:center;gap:11px;flex-shrink:0;}
+  .brand .mark{width:52px;height:52px;flex-shrink:0;display:block;}
+  .brand .bm{font-family:var(--serif);font-size:22px;color:var(--navy);letter-spacing:.004em;line-height:1.08;}
+  .brand .kicker{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-deep);margin-top:3px;}
+  .navlinks{display:flex;gap:21px;}
+  .navlinks a{color:var(--ink);font-size:14.5px;}
+  .navlinks a:hover{color:var(--teal);text-decoration:none;}
+  .btn{font:inherit;font-size:14px;border-radius:999px;padding:9px 18px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);}
+  .btn.warm{background:var(--warm);border-color:var(--warm);color:#fff;}
+  .btn.sm{padding:7px 14px;font-size:13px;}
+
+  .search{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--tint-line);border-radius:14px;padding:14px 18px;}
+  .search:focus-within{border-color:var(--teal);}
+  .search input{border:none;outline:none;font:inherit;font-size:16px;flex:1;color:var(--ink);background:transparent;}
+  .search .mag{color:var(--teal);font-size:19px;}
+  .search.big{border-radius:16px;padding:17px 20px;} .search.big input{font-size:17px;}
+
+  .hero{text-align:center;padding:22px 0 8px;}
+  .pill{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--teal-deep);background:var(--tint);border:1px solid var(--tint-line);border-radius:999px;padding:6px 14px;}
+  .navpill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--teal-deep);background:var(--tint);border:1px solid var(--tint-line);border-radius:999px;padding:5px 11px;margin-right:14px;white-space:nowrap;}
+  .dot{width:7px;height:7px;border-radius:50%;background:#4E7C5A;display:inline-block;}
+  .tagline{font-family:var(--serif);font-style:italic;color:var(--teal-deep);font-size:31px;margin:20px 0 2px;}
+  .heroSearch{max-width:660px;margin:22px auto 8px;}
+  .trustline{font-size:13.5px;color:var(--muted);margin-top:12px;} .trustline b{color:var(--ink);}
+  .tries{font-size:14px;color:var(--muted);margin-top:13px;} .tries a{font-weight:500;}
+  .eyebrow{text-align:center;font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin:22px 0 18px;}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;}
+  .kind{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
+  .ev{display:flex;align-items:center;gap:9px;margin:0 0 12px;}
+  .meter{display:flex;gap:4px;}
+  .seg{width:17px;height:7px;border-radius:3px;background:#E5E0D5;}
+  .ev .lab{font-size:12.5px;font-weight:500;}
+  .ev.mixed .seg:nth-child(-n+2){background:#C39A3E;} .ev.mixed .lab{color:#9a6516;}
+  .ev.weak .seg:nth-child(-n+1){background:#B5715A;} .ev.weak .lab{color:#9a5a3c;}
+  .vbadge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;border-radius:999px;padding:4px 12px;margin-bottom:12px;align-self:flex-start;}
+  .vbadge.myth{background:#EEF1F3;color:#48585F;border:1px solid #DCE2E5;}
+  .vbadge.true{background:#E5EFE7;color:#3B6D4A;border:1px solid #CDE3D2;}
+  .condtag{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--teal-deep);background:var(--tint);border:1px solid var(--tint-line);border-radius:999px;padding:4px 12px;margin-bottom:12px;align-self:flex-start;}
+  .card h3{font-family:var(--serif);font-size:21px;margin:0 0 8px;color:var(--navy);}
+  .bottomline{font-size:15.5px;line-height:1.5;margin:0 0 10px;}
+  .saferow{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--warn-ink);background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;padding:6px 11px;margin:0 0 12px;align-self:flex-start;}
+  .whatto{font-size:13.5px;color:var(--muted);border-left:3px solid #E7DFCF;padding-left:12px;margin:0 0 14px;}
+  .whatto b{color:var(--ink);}
+  .cardfoot{margin-top:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line-soft);padding-top:12px;}
+  .srcs{font-size:12.5px;color:var(--muted);margin-left:auto;}
+
+  .act{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:12.5px;color:var(--teal-deep);background:#fff;border:1px solid var(--tint-line);border-radius:999px;padding:6px 12px;cursor:pointer;}
+  .act:hover{background:var(--tint);text-decoration:none;}
+  .act svg{width:15px;height:15px;flex-shrink:0;}
+  .act.love{color:var(--warm-deep);border-color:#ECD6C6;} .act.love:hover{background:#FBF1EA;}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;}
+  .stepn{width:26px;height:26px;border-radius:50%;background:var(--tint);color:var(--teal-deep);font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+  .step h4{margin:0 0 5px;font-size:16px;} .step p{margin:0;font-size:13.5px;color:var(--muted);}
+
+  .band{border-radius:18px;padding:30px 32px;margin-top:20px;}
+  .band.trust{background:#F3EFE6;border:1px solid var(--line);}
+  .band.join{background:var(--navy);color:#fff;text-align:center;}
+  .band.clin{background:var(--tint);border:1px solid var(--tint-line);display:flex;align-items:center;gap:20px;justify-content:space-between;flex-wrap:wrap;}
+  .pledge{font-family:var(--serif);font-size:22px;color:var(--navy);}
+  .band.join h3{font-family:var(--serif);font-size:24px;margin:0 0 6px;color:#fff;}
+  .joinform{display:flex;gap:10px;max-width:430px;margin:16px auto 8px;}
+  .joinform input{flex:1;border:none;border-radius:10px;padding:12px 14px;font:inherit;font-size:15px;}
+
+  footer{background:#15273C;color:#cdd8e2;margin-top:46px;padding:38px 0 28px;}
+  footer .top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;}
+  footer .pledge2{font-family:var(--serif);font-size:20px;color:#fff;max-width:300px;}
+  footer .cols{display:flex;gap:44px;flex-wrap:wrap;}
+  footer h5{color:#fff;font-size:12px;letter-spacing:.05em;margin:0 0 10px;text-transform:uppercase;}
+  footer a{color:#cdd8e2;display:block;font-size:13.5px;margin-bottom:7px;}
+  footer .disc{border-top:1px solid #2b3e55;margin-top:24px;padding-top:15px;font-size:12.5px;color:#90a1b3;}
+
+  .topsearch{padding:18px 0 6px;}
+  .crumb{font-size:13px;color:var(--muted);margin:8px 0 2px;} .crumb b{color:var(--ink);font-weight:400;}
+  .ans-grid{display:grid;grid-template-columns:1fr 308px;gap:30px;align-items:start;padding:6px 0 10px;}
+  .ans-main{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 30px 30px;}
+  .typetag{font-size:12px;color:var(--teal-deep);background:var(--tint);border:1px solid var(--tint-line);border-radius:999px;padding:3px 12px;display:inline-block;}
+  .ans-main h1{font-family:var(--serif);font-size:31px;color:var(--navy);margin:12px 0 10px;}
+  .ans-bottom{font-size:19px;line-height:1.5;margin:0 0 8px;}
+  .asec{margin-top:24px;}
+  .asec h2{font-family:var(--serif);font-size:19px;color:var(--navy);margin:0 0 10px;}
+  .asec p{font-size:15.5px;margin:0 0 11px;} .asec ul{margin:0 0 11px;padding-left:20px;} .asec li{font-size:15px;margin-bottom:7px;}
+  .erow{display:flex;gap:13px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line-soft);}
+  .erow:last-child{border-bottom:none;}
+  .etag{flex-shrink:0;font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;margin-top:2px;width:74px;text-align:center;}
+  .etag.strong{background:#E5EFE7;color:#3B6D4A;} .etag.mod{background:#FBF1DD;color:#8a6516;} .etag.weak{background:#F4EBE6;color:#9a5a3c;}
+  .erow .et{font-size:15px;} .erow .et b{color:var(--navy);}
+  .safety{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:14px;padding:16px 18px;margin-top:22px;}
+  .safety h2{font-family:var(--serif);font-size:18px;color:var(--warn-ink);margin:0 0 8px;display:flex;align-items:center;gap:9px;}
+  .safety .warnico{width:20px;height:20px;}
+  .safety p,.safety li{font-size:14.5px;color:#6b4f15;} .safety ul{margin:0;padding-left:20px;}
+  .callout{border-radius:12px;padding:14px 16px;font-size:14.5px;margin:14px 0;}
+  .callout.doc{background:var(--tint);border:1px solid var(--tint-line);color:#2c5a55;}
+  .callout.red{background:#FBEEEA;border:1px solid #F0D7CC;color:#8a4b32;}
+  .callout b{font-weight:500;}
+  .vbadge.big{font-size:15px;padding:6px 15px;margin:2px 0 12px;}
+  .actionbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line-soft);margin-top:22px;padding-top:16px;}
+  .rail h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;}
+  .railbox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 16px 6px;margin-bottom:16px;}
+  .rvid{display:flex;gap:11px;margin-bottom:14px;}
+  .rthumb{width:96px;height:56px;border-radius:9px;background:#dde8e6;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#8fa3a0;border:1px solid var(--line-soft);}
+  .rvid .meta{font-size:12.5px;} .rvid .meta b{display:block;color:var(--ink);font-weight:500;font-size:13px;margin-bottom:2px;line-height:1.3;}
+  .verbadge{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--teal-deep);background:var(--tint);border-radius:999px;padding:2px 8px;margin-top:4px;}
+  .related{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 30px;}
+  .rchip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 15px;font-size:13.5px;}
+  .ppage{max-width:880px;margin:0 auto;}
+  .ppage h1{font-family:var(--serif);font-size:32px;color:var(--navy);margin:26px 0 8px;}
+  .pintro{font-size:16px;color:var(--muted);max-width:660px;margin:0 0 22px;}
+  .pform{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px 26px;margin-bottom:26px;}
+  .pform h3{margin:0 0 12px;font-size:16px;}
+  .roleopts{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px;}
+  .rolechip{font:inherit;font-size:13.5px;border:1.5px solid var(--tint-line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 15px;cursor:pointer;}
+  .rolechip.on{background:var(--teal);border-color:var(--teal);color:#fff;}
+  .frow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+  .frow input{flex:1;min-width:200px;border:1px solid var(--tint-line);border-radius:10px;padding:11px 13px;font:inherit;font-size:15px;}
+  .pform textarea{width:100%;border:1px solid var(--tint-line);border-radius:10px;padding:11px 13px;font:inherit;font-size:15px;min-height:62px;resize:vertical;}
+  .pnote{font-size:12.5px;color:var(--muted);margin-top:10px;}
+  .vpgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  .vpcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;}
+  .vpcard h4{margin:0 0 5px;font-size:15px;color:var(--navy);}
+  .vpcard p{margin:0;font-size:13.5px;color:var(--muted);}
+  @media(max-width:700px){.vpgrid{grid-template-columns:1fr;}}
+  .hide{display:none;}
+  @media(max-width:900px){.cards,.steps{grid-template-columns:1fr;}.ans-grid{grid-template-columns:1fr;}.navlinks{display:none;}}
+  .viewbar{display:none !important;}
+</style>
+</head>
+<body>
+
+<div class="viewbar"><div class="wrap">
+  <b>Mockup:</b>
+  <button class="vbtn active" id="t-home" onclick="show('home')">Homepage</button>
+  <button class="vbtn" id="t-supp" onclick="show('supp')">Supplement · Berberine</button>
+  <button class="vbtn" id="t-claim" onclick="show('claim')">Claim · Seed oils</button>
+  <button class="vbtn" id="t-dx" onclick="show('dx')">Diagnosis · GERD</button>
+  <button class="vbtn" id="t-med" onclick="show('med')">Medication · Ozempic</button>
+  <button class="vbtn" id="t-test" onclick="show('test')">Test · Full-body MRI</button>
+  <button class="vbtn" id="t-sym" onclick="show('sym')">Symptom · Headache</button>
+  <button class="vbtn" id="t-partner" onclick="show('partner')">Partner page</button>
+  <span class="vspace"></span><span class="small muted">Design preview — not the live site</span>
+</div></div>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+  <g id="i-share"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></g>
+  <g id="i-doc"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></g>
+  <g id="i-print"><polyline points="6 9 6 3 18 3 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7"/></g>
+  <g id="i-warn"><path d="M12 3 2 20h20L12 3z"/><line x1="12" y1="9" x2="12" y2="14"/><line x1="12" y1="17.5" x2="12" y2="17.6"/></g>
+</defs></svg>
+
+<template id="navtpl">
+<nav class="site"><div class="wrap">
+  <span class="brand">
+    <img class="mark" src="logo.png" alt="What Doctors Wish You Knew logo" />
+    <span class="bm">What Doctors Wish You Knew<span class="kicker">Truth matters</span></span>
+  </span>
+  <span class="navlinks"><a>Home</a><a>Topics</a><a>How it works</a><a>For clinicians</a><a>Mission</a></span>
+  <span class="vspace"></span>
+  <span class="navpill"><span class="dot"></span> Early access · building in public</span>
+  <button class="btn warm sm">Join</button>
+</div></nav>
+</template>
+
+<!-- ================= HOMEPAGE ================= -->
+<div id="home">
+<div class="navhost"></div>
+<div class="wrap hero">
+  <div class="tagline">Truth matters. Protect those you love.</div>
+  <div class="heroSearch">
+    <div class="search big"><span class="mag">⌕</span><input placeholder="Search any claim, supplement, medication, condition, test, or symptom…" /><button class="btn warm">Search</button></div>
+    <div class="trustline">From <b>doctors and the experts they trust</b> · No ads, ever · every answer backed by credentialed sources</div>
+    <div class="tries">Try: <a>Seed oils</a> · <a>Berberine</a> · <a>GERD</a> · <a>Creatine</a></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow">Recently clarified</div>
+  <div class="cards">
+    <div class="card">
+      <div class="kind">Claim</div>
+      <span class="vbadge myth">Mostly a myth</span>
+      <h3>Do seed oils cause inflammation?</h3>
+      <p class="bottomline">For most people, in normal amounts, no. The “toxic seed oil” panic runs well ahead of the evidence.</p>
+      <p class="whatto"><b>What to do:</b> Worry less about the oil, more about ultra-processed food overall.</p>
+      <div class="cardfoot">
+        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Your doctor</a>
+        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Share</a>
+        <span class="srcs">Sources (7)</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="kind">Supplement</div>
+      <div class="ev mixed"><span class="meter"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="lab">Evidence: Mixed</span></div>
+      <h3>Berberine</h3>
+      <p class="bottomline">It nudges blood sugar and cholesterol a little — but it isn’t Ozempic, and it isn’t a weight-loss shortcut.</p>
+      <span class="saferow"><svg class="warnico" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Interacts with some meds</span>
+      <p class="whatto"><b>What to do:</b> Fine to try if your doctor agrees; don’t skip prescribed meds.</p>
+      <div class="cardfoot">
+        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Your doctor</a>
+        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Share</a>
+        <span class="srcs">Sources (6)</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="kind">Condition</div>
+      <span class="condtag">● Well understood</span>
+      <h3>GERD (acid reflux)</h3>
+      <p class="bottomline">Stomach acid backing up into the esophagus. Very common, very treatable — persistent symptoms deserve a check.</p>
+      <p class="whatto"><b>What to do:</b> Simple steps + the right medicine help most; see a doctor if frequent or severe.</p>
+      <div class="cardfoot">
+        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Your doctor</a>
+        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Share</a>
+        <span class="srcs">Sources (9)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap"><div class="band trust">
+  <div class="pledge">No ads. No sponsors. No affiliates. Ever.</div>
+  <p class="muted" style="margin:8px 0 0;max-width:760px;">Every answer is reviewed by our doctors and backed by credentialed sources — including the expert videos we link. We sell nothing and never sell your data. If the science changes, the answer changes. If we don’t know, we say so.</p>
+</div></div>
+
+<div class="wrap"><div class="band join">
+  <h3>Join as a founding member</h3>
+  <p style="margin:0;opacity:.85;">Free. Get told when we clarify a new topic — and vote on what we clarify next.</p>
+  <div class="joinform"><input placeholder="your@email.com" /><button class="btn warm">Become a founding member</button></div>
+  <div style="font-size:12.5px;opacity:.7;">#TruthMatters · no spam, ever</div>
+</div></div>
+
+<footer><div class="wrap">
+  <div class="top">
+    <div class="cols">
+      <div><h5>About</h5><a>How it works</a><a>Our mission</a><a>Where we’re going</a><a>Contact</a></div>
+      <div><h5>Trust</h5><a>Evidence policy</a><a>Conflicts of interest</a><a>Editorial standards</a></div>
+      <div><h5>Partners</h5><a>For clinicians</a><a>For clinics &amp; hospitals</a><a>For health systems</a><a>For foundations</a><a>Contribute (credentialed creators)</a></div>
+    </div>
+  </div>
+  <div class="disc">Educational information, not medical advice — always talk to your doctor.</div>
+</div></footer>
+</div>
+
+<!-- ================= SUPPLEMENT (Berberine) ================= -->
+<div id="supp" class="hide">
+<div class="navhost"></div>
+<div class="wrap">
+  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="berberine" /></div></div>
+  <div class="crumb">Search › Supplements › <b>Berberine</b></div>
+  <div class="ans-grid">
+    <div class="ans-main">
+      <span class="typetag">Supplement</span>
+      <h1>Berberine</h1>
+      <p class="muted" style="margin:-4px 0 10px;">Taken for blood sugar, cholesterol, and (often) weight loss.</p>
+      <div class="ev mixed" style="margin-bottom:12px;"><span class="meter"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="lab">Overall evidence: Mixed</span></div>
+      <p class="ans-bottom">It nudges blood sugar and cholesterol a little — but it isn’t Ozempic, and it isn’t a weight-loss shortcut.</p>
+
+      <div class="asec">
+        <h2>What the evidence shows</h2>
+        <div class="erow"><span class="etag mod">Moderate</span><span class="et"><b>Blood sugar:</b> small trials show modest drops in fasting glucose and HbA1c — real, but weaker and shorter-lived than metformin.</span></div>
+        <div class="erow"><span class="etag mod">Moderate</span><span class="et"><b>Cholesterol:</b> small reductions in LDL and triglycerides across several studies.</span></div>
+        <div class="erow"><span class="etag weak">Weak</span><span class="et"><b>Weight loss:</b> minimal and inconsistent — not a meaningful weight-loss tool.</span></div>
+      </div>
+
+      <div class="safety">
+        <h2><svg class="warnico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Safety &amp; interactions</h2>
+        <ul>
+          <li>Commonly causes stomach upset, cramping, or diarrhea, especially at higher doses.</li>
+          <li><b>Interacts with several prescription medicines</b> (including metformin, blood thinners, and some blood-pressure and immune drugs) — it can change how they work.</li>
+          <li>Not recommended in pregnancy or breastfeeding.</li>
+        </ul>
+      </div>
+
+      <div class="asec">
+        <h2>Who might consider it</h2>
+        <p>People with mildly elevated blood sugar or cholesterol who want to add something — <b>with their doctor’s okay</b>, and never in place of proven treatment.</p>
+      </div>
+
+      <div class="asec">
+        <h2>What to do</h2>
+        <ul>
+          <li>Reasonable to try for blood sugar or cholesterol support if your doctor agrees — alongside, not instead of, proven care.</li>
+          <li>Keep expectations modest, and stop if it upsets your stomach.</li>
+          <li>Never use it to replace a prescribed medication like metformin or a statin.</li>
+        </ul>
+      </div>
+
+      <div class="callout doc"><b>How to talk to your doctor:</b> “I’m considering berberine for my blood sugar — does it interact with anything I take, and is it reasonable alongside my current plan?”</div>
+
+      <div class="actionbar">
+        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
+        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
+        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
+        <span class="srcs" style="margin-left:auto;"><a>View all 6 sources</a></span>
+      </div>
+    </div>
+    <div class="rail"><div class="railbox">
+      <h4>Verified supporting videos</h4>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>What berberine really does to blood sugar</b><span class="muted">Dr. A. Lin, MD · Endocrinologist</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Berberine vs. metformin, honestly</b><span class="muted">Dr. P. Shah, PharmD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Is it a weight-loss shortcut?</b><span class="muted">Dr. M. Cole, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+    </div></div>
+  </div>
+  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
+  <div class="related"><span class="rchip">Metformin</span><span class="rchip">Ozempic / semaglutide</span><span class="rchip">Inositol</span><span class="rchip">Cinnamon for blood sugar</span></div>
+</div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+</div>
+
+<!-- ================= CLAIM (Seed oils) ================= -->
+<div id="claim" class="hide">
+<div class="navhost"></div>
+<div class="wrap">
+  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="Do seed oils cause inflammation?" /></div></div>
+  <div class="crumb">Search › Claims & trends › <b>Seed oils</b></div>
+  <div class="ans-grid">
+    <div class="ans-main">
+      <span class="typetag">Claim · Myth-check</span>
+      <h1>Do seed oils cause inflammation?</h1>
+      <span class="vbadge myth big">Verdict: Mostly a myth</span>
+      <p class="ans-bottom">For most people, in normal amounts, seed oils (canola, soybean, sunflower) don’t drive inflammation. The “toxic seed oil” panic runs well ahead of the evidence.</p>
+
+      <div class="asec">
+        <h2>What we actually know</h2>
+        <div class="erow"><span class="etag strong">Strong</span><span class="et">In trials, <b>replacing saturated fat with these oils tends to lower</b> inflammation markers and improve cholesterol.</span></div>
+        <div class="erow"><span class="etag mod">Moderate</span><span class="et">The real problem is <b>ultra-processed food</b> (often fried in these oils) — that’s the junk, not the oil itself.</span></div>
+        <div class="erow"><span class="etag weak">Weak</span><span class="et">Claims that seed oils are <b>uniquely “toxic”</b> or a main driver of chronic disease aren’t supported.</span></div>
+      </div>
+
+      <div class="asec">
+        <h2>What to do</h2>
+        <ul>
+          <li>No need to fear seed oils in normal home cooking.</li>
+          <li>The bigger lever for health is <b>less ultra-processed food</b> and more whole foods — regardless of the oil.</li>
+          <li>Olive oil is a great everyday choice too; variety is fine.</li>
+        </ul>
+      </div>
+
+      <div class="callout doc"><b>How to raise it with your doctor:</b> “I keep seeing that seed oils are dangerous — does my diet actually need changing, or is this overblown for me?”</div>
+
+      <div class="actionbar">
+        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
+        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
+        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
+        <span class="srcs" style="margin-left:auto;"><a>View all 7 sources</a></span>
+      </div>
+    </div>
+    <div class="rail"><div class="railbox">
+      <h4>Verified supporting videos</h4>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>The seed oil panic, examined</b><span class="muted">Dr. K. Reyes, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>What the fat studies really show</b><span class="muted">Dr. L. Frost, PhD · Nutrition</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+    </div></div>
+  </div>
+  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
+  <div class="related"><span class="rchip">Olive oil</span><span class="rchip">Omega-6 vs omega-3</span><span class="rchip">Ultra-processed food</span><span class="rchip">Tallow for cooking</span></div>
+</div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+</div>
+
+<!-- ================= DIAGNOSIS (GERD) ================= -->
+<div id="dx" class="hide">
+<div class="navhost"></div>
+<div class="wrap">
+  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="GERD" /></div></div>
+  <div class="crumb">Search › Conditions › <b>GERD (acid reflux)</b></div>
+  <div class="ans-grid">
+    <div class="ans-main">
+      <span class="typetag">Condition · Diagnosis</span>
+      <h1>GERD (acid reflux)</h1>
+      <p class="ans-bottom">Stomach acid repeatedly backs up into your esophagus, causing heartburn and regurgitation. Very common and very treatable — and rarely dangerous, though persistent symptoms deserve a proper check.</p>
+      <div class="asec"><h2>What it is</h2><p>The valve between your stomach and esophagus relaxes when it shouldn’t, letting acid rise. Typical signs: burning behind the breastbone (often after meals or lying down), a sour taste, or a recurrent cough or hoarse voice.</p></div>
+      <div class="asec"><h2>What we do about it</h2><ul>
+        <li><b>Everyday steps:</b> smaller meals, not lying down for 2–3 hours after eating, raising the head of the bed, easing back on late meals, alcohol, and personal triggers.</li>
+        <li><b>Medicines, stepped up as needed:</b> antacids → H2 blockers (famotidine) → proton-pump inhibitors (PPIs, e.g. omeprazole) for frequent symptoms.</li>
+      </ul></div>
+      <div class="asec"><h2>What the evidence shows</h2>
+        <div class="erow"><span class="etag strong">Strong</span><span class="et"><b>PPIs</b> are highly effective for frequent reflux and for healing the esophagus.</span></div>
+        <div class="erow"><span class="etag mod">Moderate</span><span class="et"><b>Weight loss and not eating late</b> genuinely reduce symptoms for many people.</span></div>
+        <div class="erow"><span class="etag weak">Weak</span><span class="et">Most popular “reflux diets” and supplements have <b>little solid evidence</b> beyond the basics.</span></div>
+      </div>
+      <div class="asec"><h2>What a doctor typically does</h2><p>Most cases are diagnosed from your symptoms and a trial of treatment — no test needed. A doctor considers an endoscopy if symptoms persist despite treatment, start later in life, or come with warning signs.</p></div>
+      <div class="callout red"><b>See a doctor promptly if you have:</b> trouble or pain swallowing, unintentional weight loss, vomiting blood or black stools, or symptoms that won’t settle with treatment.</div>
+      <div class="callout doc"><b>How to talk to your doctor:</b> track when it happens and what triggers it, then ask: “Is this GERD or something else, should I try a PPI, and how long before we look closer?”</div>
+      <div class="actionbar">
+        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
+        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
+        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
+        <span class="srcs" style="margin-left:auto;"><a>View all 9 sources</a></span>
+      </div>
+    </div>
+    <div class="rail"><div class="railbox">
+      <h4>Verified supporting videos</h4>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>GERD explained in plain English</b><span class="muted">Dr. N. Okafor, MD · Gastroenterology</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Are PPIs safe long-term?</b><span class="muted">Dr. E. Vance, MD · GI</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+    </div></div>
+  </div>
+  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">Related</div>
+  <div class="related"><span class="rchip">Heartburn</span><span class="rchip">PPIs (omeprazole)</span><span class="rchip">Hiatal hernia</span><span class="rchip">Barrett’s esophagus</span></div>
+</div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+</div>
+
+<!-- ================= MEDICATION (Ozempic) ================= -->
+<div id="med" class="hide">
+<div class="navhost"></div>
+<div class="wrap">
+  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="Ozempic (semaglutide)" /></div></div>
+  <div class="crumb">Search › Medications › <b>Ozempic (semaglutide)</b></div>
+  <div class="ans-grid">
+    <div class="ans-main">
+      <span class="typetag">Medication</span>
+      <h1>Ozempic (semaglutide)</h1>
+      <p class="muted" style="margin:-4px 0 10px;">A once-weekly injection for type 2 diabetes — and, as Wegovy, for weight loss.</p>
+      <p class="ans-bottom">A genuinely powerful drug for blood sugar and weight — with real side effects, a high price, and weight that tends to return if you stop. Not a casual quick fix.</p>
+      <div class="asec"><h2>What it’s for &amp; how it works</h2><p>It’s a GLP-1 medication: it slows digestion, blunts appetite, and helps the body manage blood sugar. Prescribed for type 2 diabetes (Ozempic) and, at higher doses, for obesity (Wegovy).</p></div>
+      <div class="asec"><h2>What to expect</h2><p>Meaningful, gradual results over months — often around 10–15% body-weight loss on the weight-loss dose — but it works while you take it, not after.</p></div>
+      <div class="asec"><h2>How well it works</h2>
+        <div class="erow"><span class="etag strong">Strong</span><span class="et"><b>Blood sugar &amp; weight:</b> large trials show substantial, reliable reductions.</span></div>
+        <div class="erow"><span class="etag strong">Strong</span><span class="et"><b>Heart:</b> lowers cardiovascular events in higher-risk patients.</span></div>
+      </div>
+      <div class="safety"><h2><svg class="warnico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Side effects &amp; cautions</h2><ul>
+        <li>Nausea, vomiting, and other gut symptoms are common, especially while the dose is increasing.</li>
+        <li>Rare but serious risks include pancreatitis and gallbladder problems; not used in pregnancy.</li>
+        <li>Weight and blood-sugar gains often return after stopping; muscle loss can occur if you under-eat.</li>
+      </ul></div>
+      <div class="asec"><h2>Who it’s for / not for</h2><p>For people with type 2 diabetes, or weight in a range where it improves health — under medical supervision. It’s not a cosmetic quick fix, and it isn’t right for everyone.</p></div>
+      <div class="callout doc"><b>How to talk to your doctor:</b> “Am I a good candidate, what side effects should I watch for, what does it cost with my coverage, and what’s the long-term plan?”</div>
+      <div class="actionbar">
+        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
+        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
+        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
+        <span class="srcs" style="margin-left:auto;"><a>View all 11 sources</a></span>
+      </div>
+    </div>
+    <div class="rail"><div class="railbox"><h4>Verified supporting videos</h4>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>How Ozempic actually works</b><span class="muted">Dr. A. Lin, MD · Endocrinologist</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Side effects, honestly</b><span class="muted">Dr. P. Shah, PharmD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>What happens if you stop</b><span class="muted">Dr. M. Cole, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+    </div></div>
+  </div>
+  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
+  <div class="related"><span class="rchip">Wegovy</span><span class="rchip">Mounjaro / tirzepatide</span><span class="rchip">Metformin</span><span class="rchip">GLP-1 side effects</span></div>
+</div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+</div>
+
+<!-- ================= TEST (Full-body MRI) ================= -->
+<div id="test" class="hide">
+<div class="navhost"></div>
+<div class="wrap">
+  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="full-body MRI scan" /></div></div>
+  <div class="crumb">Search › Tests &amp; screening › <b>Full-body MRI</b></div>
+  <div class="ans-grid">
+    <div class="ans-main">
+      <span class="typetag">Test · Screening</span>
+      <h1>Full-body MRI scans</h1>
+      <p class="muted" style="margin:-4px 0 10px;">Marketed scans that image you head-to-pelvis to “catch problems early.”</p>
+      <p class="ans-bottom">For most healthy people, not worth it. They find harmless oddities far more often than dangerous disease — leading to anxiety, more tests, and cost.</p>
+      <div class="asec"><h2>What it is</h2><p>A head-to-pelvis MRI looking for things like tumours or aneurysms — usually sold direct-to-consumer, without a doctor’s referral.</p></div>
+      <div class="asec"><h2>When it’s worth it — and who should skip</h2><p>Most symptom-free people should skip it. It can occasionally make sense for specific high-risk situations your doctor identifies — but not as a routine “just in case.”</p></div>
+      <div class="asec"><h2>What results really mean</h2>
+        <div class="erow"><span class="etag mod">Common</span><span class="et"><b>Incidental findings:</b> harmless quirks turn up often — and each can trigger more scans, biopsies, and worry.</span></div>
+        <div class="erow"><span class="etag weak">No benefit</span><span class="et">There’s <b>no good evidence</b> these scans help healthy people live longer.</span></div>
+      </div>
+      <div class="callout doc"><b>How to talk to your doctor:</b> “I saw an ad for a full-body scan — is it useful for me, or should I stick to the screenings recommended for my age and risk?”</div>
+      <div class="actionbar">
+        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
+        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
+        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
+        <span class="srcs" style="margin-left:auto;"><a>View all 8 sources</a></span>
+      </div>
+    </div>
+    <div class="rail"><div class="railbox"><h4>Verified supporting videos</h4>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Full-body scans: helpful or harmful?</b><span class="muted">Dr. N. Okafor, MD · Radiology</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>The “incidentaloma” problem</b><span class="muted">Dr. E. Vance, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+    </div></div>
+  </div>
+  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
+  <div class="related"><span class="rchip">PSA test</span><span class="rchip">Vitamin D test</span><span class="rchip">Cancer screening guidelines</span><span class="rchip">Coronary calcium score</span></div>
+</div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+</div>
+
+<!-- ================= SYMPTOM (Headache) ================= -->
+<div id="sym" class="hide">
+<div class="navhost"></div>
+<div class="wrap">
+  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="headache" /></div></div>
+  <div class="crumb">Search › Symptoms › <b>Headache</b></div>
+  <div class="ans-grid">
+    <div class="ans-main">
+      <span class="typetag">Symptom</span>
+      <h1>Headache</h1>
+      <p class="ans-bottom">Most headaches are tension or migraine and aren’t dangerous — but a few specific patterns need urgent care.</p>
+      <div class="safety" style="background:#FBEEEA;border-color:#F0D7CC;"><h2 style="color:#8a4b32;"><svg class="warnico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Get care now if your headache is…</h2><ul style="color:#7a3f29;">
+        <li>The sudden “worst headache of your life,” or it peaks within seconds to minutes.</li>
+        <li>With fever and a stiff neck, confusion, fainting, weakness or numbness, or trouble speaking or seeing.</li>
+        <li>After a head injury — or new and persistent if you’re over 50 or have a cancer history.</li>
+      </ul></div>
+      <div class="asec"><h2>What usually causes it</h2><p>Most often tension-type (tight, band-like) or migraine (throbbing, with light/sound sensitivity and sometimes nausea). Dehydration, poor sleep, screens, caffeine changes, and overusing painkillers are common triggers.</p></div>
+      <div class="asec"><h2>What to do at home</h2><ul>
+        <li>Water, rest, and a little caffeine can help — and treating early works best.</li>
+        <li>Use over-the-counter pain relief sparingly; taking it more than ~2 days a week can cause “rebound” headaches.</li>
+        <li>Track timing and triggers to spot a pattern.</li>
+      </ul></div>
+      <div class="asec"><h2>When to see a doctor (non-urgent)</h2><p>If headaches are frequent, getting worse, needing regular painkillers, or changing in pattern — it’s worth a visit to pin down the type and a plan.</p></div>
+      <div class="callout doc"><b>How to talk to your doctor:</b> bring a short log — when they hit, how long, what helped — and ask: “What type is this, and what’s the plan to prevent them?”</div>
+      <div class="actionbar">
+        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
+        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
+        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
+        <span class="srcs" style="margin-left:auto;"><a>View all 7 sources</a></span>
+      </div>
+    </div>
+    <div class="rail"><div class="railbox"><h4>Verified supporting videos</h4>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Headache red flags to know</b><span class="muted">Dr. K. Reyes, MD · Neurology</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Migraine vs. tension headache</b><span class="muted">Dr. L. Frost, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
+    </div></div>
+  </div>
+  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
+  <div class="related"><span class="rchip">Migraine</span><span class="rchip">Tension headache</span><span class="rchip">Medication-overuse headache</span><span class="rchip">When to worry</span></div>
+</div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+</div>
+
+<!-- ================= PARTNER PAGE ================= -->
+<div id="partner" class="hide">
+<div class="navhost"></div>
+<div class="wrap"><div class="ppage">
+  <h1>Partner with us</h1>
+  <p class="pintro">We’re building the trusted home for honest health answers — free for patients, forever, with no ads. Here’s how you can help, and what you get.</p>
+  <div class="pform">
+    <h3>Tell us who you are</h3>
+    <div class="roleopts">
+      <button class="rolechip on" onclick="pickRole(this)">Clinician</button>
+      <button class="rolechip" onclick="pickRole(this)">Clinic</button>
+      <button class="rolechip" onclick="pickRole(this)">Hospital</button>
+      <button class="rolechip" onclick="pickRole(this)">Health system</button>
+      <button class="rolechip" onclick="pickRole(this)">Foundation</button>
+      <button class="rolechip" onclick="pickRole(this)">Credentialed creator</button>
+    </div>
+    <div class="frow"><input placeholder="Your name" /><input placeholder="Work email" /></div>
+    <div class="frow"><input placeholder="Organization (optional)" /></div>
+    <textarea placeholder="Anything you’d like us to know (optional)"></textarea>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <button class="btn warm">Register interest</button>
+      <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Download the one-pager (PDF)</a>
+    </div>
+    <p class="pnote">We read every message. No ads, no sponsors, and we never sell your data.</p>
+  </div>
+  <div class="eyebrow" style="text-align:left;margin:6px 0 14px;">What you get</div>
+  <div class="vpgrid">
+    <div class="vpcard"><h4>Clinicians</h4><p>Recommend it to every patient, vouch for the work, and help shape what we clarify next.</p></div>
+    <div class="vpcard"><h4>Clinics</h4><p>Co-brand answers as “Supported by [your clinic],” with waiting-room QR codes and patient handouts.</p></div>
+    <div class="vpcard"><h4>Hospitals &amp; health systems</h4><p>Ad-free, trustworthy patient education at scale — plus pilot partnerships to roll it out.</p></div>
+    <div class="vpcard"><h4>Foundations</h4><p>Fund free, independent patient education with real, measurable reach.</p></div>
+    <div class="vpcard"><h4>Credentialed creators</h4><p>Contribute verified videos and be cited with your credentials — judged on expertise, never follower count.</p></div>
+    <div class="vpcard"><h4>Everyone</h4><p>Join a movement that puts honest answers — and patients — first.</p></div>
+  </div>
+</div></div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+</div>
+
+<script>
+  document.querySelectorAll('.navhost').forEach(h=>h.appendChild(document.getElementById('navtpl').content.cloneNode(true)));
+  var VIEWS=['home','supp','claim','dx','med','test','sym','partner'];
+  function pickRole(el){el.parentNode.querySelectorAll('.rolechip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
+  function show(v){
+    VIEWS.forEach(id=>document.getElementById(id).classList.toggle('hide', id!==v));
+    VIEWS.forEach(id=>document.getElementById('t-'+id).classList.toggle('active', id===v));
+    window.scrollTo(0,0);
+  }
+
+  // ---- live functionality: route search/cards/links to the answer views ----
+  function route(q){
+    q=(q||'').toLowerCase();
+    var map=[['seed oil','claim'],['inflammation','claim'],['berberine','supp'],
+      ['gerd','dx'],['reflux','dx'],['heartburn','dx'],
+      ['ozempic','med'],['semaglutide','med'],['wegovy','med'],['glp','med'],
+      ['mri','test'],['full-body','test'],['full body','test'],
+      ['headache','sym'],['migraine','sym']];
+    for(var i=0;i<map.length;i++){ if(q.indexOf(map[i][0])>-1){ show(map[i][1]); return true; } }
+    return false;
+  }
+  function wireSite(){
+    document.querySelectorAll('.search').forEach(function(s){
+      var inp=s.querySelector('input'), btn=s.querySelector('button');
+      if(inp){ inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); route(inp.value); } }); }
+      if(btn && /search/i.test(btn.textContent)){ btn.addEventListener('click',function(){ route(inp?inp.value:''); }); }
+    });
+    document.querySelectorAll('#home .card').forEach(function(c){
+      var h=c.querySelector('h3'); if(!h) return; c.style.cursor='pointer';
+      c.addEventListener('click',function(e){ if(e.target.closest('a.act')) return; route(h.textContent); });
+    });
+    document.querySelectorAll('#home .tries a').forEach(function(a){ a.style.cursor='pointer'; a.addEventListener('click',function(){ if(!route(a.textContent)) show('home'); }); });
+    document.querySelectorAll('.brand').forEach(function(b){ b.style.cursor='pointer'; b.addEventListener('click',function(){ show('home'); }); });
+    document.querySelectorAll('.navlinks a').forEach(function(a){ a.style.cursor='pointer'; a.addEventListener('click',function(){ var t=a.textContent.toLowerCase(); show(t.indexOf('clinician')>-1?'partner':'home'); }); });
+    document.querySelectorAll('.btn.warm').forEach(function(b){ if(/^\s*join/i.test(b.textContent)){ b.style.cursor='pointer'; b.addEventListener('click',function(){ show('partner'); }); } });
+  }
+  wireSite();
+</script>
+</body>
 </html>
