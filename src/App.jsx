@@ -801,29 +801,27 @@ function TextWordmark() {
 
 function BrandBanner() {
   return (
-    <header className="no-print px-4 pt-3 sm:pt-6 pb-1 text-center" style={{ maxWidth: "100%", overflow: "hidden" }}>
-      {/* Early Access indicator — sets the visitor's frame BEFORE they see the brand. */}
-      <div className="no-print" style={{ position: "fixed", top: "10px", right: "12px", zIndex: 50 }}>
-        <span className="inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 label-eyebrow"
-              style={{ borderColor: "var(--line)", background: "var(--paper-2)", color: "var(--trust-deep)", fontSize: "9px" }}>
-          <span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--g-strong)", display: "inline-block" }}></span>
-          <span>Early access &middot; Building in public</span>
-        </span>
+    <>
+      <header className="no-print" style={{ position: "sticky", top: 0, zIndex: 50, background: "var(--paper)", borderBottom: "1px solid var(--line)" }}>
+        <div className="mx-auto flex items-center justify-between gap-3 px-4 py-2.5" style={{ maxWidth: "72rem" }}>
+          <div className="flex items-center gap-2.5">
+            <LogoMark />
+            <div style={{ lineHeight: 1.1 }}>
+              <p className="font-display" style={{ fontWeight: 700, fontSize: "clamp(15px, 2.4vw, 20px)", color: "var(--ink)" }}>What Doctors Wish You Knew</p>
+              <p className="label-eyebrow" style={{ color: "var(--trust-deep)", letterSpacing: "0.14em", fontSize: "9px" }}>TRUTH MATTERS</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2.5">
+            <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 label-eyebrow" style={{ borderColor: "var(--line)", background: "var(--paper-2)", color: "var(--trust-deep)", fontSize: "9px" }}><span aria-hidden style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--g-strong)", display: "inline-block" }}></span>Early access · building in public</span>
+            <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })} className="btn rounded-full px-4 py-2 text-sm font-semibold" style={{ background: "var(--warm)", color: "#FBFAF5", border: "none" }}>Join</button>
+          </div>
+        </div>
+      </header>
+      <div className="px-4 pt-8 text-center">
+        <p className="font-display mx-auto italic" style={{ color: "var(--trust-deep)", fontSize: "clamp(32px, 6.5vw, 56px)", fontWeight: 600, lineHeight: 1.1 }}>{HERO_TAGLINE}</p>
+        <p className="mx-auto" style={{ color: "#51636b", fontSize: "clamp(13px, 2.6vw, 16px)", maxWidth: "54ch", marginTop: "14px", lineHeight: 1.5 }}>Any health question, one honest answer — what your doctor would tell you if they had all the time in the world.</p>
       </div>
-      <div className="flex flex-nowrap items-center justify-center gap-2 sm:gap-3 mb-1 sm:mb-2">
-        <LogoMark />
-        <TextWordmark />
-      </div>
-      <p className="font-display mx-auto italic" style={{ color: "var(--trust-deep)", fontSize: "clamp(32px, 6.5vw, 56px)" }}>
-        {HERO_TAGLINE}
-      </p>
-      <p className="mx-auto" style={{ color: '#51636b', fontSize: 'clamp(12px, 2.6vw, 15px)', maxWidth: '54ch', marginTop: '10px', lineHeight: 1.5 }}>
-        Any health question, one honest answer — what your doctor would tell you if they had all the time in the world.
-      </p>
-      <p className="font-display" style={{ color: 'var(--trust-deep)', fontWeight: 700, letterSpacing: '0.05em', marginTop: '8px', fontSize: 'clamp(12px, 2.6vw, 14px)' }}>
-        #TruthMatters
-      </p>
-    </header>
+    </>
   );
 }
 
