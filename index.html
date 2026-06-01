@@ -173,21 +173,31 @@
   .docmsg{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;font-size:14px;line-height:1.55;color:var(--ink);}
   .docmsg .u{margin-top:10px;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--teal);word-break:break-all;}
 </style>
+
+<style id="wdwyk-v2">
+  .ev.good .seg:nth-child(-n+3){background:#3B6D4A;} .ev.good .lab{color:#3B6D4A;}
+  .ev.strong .seg{background:#3B6D4A;} .ev.strong .lab{color:#3B6D4A;}
+  .vbadge.warn{background:#FBF2DF;color:#7A5613;border:1px solid #EAD49A;}
+  .etag.good{background:#E5EFE7;color:#3B6D4A;}
+  .cat-head{font-family:var(--serif);font-size:23px;color:var(--navy);margin:30px 0 4px;}
+  .cat-sub{color:var(--muted);font-size:14px;margin:0 0 16px;}
+  .filterbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px;}
+  .fchip{font:inherit;font-size:13px;border:1px solid var(--tint-line);background:#fff;color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer;}
+  .fchip.on{background:var(--teal);border-color:var(--teal);color:#fff;}
+  .topic-card{cursor:pointer;transition:border-color .15s, transform .15s, box-shadow .15s;}
+  .topic-card:hover{border-color:var(--tint-line);transform:translateY(-2px);box-shadow:0 14px 34px -22px rgba(21,48,45,.4);}
+  .mpage{max-width:840px;margin:0 auto;}
+  .mpage h1{font-family:var(--serif);font-size:34px;color:var(--navy);margin:30px 0 8px;}
+  .mlead{font-size:18px;line-height:1.55;margin:0 0 14px;}
+  .mpage h2{font-family:var(--serif);font-size:22px;color:var(--navy);margin:30px 0 10px;}
+  .mpage p{font-size:15.5px;margin:0 0 12px;}
+  .pulls{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;}
+  .railnote{font-size:12.5px;color:var(--muted);margin:0 0 10px;line-height:1.5;}
+  .ans-main h1{margin-top:6px;}
+  @media print{ nav.site,.rail,.actionbar,.topsearch,.related,.eyebrow,footer,.navpill,.btn{display:none !important;} .ans-grid{grid-template-columns:1fr;} .ans-main{border:none;padding:0;} body{background:#fff;} }
+</style>
 </head>
 <body>
-
-<div class="viewbar"><div class="wrap">
-  <b>Mockup:</b>
-  <button class="vbtn active" id="t-home" onclick="show('home')">Homepage</button>
-  <button class="vbtn" id="t-supp" onclick="show('supp')">Supplement · Berberine</button>
-  <button class="vbtn" id="t-claim" onclick="show('claim')">Claim · Seed oils</button>
-  <button class="vbtn" id="t-dx" onclick="show('dx')">Diagnosis · GERD</button>
-  <button class="vbtn" id="t-med" onclick="show('med')">Medication · Ozempic</button>
-  <button class="vbtn" id="t-test" onclick="show('test')">Test · Full-body MRI</button>
-  <button class="vbtn" id="t-sym" onclick="show('sym')">Symptom · Headache</button>
-  <button class="vbtn" id="t-partner" onclick="show('partner')">Partner page</button>
-  <span class="vspace"></span><span class="small muted">Design preview — not the live site</span>
-</div></div>
 
 <svg width="0" height="0" style="position:absolute"><defs>
   <g id="i-share"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></g>
@@ -196,105 +206,128 @@
   <g id="i-warn"><path d="M12 3 2 20h20L12 3z"/><line x1="12" y1="9" x2="12" y2="14"/><line x1="12" y1="17.5" x2="12" y2="17.6"/></g>
 </defs></svg>
 
+
 <template id="navtpl">
 <nav class="site"><div class="wrap">
   <span class="brand">
     <img class="mark" src="logo.png" alt="What Doctors Wish You Knew logo" />
     <span class="bm">What Doctors Wish You Knew<span class="kicker">Truth matters</span></span>
   </span>
-  <span class="navlinks"><a>Home</a><a>Topics</a><a>How it works</a><a>For clinicians</a><a>Mission</a></span>
-  <span class="vspace"></span>
-  <span class="navpill"><span class="dot"></span> Early access · building in public</span>
-  <button class="btn warm sm">Join</button>
 </div></nav>
 </template>
 
-<!-- ================= HOMEPAGE ================= -->
+
+<template id="foottpl">
+<footer><div class="wrap">
+  <div class="top">
+    <div class="pledge2">No ads. No sponsors. No affiliates. Ever.</div>
+    <div class="cols">
+      <div><h5>About</h5><a data-nav="mission">How it works</a><a data-nav="mission">Our mission</a><a data-nav="mission">Where we&rsquo;re going</a><a data-nav="partner">Contact</a></div>
+      <div><h5>Trust</h5><a data-nav="mission">Evidence policy</a><a data-nav="mission">Conflicts of interest</a><a data-nav="mission">Editorial standards</a></div>
+      <div><h5>Partners</h5><a data-nav="partner">For clinicians</a><a data-nav="partner">For clinics &amp; hospitals</a><a data-nav="partner">For health systems</a><a data-nav="partner">For foundations</a><a data-nav="partner">Contribute (credentialed creators)</a></div>
+    </div>
+  </div>
+  <div class="disc">Educational information, not medical advice &mdash; always talk to your doctor.</div>
+</div></footer>
+</template>
+
+
 <div id="home">
 <div class="navhost"></div>
 <div class="wrap hero">
   <div class="tagline">Truth matters. Protect those you love.</div>
   <div class="heroSearch">
-    <div class="search big"><span class="mag">⌕</span><input placeholder="Search any claim, supplement, medication, condition, test, or symptom…" /><button class="btn warm">Search</button></div>
-    <div class="trustline">From <b>doctors and the experts they trust</b> · No ads, ever · every answer backed by credentialed sources</div>
-    <div class="tries">Try: <a>Seed oils</a> · <a>Berberine</a> · <a>GERD</a> · <a>Creatine</a></div>
+    <div class="search big"><span class="mag">&#9099;</span><input placeholder="Search any claim, supplement, medication, condition, test, or symptom&hellip;" /><button class="btn warm">Search</button></div>
+    <div class="trustline">From <b>doctors and the experts they trust</b> &middot; No ads, ever &middot; every answer backed by credentialed sources</div>
+    <div class="tries">Try: <a>Seed oils</a> &middot; <a>Berberine</a> &middot; <a>Ozempic</a> &middot; <a>Creatine</a> &middot; <a>Magnesium</a></div>
   </div>
 </div>
 
 <div class="wrap">
-  <div class="eyebrow">Recently clarified</div>
-  <div class="cards">
-    <div class="card">
-      <div class="kind">Claim</div>
-      <span class="vbadge myth">Mostly a myth</span>
-      <h3>Do seed oils cause inflammation?</h3>
-      <p class="bottomline">For most people, in normal amounts, no. The “toxic seed oil” panic runs well ahead of the evidence.</p>
-      <p class="whatto"><b>What to do:</b> Worry less about the oil, more about ultra-processed food overall.</p>
-      <div class="cardfoot">
-        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Your doctor</a>
-        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Share</a>
-        <span class="srcs">Sources (7)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="kind">Supplement</div>
-      <div class="ev mixed"><span class="meter"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="lab">Evidence: Mixed</span></div>
-      <h3>Berberine</h3>
-      <p class="bottomline">It nudges blood sugar and cholesterol a little — but it isn’t Ozempic, and it isn’t a weight-loss shortcut.</p>
-      <span class="saferow"><svg class="warnico" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Interacts with some meds</span>
-      <p class="whatto"><b>What to do:</b> Fine to try if your doctor agrees; don’t skip prescribed meds.</p>
-      <div class="cardfoot">
-        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Your doctor</a>
-        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Share</a>
-        <span class="srcs">Sources (6)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="kind">Condition</div>
-      <span class="condtag">● Well understood</span>
-      <h3>GERD (acid reflux)</h3>
-      <p class="bottomline">Stomach acid backing up into the esophagus. Very common, very treatable — persistent symptoms deserve a check.</p>
-      <p class="whatto"><b>What to do:</b> Simple steps + the right medicine help most; see a doctor if frequent or severe.</p>
-      <div class="cardfoot">
-        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Your doctor</a>
-        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Share</a>
-        <span class="srcs">Sources (9)</span>
-      </div>
-    </div>
-  </div>
+  <div class="eyebrow">Recently clarified &middot; <a data-nav="topics" style="cursor:pointer;">browse all topics &rarr;</a></div>
+  <div class="cards" id="home-cards"></div>
 </div>
 
 <div class="wrap"><div class="band trust">
   <div class="pledge">No ads. No sponsors. No affiliates. Ever.</div>
-  <p class="muted" style="margin:8px 0 0;max-width:760px;">Every answer is reviewed by our doctors and backed by credentialed sources — including the expert videos we link. We sell nothing and never sell your data. If the science changes, the answer changes. If we don’t know, we say so.</p>
+  <p class="muted" style="margin:8px 0 0;max-width:760px;">Every answer is reviewed by our doctors and backed by credentialed sources &mdash; including the expert videos we link. We sell nothing and never sell your data. If the science changes, the answer changes. If we don&rsquo;t know, we say so.</p>
 </div></div>
 
 <div class="wrap"><div class="band join">
-  <h3>Join as a founding member</h3>
-  <p style="margin:0;opacity:.85;">Free. Get told when we clarify a new topic — and vote on what we clarify next.</p>
-  <div class="joinform"><input placeholder="your@email.com" /><button class="btn warm">Become a founding member</button></div>
-  <div style="font-size:12.5px;opacity:.7;">#TruthMatters · no spam, ever</div>
+  <h3>Join the movement to protect those you love</h3>
+  <p style="margin:0;opacity:.85;">Free. Be the first to know when we clarify a new topic &mdash; and help decide what we clarify next.</p>
+  <div class="joinform"><input placeholder="your@email.com" /><button class="btn warm">Join the movement</button></div>
+  <div style="font-size:12.5px;opacity:.7;">#TruthMatters &middot; no spam, ever</div>
 </div></div>
 
-<footer><div class="wrap">
-  <div class="top">
-    <div class="cols">
-      <div><h5>About</h5><a>How it works</a><a>Our mission</a><a>Where we’re going</a><a>Contact</a></div>
-      <div><h5>Trust</h5><a>Evidence policy</a><a>Conflicts of interest</a><a>Editorial standards</a></div>
-      <div><h5>Partners</h5><a>For clinicians</a><a>For clinics &amp; hospitals</a><a>For health systems</a><a>For foundations</a><a>Contribute (credentialed creators)</a></div>
-    </div>
-  </div>
-  <div class="disc">Educational information, not medical advice — always talk to your doctor.</div>
-</div></footer>
+<div class="foothost"></div>
 </div>
 
-<!-- ================= SUPPLEMENT (Berberine) ================= -->
+
+<div id="answer" class="hide">
+<div class="navhost"></div>
+<div class="wrap">
+  <div class="topsearch"><div class="search"><span class="mag">&#9099;</span><input placeholder="Search another topic&hellip;" /></div></div>
+  <div class="crumb" id="ans-crumb"></div>
+  <div class="ans-grid">
+    <div class="ans-main" id="ans-main"></div>
+    <div class="rail" id="ans-rail"></div>
+  </div>
+  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
+  <div class="related" id="ans-related"></div>
+</div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
+</div>
+
+<div id="topics" class="hide">
+<div class="navhost"></div>
+<div class="wrap">
+  <div class="topsearch"><div class="search"><span class="mag">&#9099;</span><input placeholder="Search any topic&hellip;" /></div></div>
+  <h1 style="font-family:var(--serif);font-size:30px;color:var(--navy);margin:14px 0 4px;">Browse every topic</h1>
+  <p class="muted" style="margin:0 0 4px;">Honest, doctor-reviewed answers &mdash; <span id="topic-count"></span> and growing.</p>
+  <div class="filterbar" id="topic-filters"></div>
+  <div id="topic-list"></div>
+</div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
+</div>
+
+<div id="mission" class="hide">
+<div class="navhost"></div>
+<div class="wrap"><div class="mpage">
+  <div class="pulls">Our mission</div>
+  <h1>Truth matters. Protect those you love.</h1>
+  <p class="mlead">What Doctors Wish You Knew is a free, ad-free search bar for health truth &mdash; the honest answer your doctor would give you if they had all the time in the world.</p>
+  <p class="mlead">Every answer is reviewed by doctors and backed by credentialed sources. We sell nothing, we take no ads, and we never sell your data. When the science is clear, we say so plainly. When it isn&rsquo;t, we say that too.</p>
+
+  <h2>How it works</h2>
+  <div class="steps" style="margin-top:6px;">
+    <div class="step"><div class="stepn">1</div><h4>Search</h4><p>Type any claim, supplement, medication, condition, test, or symptom.</p></div>
+    <div class="step"><div class="stepn">2</div><h4>See the evidence</h4><p>A calm Strong / Mixed / Weak rating, what the studies actually show, and safety notes &mdash; no scare tactics.</p></div>
+    <div class="step"><div class="stepn">3</div><h4>Get the bottom line</h4><p>One plain-English takeaway, what to do, and the words to raise it with your own doctor.</p></div>
+  </div>
+
+  <h2>Who reviews the answers</h2>
+  <p>Answers are reviewed by the WDWYK doctors and supported by named, credentialed experts &mdash; judged on expertise, never follower count. We don&rsquo;t name individual reviewing physicians publicly: it protects our clinicians and keeps answers from going stale as credentials change. The science leads; the people stay in the background.</p>
+
+  <h2>Our pledge</h2>
+  <p>No ads. No sponsors. No affiliates. Ever. We exist to inform people and protect those they love &mdash; not to sell anything. This is education, not medical advice; always talk to your own doctor.</p>
+
+  <div class="band join" style="margin-top:26px;">
+    <h3>Join the movement to protect those you love</h3>
+    <p style="margin:0;opacity:.85;">Free. Be the first to know when we clarify a new topic &mdash; and help decide what we clarify next.</p>
+    <div class="joinform"><input placeholder="your@email.com" /><button class="btn warm">Join the movement</button></div>
+    <div style="font-size:12.5px;opacity:.7;">#TruthMatters &middot; no spam, ever</div>
+  </div>
+</div></div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
+</div>
+
 <div id="noresult" class="hide">
   <div class="navhost"></div>
   <div class="wrap" style="padding-top:36px;padding-bottom:44px;max-width:780px;">
     <div class="eyebrow" style="text-align:left;color:var(--warm-deep);margin:0 0 8px;">Not clarified yet</div>
-    <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">We haven't clarified <span id="nr-q">that</span> yet.</h1>
-    <p class="muted" style="margin:0 0 18px;max-width:640px;">We clarify one topic at a time, carefully. Want this one next? Tell us and we'll prioritise it — and email you the moment it's ready.</p>
+    <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">We haven&rsquo;t clarified <span id="nr-q">that</span> yet.</h1>
+    <p class="muted" style="margin:0 0 18px;max-width:640px;">We clarify topics carefully. Want this one next? Tell us and we&rsquo;ll prioritise it &mdash; and email you the moment it&rsquo;s ready.</p>
     <div class="card" style="max-width:540px;">
       <b>Request this topic</b>
       <div class="nrform" style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
@@ -302,299 +335,17 @@
         <button class="btn warm" type="button">Request it</button>
       </div>
     </div>
-    <p class="muted small" style="margin:24px 0 6px;">Already clarified — try one of these:</p>
-    <div class="tries"><a>Seed oils</a> · <a>Berberine</a> · <a>GERD</a> · <a>Ozempic</a> · <a>Full-body MRI</a> · <a>Headache</a></div>
+    <p class="muted small" style="margin:24px 0 6px;">Or browse what we&rsquo;ve already clarified:</p>
+    <div class="tries"><a data-nav="topics" style="cursor:pointer;">See all topics &rarr;</a></div>
   </div>
-  <footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
 </div>
 
-<div id="supp" class="hide">
-<div class="navhost"></div>
-<div class="wrap">
-  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="berberine" /></div></div>
-  <div class="crumb">Search › Supplements › <b>Berberine</b></div>
-  <div class="ans-grid">
-    <div class="ans-main">
-      <span class="typetag">Supplement</span>
-      <h1>Berberine</h1>
-      <p class="muted" style="margin:-4px 0 10px;">Taken for blood sugar, cholesterol, and (often) weight loss.</p>
-      <div class="ev mixed" style="margin-bottom:12px;"><span class="meter"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="lab">Overall evidence: Mixed</span></div>
-      <p class="ans-bottom">It nudges blood sugar and cholesterol a little — but it isn’t Ozempic, and it isn’t a weight-loss shortcut.</p>
-
-      <div class="asec">
-        <h2>What the evidence shows</h2>
-        <div class="erow"><span class="etag mod">Moderate</span><span class="et"><b>Blood sugar:</b> small trials show modest drops in fasting glucose and HbA1c — real, but weaker and shorter-lived than metformin.</span></div>
-        <div class="erow"><span class="etag mod">Moderate</span><span class="et"><b>Cholesterol:</b> small reductions in LDL and triglycerides across several studies.</span></div>
-        <div class="erow"><span class="etag weak">Weak</span><span class="et"><b>Weight loss:</b> minimal and inconsistent — not a meaningful weight-loss tool.</span></div>
-      </div>
-
-      <div class="safety">
-        <h2><svg class="warnico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Safety &amp; interactions</h2>
-        <ul>
-          <li>Commonly causes stomach upset, cramping, or diarrhea, especially at higher doses.</li>
-          <li><b>Interacts with several prescription medicines</b> (including metformin, blood thinners, and some blood-pressure and immune drugs) — it can change how they work.</li>
-          <li>Not recommended in pregnancy or breastfeeding.</li>
-        </ul>
-      </div>
-
-      <div class="asec">
-        <h2>Who might consider it</h2>
-        <p>People with mildly elevated blood sugar or cholesterol who want to add something — <b>with their doctor’s okay</b>, and never in place of proven treatment.</p>
-      </div>
-
-      <div class="asec">
-        <h2>What to do</h2>
-        <ul>
-          <li>Reasonable to try for blood sugar or cholesterol support if your doctor agrees — alongside, not instead of, proven care.</li>
-          <li>Keep expectations modest, and stop if it upsets your stomach.</li>
-          <li>Never use it to replace a prescribed medication like metformin or a statin.</li>
-        </ul>
-      </div>
-
-      <div class="callout doc"><b>How to talk to your doctor:</b> “I’m considering berberine for my blood sugar — does it interact with anything I take, and is it reasonable alongside my current plan?”</div>
-
-      <div class="actionbar">
-        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
-        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
-        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
-        <span class="srcs" style="margin-left:auto;"><a>View all 6 sources</a></span>
-      </div>
-    </div>
-    <div class="rail"><div class="railbox">
-      <h4>Verified supporting videos</h4>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>What berberine really does to blood sugar</b><span class="muted">Dr. A. Lin, MD · Endocrinologist</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Berberine vs. metformin, honestly</b><span class="muted">Dr. P. Shah, PharmD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Is it a weight-loss shortcut?</b><span class="muted">Dr. M. Cole, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-    </div></div>
-  </div>
-  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
-  <div class="related"><span class="rchip">Metformin</span><span class="rchip">Ozempic / semaglutide</span><span class="rchip">Inositol</span><span class="rchip">Cinnamon for blood sugar</span></div>
-</div>
-<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
-</div>
-
-<!-- ================= CLAIM (Seed oils) ================= -->
-<div id="claim" class="hide">
-<div class="navhost"></div>
-<div class="wrap">
-  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="Do seed oils cause inflammation?" /></div></div>
-  <div class="crumb">Search › Claims & trends › <b>Seed oils</b></div>
-  <div class="ans-grid">
-    <div class="ans-main">
-      <span class="typetag">Claim · Myth-check</span>
-      <h1>Do seed oils cause inflammation?</h1>
-      <span class="vbadge myth big">Verdict: Mostly a myth</span>
-      <p class="ans-bottom">For most people, in normal amounts, seed oils (canola, soybean, sunflower) don’t drive inflammation. The “toxic seed oil” panic runs well ahead of the evidence.</p>
-
-      <div class="asec">
-        <h2>What we actually know</h2>
-        <div class="erow"><span class="etag strong">Strong</span><span class="et">In trials, <b>replacing saturated fat with these oils tends to lower</b> inflammation markers and improve cholesterol.</span></div>
-        <div class="erow"><span class="etag mod">Moderate</span><span class="et">The real problem is <b>ultra-processed food</b> (often fried in these oils) — that’s the junk, not the oil itself.</span></div>
-        <div class="erow"><span class="etag weak">Weak</span><span class="et">Claims that seed oils are <b>uniquely “toxic”</b> or a main driver of chronic disease aren’t supported.</span></div>
-      </div>
-
-      <div class="asec">
-        <h2>What to do</h2>
-        <ul>
-          <li>No need to fear seed oils in normal home cooking.</li>
-          <li>The bigger lever for health is <b>less ultra-processed food</b> and more whole foods — regardless of the oil.</li>
-          <li>Olive oil is a great everyday choice too; variety is fine.</li>
-        </ul>
-      </div>
-
-      <div class="callout doc"><b>How to raise it with your doctor:</b> “I keep seeing that seed oils are dangerous — does my diet actually need changing, or is this overblown for me?”</div>
-
-      <div class="actionbar">
-        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
-        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
-        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
-        <span class="srcs" style="margin-left:auto;"><a>View all 7 sources</a></span>
-      </div>
-    </div>
-    <div class="rail"><div class="railbox">
-      <h4>Verified supporting videos</h4>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>The seed oil panic, examined</b><span class="muted">Dr. K. Reyes, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>What the fat studies really show</b><span class="muted">Dr. L. Frost, PhD · Nutrition</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-    </div></div>
-  </div>
-  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
-  <div class="related"><span class="rchip">Olive oil</span><span class="rchip">Omega-6 vs omega-3</span><span class="rchip">Ultra-processed food</span><span class="rchip">Tallow for cooking</span></div>
-</div>
-<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
-</div>
-
-<!-- ================= DIAGNOSIS (GERD) ================= -->
-<div id="dx" class="hide">
-<div class="navhost"></div>
-<div class="wrap">
-  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="GERD" /></div></div>
-  <div class="crumb">Search › Conditions › <b>GERD (acid reflux)</b></div>
-  <div class="ans-grid">
-    <div class="ans-main">
-      <span class="typetag">Condition · Diagnosis</span>
-      <h1>GERD (acid reflux)</h1>
-      <p class="ans-bottom">Stomach acid repeatedly backs up into your esophagus, causing heartburn and regurgitation. Very common and very treatable — and rarely dangerous, though persistent symptoms deserve a proper check.</p>
-      <div class="asec"><h2>What it is</h2><p>The valve between your stomach and esophagus relaxes when it shouldn’t, letting acid rise. Typical signs: burning behind the breastbone (often after meals or lying down), a sour taste, or a recurrent cough or hoarse voice.</p></div>
-      <div class="asec"><h2>What we do about it</h2><ul>
-        <li><b>Everyday steps:</b> smaller meals, not lying down for 2–3 hours after eating, raising the head of the bed, easing back on late meals, alcohol, and personal triggers.</li>
-        <li><b>Medicines, stepped up as needed:</b> antacids → H2 blockers (famotidine) → proton-pump inhibitors (PPIs, e.g. omeprazole) for frequent symptoms.</li>
-      </ul></div>
-      <div class="asec"><h2>What the evidence shows</h2>
-        <div class="erow"><span class="etag strong">Strong</span><span class="et"><b>PPIs</b> are highly effective for frequent reflux and for healing the esophagus.</span></div>
-        <div class="erow"><span class="etag mod">Moderate</span><span class="et"><b>Weight loss and not eating late</b> genuinely reduce symptoms for many people.</span></div>
-        <div class="erow"><span class="etag weak">Weak</span><span class="et">Most popular “reflux diets” and supplements have <b>little solid evidence</b> beyond the basics.</span></div>
-      </div>
-      <div class="asec"><h2>What a doctor typically does</h2><p>Most cases are diagnosed from your symptoms and a trial of treatment — no test needed. A doctor considers an endoscopy if symptoms persist despite treatment, start later in life, or come with warning signs.</p></div>
-      <div class="callout red"><b>See a doctor promptly if you have:</b> trouble or pain swallowing, unintentional weight loss, vomiting blood or black stools, or symptoms that won’t settle with treatment.</div>
-      <div class="callout doc"><b>How to talk to your doctor:</b> track when it happens and what triggers it, then ask: “Is this GERD or something else, should I try a PPI, and how long before we look closer?”</div>
-      <div class="actionbar">
-        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
-        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
-        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
-        <span class="srcs" style="margin-left:auto;"><a>View all 9 sources</a></span>
-      </div>
-    </div>
-    <div class="rail"><div class="railbox">
-      <h4>Verified supporting videos</h4>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>GERD explained in plain English</b><span class="muted">Dr. N. Okafor, MD · Gastroenterology</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Are PPIs safe long-term?</b><span class="muted">Dr. E. Vance, MD · GI</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-    </div></div>
-  </div>
-  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">Related</div>
-  <div class="related"><span class="rchip">Heartburn</span><span class="rchip">PPIs (omeprazole)</span><span class="rchip">Hiatal hernia</span><span class="rchip">Barrett’s esophagus</span></div>
-</div>
-<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
-</div>
-
-<!-- ================= MEDICATION (Ozempic) ================= -->
-<div id="med" class="hide">
-<div class="navhost"></div>
-<div class="wrap">
-  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="Ozempic (semaglutide)" /></div></div>
-  <div class="crumb">Search › Medications › <b>Ozempic (semaglutide)</b></div>
-  <div class="ans-grid">
-    <div class="ans-main">
-      <span class="typetag">Medication</span>
-      <h1>Ozempic (semaglutide)</h1>
-      <p class="muted" style="margin:-4px 0 10px;">A once-weekly injection for type 2 diabetes — and, as Wegovy, for weight loss.</p>
-      <p class="ans-bottom">A genuinely powerful drug for blood sugar and weight — with real side effects, a high price, and weight that tends to return if you stop. Not a casual quick fix.</p>
-      <div class="asec"><h2>What it’s for &amp; how it works</h2><p>It’s a GLP-1 medication: it slows digestion, blunts appetite, and helps the body manage blood sugar. Prescribed for type 2 diabetes (Ozempic) and, at higher doses, for obesity (Wegovy).</p></div>
-      <div class="asec"><h2>What to expect</h2><p>Meaningful, gradual results over months — often around 10–15% body-weight loss on the weight-loss dose — but it works while you take it, not after.</p></div>
-      <div class="asec"><h2>How well it works</h2>
-        <div class="erow"><span class="etag strong">Strong</span><span class="et"><b>Blood sugar &amp; weight:</b> large trials show substantial, reliable reductions.</span></div>
-        <div class="erow"><span class="etag strong">Strong</span><span class="et"><b>Heart:</b> lowers cardiovascular events in higher-risk patients.</span></div>
-      </div>
-      <div class="safety"><h2><svg class="warnico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Side effects &amp; cautions</h2><ul>
-        <li>Nausea, vomiting, and other gut symptoms are common, especially while the dose is increasing.</li>
-        <li>Rare but serious risks include pancreatitis and gallbladder problems; not used in pregnancy.</li>
-        <li>Weight and blood-sugar gains often return after stopping; muscle loss can occur if you under-eat.</li>
-      </ul></div>
-      <div class="asec"><h2>Who it’s for / not for</h2><p>For people with type 2 diabetes, or weight in a range where it improves health — under medical supervision. It’s not a cosmetic quick fix, and it isn’t right for everyone.</p></div>
-      <div class="callout doc"><b>How to talk to your doctor:</b> “Am I a good candidate, what side effects should I watch for, what does it cost with my coverage, and what’s the long-term plan?”</div>
-      <div class="actionbar">
-        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
-        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
-        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
-        <span class="srcs" style="margin-left:auto;"><a>View all 11 sources</a></span>
-      </div>
-    </div>
-    <div class="rail"><div class="railbox"><h4>Verified supporting videos</h4>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>How Ozempic actually works</b><span class="muted">Dr. A. Lin, MD · Endocrinologist</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Side effects, honestly</b><span class="muted">Dr. P. Shah, PharmD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>What happens if you stop</b><span class="muted">Dr. M. Cole, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-    </div></div>
-  </div>
-  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
-  <div class="related"><span class="rchip">Wegovy</span><span class="rchip">Mounjaro / tirzepatide</span><span class="rchip">Metformin</span><span class="rchip">GLP-1 side effects</span></div>
-</div>
-<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
-</div>
-
-<!-- ================= TEST (Full-body MRI) ================= -->
-<div id="test" class="hide">
-<div class="navhost"></div>
-<div class="wrap">
-  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="full-body MRI scan" /></div></div>
-  <div class="crumb">Search › Tests &amp; screening › <b>Full-body MRI</b></div>
-  <div class="ans-grid">
-    <div class="ans-main">
-      <span class="typetag">Test · Screening</span>
-      <h1>Full-body MRI scans</h1>
-      <p class="muted" style="margin:-4px 0 10px;">Marketed scans that image you head-to-pelvis to “catch problems early.”</p>
-      <p class="ans-bottom">For most healthy people, not worth it. They find harmless oddities far more often than dangerous disease — leading to anxiety, more tests, and cost.</p>
-      <div class="asec"><h2>What it is</h2><p>A head-to-pelvis MRI looking for things like tumours or aneurysms — usually sold direct-to-consumer, without a doctor’s referral.</p></div>
-      <div class="asec"><h2>When it’s worth it — and who should skip</h2><p>Most symptom-free people should skip it. It can occasionally make sense for specific high-risk situations your doctor identifies — but not as a routine “just in case.”</p></div>
-      <div class="asec"><h2>What results really mean</h2>
-        <div class="erow"><span class="etag mod">Common</span><span class="et"><b>Incidental findings:</b> harmless quirks turn up often — and each can trigger more scans, biopsies, and worry.</span></div>
-        <div class="erow"><span class="etag weak">No benefit</span><span class="et">There’s <b>no good evidence</b> these scans help healthy people live longer.</span></div>
-      </div>
-      <div class="callout doc"><b>How to talk to your doctor:</b> “I saw an ad for a full-body scan — is it useful for me, or should I stick to the screenings recommended for my age and risk?”</div>
-      <div class="actionbar">
-        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
-        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
-        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
-        <span class="srcs" style="margin-left:auto;"><a>View all 8 sources</a></span>
-      </div>
-    </div>
-    <div class="rail"><div class="railbox"><h4>Verified supporting videos</h4>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Full-body scans: helpful or harmful?</b><span class="muted">Dr. N. Okafor, MD · Radiology</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>The “incidentaloma” problem</b><span class="muted">Dr. E. Vance, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-    </div></div>
-  </div>
-  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
-  <div class="related"><span class="rchip">PSA test</span><span class="rchip">Vitamin D test</span><span class="rchip">Cancer screening guidelines</span><span class="rchip">Coronary calcium score</span></div>
-</div>
-<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
-</div>
-
-<!-- ================= SYMPTOM (Headache) ================= -->
-<div id="sym" class="hide">
-<div class="navhost"></div>
-<div class="wrap">
-  <div class="topsearch"><div class="search"><span class="mag">⌕</span><input placeholder="Search another topic…" value="headache" /></div></div>
-  <div class="crumb">Search › Symptoms › <b>Headache</b></div>
-  <div class="ans-grid">
-    <div class="ans-main">
-      <span class="typetag">Symptom</span>
-      <h1>Headache</h1>
-      <p class="ans-bottom">Most headaches are tension or migraine and aren’t dangerous — but a few specific patterns need urgent care.</p>
-      <div class="safety" style="background:#FBEEEA;border-color:#F0D7CC;"><h2 style="color:#8a4b32;"><svg class="warnico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Get care now if your headache is…</h2><ul style="color:#7a3f29;">
-        <li>The sudden “worst headache of your life,” or it peaks within seconds to minutes.</li>
-        <li>With fever and a stiff neck, confusion, fainting, weakness or numbness, or trouble speaking or seeing.</li>
-        <li>After a head injury — or new and persistent if you’re over 50 or have a cancer history.</li>
-      </ul></div>
-      <div class="asec"><h2>What usually causes it</h2><p>Most often tension-type (tight, band-like) or migraine (throbbing, with light/sound sensitivity and sometimes nausea). Dehydration, poor sleep, screens, caffeine changes, and overusing painkillers are common triggers.</p></div>
-      <div class="asec"><h2>What to do at home</h2><ul>
-        <li>Water, rest, and a little caffeine can help — and treating early works best.</li>
-        <li>Use over-the-counter pain relief sparingly; taking it more than ~2 days a week can cause “rebound” headaches.</li>
-        <li>Track timing and triggers to spot a pattern.</li>
-      </ul></div>
-      <div class="asec"><h2>When to see a doctor (non-urgent)</h2><p>If headaches are frequent, getting worse, needing regular painkillers, or changing in pattern — it’s worth a visit to pin down the type and a plan.</p></div>
-      <div class="callout doc"><b>How to talk to your doctor:</b> bring a short log — when they hit, how long, what helped — and ask: “What type is this, and what’s the plan to prevent them?”</div>
-      <div class="actionbar">
-        <a class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>
-        <a class="act love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>
-        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>
-        <span class="srcs" style="margin-left:auto;"><a>View all 7 sources</a></span>
-      </div>
-    </div>
-    <div class="rail"><div class="railbox"><h4>Verified supporting videos</h4>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Headache red flags to know</b><span class="muted">Dr. K. Reyes, MD · Neurology</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-      <div class="rvid"><div class="rthumb">▶</div><div class="meta"><b>Migraine vs. tension headache</b><span class="muted">Dr. L. Frost, MD</span><br><span class="verbadge">✓ Credentials verified</span></div></div>
-    </div></div>
-  </div>
-  <div class="eyebrow" style="text-align:left;margin:8px 0 12px;">People also checked</div>
-  <div class="related"><span class="rchip">Migraine</span><span class="rchip">Tension headache</span><span class="rchip">Medication-overuse headache</span><span class="rchip">When to worry</span></div>
-</div>
-<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
-</div>
-
-<!-- ================= PARTNER PAGE ================= -->
 <div id="partner" class="hide">
 <div class="navhost"></div>
 <div class="wrap"><div class="ppage">
   <h1>Partner with us</h1>
-  <p class="pintro">We’re building the trusted home for honest health answers — free for patients, forever, with no ads. Here’s how you can help, and what you get.</p>
+  <p class="pintro">We&rsquo;re building the trusted home for honest health answers &mdash; free for patients, forever, with no ads. Here&rsquo;s how you can help, and what you get.</p>
   <div class="pform">
     <h3>Tell us who you are</h3>
     <div class="roleopts">
@@ -607,86 +358,741 @@
     </div>
     <div class="frow"><input placeholder="Your name" /><input placeholder="Work email" /></div>
     <div class="frow"><input placeholder="Organization (optional)" /></div>
-    <textarea placeholder="Anything you’d like us to know (optional)"></textarea>
+    <textarea placeholder="Anything you&rsquo;d like us to know (optional)"></textarea>
     <div style="margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <button class="btn warm">Register interest</button>
-      <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Download the one-pager (PDF)</a>
+      <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print this page</a>
     </div>
     <p class="pnote">We read every message. No ads, no sponsors, and we never sell your data.</p>
   </div>
   <div class="eyebrow" style="text-align:left;margin:6px 0 14px;">What you get</div>
   <div class="vpgrid">
     <div class="vpcard"><h4>Clinicians</h4><p>Recommend it to every patient, vouch for the work, and help shape what we clarify next.</p></div>
-    <div class="vpcard"><h4>Clinics</h4><p>Co-brand answers as “Supported by [your clinic],” with waiting-room QR codes and patient handouts.</p></div>
-    <div class="vpcard"><h4>Hospitals &amp; health systems</h4><p>Ad-free, trustworthy patient education at scale — plus pilot partnerships to roll it out.</p></div>
+    <div class="vpcard"><h4>Clinics</h4><p>Co-brand answers as &ldquo;Supported by [your clinic],&rdquo; with waiting-room QR codes and patient handouts.</p></div>
+    <div class="vpcard"><h4>Hospitals &amp; health systems</h4><p>Ad-free, trustworthy patient education at scale &mdash; plus pilot partnerships to roll it out.</p></div>
     <div class="vpcard"><h4>Foundations</h4><p>Fund free, independent patient education with real, measurable reach.</p></div>
-    <div class="vpcard"><h4>Credentialed creators</h4><p>Contribute verified videos and be cited with your credentials — judged on expertise, never follower count.</p></div>
-    <div class="vpcard"><h4>Everyone</h4><p>Join a movement that puts honest answers — and patients — first.</p></div>
+    <div class="vpcard"><h4>Credentialed creators</h4><p>Contribute verified videos and be cited with your credentials &mdash; judged on expertise, never follower count.</p></div>
+    <div class="vpcard"><h4>Everyone</h4><p>Join a movement that puts honest answers &mdash; and patients &mdash; first.</p></div>
   </div>
 </div></div>
-<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice — always talk to your doctor.</div></div></footer>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
 </div>
 
+<script id="topicdata">
+window.TOPICS = [
+/* ===================== CLAIMS / MYTHS ===================== */
+{id:'seedoils',cat:'claim',type:'Claim',title:'Do seed oils cause inflammation?',sub:'Canola, soybean, sunflower and other vegetable oils.',
+ verdict:{s:'vbadge',cls:'myth',label:'Mostly a myth'},
+ bottom:'For most people, in normal amounts, no. The “toxic seed oil” panic runs well ahead of the evidence.',
+ ev:[{s:'weak',l:'Weak',t:'<b>“Uniquely toxic” claims:</b> the idea that seed oils are a special driver of chronic disease isn’t supported by good human studies.'},{s:'mod',l:'Moderate',t:'<b>Swapping for unsaturated oils:</b> replacing some saturated fat with liquid plant oils is linked to modestly better heart numbers.'}],
+ whatto:['Worry less about the oil itself, more about ultra-processed food overall.','Cooking at home with any liquid plant oil — including olive — is fine.'],
+ doc:'“I keep seeing that seed oils are dangerous — does my diet actually need changing, or is this overblown for me?”',
+ sources:7,related:['Olive oil vs. seed oils','Ultra-processed foods','Saturated fat'],kw:['seed oil','seed oils','canola','soybean','sunflower','vegetable oil','inflammation']},
+
+{id:'sugarhyper',cat:'claim',type:'Claim',title:'Does sugar make kids hyperactive?',sub:'The classic “sugar high” at birthday parties.',
+ verdict:{s:'vbadge',cls:'myth',label:'A myth'},
+ bottom:'No. Carefully controlled studies don’t find that sugar causes hyperactivity — the “sugar high” is mostly the party, not the cake.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Blinded trials:</b> when parents don’t know whether kids got sugar, they rate behaviour the same — the effect is in the expectation, not the child.'}],
+ whatto:['Limit sugar for dental and overall health reasons — not because it causes hyperactivity.','If a child is consistently very hyperactive, that’s worth a real evaluation, not a diet blame.'],
+ doc:'“My child seems very hyperactive — is this just normal energy, or worth looking into?”',
+ sources:5,related:['ADHD','Ultra-processed foods','Added sugar'],kw:['sugar','hyperactive','hyperactivity','sugar high','kids']},
+
+{id:'knuckles',cat:'claim',type:'Claim',title:'Does cracking your knuckles cause arthritis?',sub:'That satisfying pop.',
+ verdict:{s:'vbadge',cls:'myth',label:'A myth'},
+ bottom:'No good evidence it causes arthritis. The pop is just gas bubbles in the joint fluid.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Long-term studies:</b> habitual knuckle-crackers don’t get more arthritis than non-crackers.'}],
+ whatto:['Crack away if it feels fine — stop only if it’s painful or swollen.','New joint pain or swelling is worth checking, regardless of cracking.'],
+ doc:'“One of my joints has started hurting or swelling — should we look at it?”',
+ sources:4,related:['Osteoarthritis','Joint pain'],kw:['knuckle','knuckles','cracking','crack','arthritis']},
+
+{id:'detox',cat:'claim',type:'Claim',title:'Do detox teas and cleanses remove toxins?',sub:'“Flush out toxins” teas, juice cleanses, foot pads.',
+ verdict:{s:'vbadge',cls:'myth',label:'Mostly a myth'},
+ bottom:'Your liver and kidneys already detox you 24/7. Most “detox” products do nothing useful — and some just cause diarrhea.',
+ ev:[{s:'weak',l:'Weak',t:'<b>“Toxin” removal:</b> products rarely name a real toxin or show it leaving the body; benefits are mostly water weight and laxative effect.'},{s:'mod',l:'Moderate',t:'<b>Harm:</b> some detox teas contain strong laxatives or diuretics that can cause dehydration and electrolyte problems.'}],
+ safety:['Senna-based “slimming” teas can cause cramping, dependence, and dangerous potassium loss with overuse.'],
+ whatto:['Skip detox products — support your liver and kidneys with water, food, sleep, and less alcohol instead.','Be wary of any product promising to flush “toxins” without naming them.'],
+ doc:'“I’ve been using a detox tea — is it doing anything, and is it safe with what I take?”',
+ sources:6,related:['Juice cleanses','Liver health','Weight-loss supplements'],kw:['detox','cleanse','detox tea','juice cleanse','toxins','flush']},
+
+{id:'msg',cat:'claim',type:'Claim',title:'Does MSG cause headaches?',sub:'Monosodium glutamate in restaurant and packaged food.',
+ verdict:{s:'vbadge',cls:'myth',label:'Mostly a myth'},
+ bottom:'For the vast majority of people, MSG in normal amounts is safe. The old “Chinese restaurant syndrome” scare wasn’t backed by good evidence.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Blinded studies:</b> people can’t reliably tell MSG meals from placebo, and don’t get more symptoms.'},{s:'weak',l:'Weak',t:'<b>Sensitivity:</b> a small minority report mild, short-lived symptoms at very high doses on an empty stomach.'}],
+ whatto:['No need to avoid MSG for safety; it’s in many natural foods (tomatoes, cheese, mushrooms) too.','If you reliably react, simply avoid it — but it’s uncommon.'],
+ doc:'“I think certain foods trigger my headaches — can we figure out the real pattern?”',
+ sources:5,related:['Headache','Food additives','Migraine triggers'],kw:['msg','monosodium glutamate','chinese restaurant syndrome','glutamate']},
+
+{id:'water8',cat:'claim',type:'Claim',title:'Do you need 8 glasses of water a day?',sub:'The famous “8×8” rule.',
+ verdict:{s:'vbadge',cls:'warn',label:'Overblown'},
+ bottom:'There’s no magic number. Most people stay well hydrated by drinking to thirst and eating food — and other drinks count.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>The “8×8” rule:</b> has no real scientific origin; needs vary a lot by size, activity, heat, and health.'},{s:'mod',l:'Moderate',t:'<b>What counts:</b> coffee, tea, milk, and water-rich foods all contribute to hydration.'}],
+ whatto:['Use thirst and urine colour (pale yellow is fine) as your guide.','Drink more in heat, exercise, illness, or pregnancy.','Certain conditions (kidney stones, some heart/kidney disease) need a specific target — ask your doctor.'],
+ doc:'“Is there a specific amount of fluid I should aim for given my health and medications?”',
+ sources:5,related:['Kidney stones','Electrolytes'],kw:['water','hydration','8 glasses','how much water','drink water']},
+
+{id:'gluten',cat:'claim',type:'Claim',title:'Is gluten bad for people without celiac disease?',sub:'Wheat, barley, rye — and the gluten-free aisle.',
+ verdict:{s:'vbadge',cls:'warn',label:'It depends',},
+ bottom:'If you have celiac disease, gluten is genuinely harmful. For most others, gluten itself isn’t the problem — though some people do feel better avoiding it.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Celiac disease:</b> a real autoimmune condition where gluten damages the gut — strict avoidance is essential.'},{s:'mod',l:'Moderate',t:'<b>Non-celiac sensitivity:</b> real for some, but symptoms are often driven by other carbs (FODMAPs), not gluten alone.'},{s:'weak',l:'Weak',t:'<b>Healthy adults:</b> no benefit to going gluten-free, and GF processed foods can be less nutritious.'}],
+ whatto:['Don’t go gluten-free before testing — get checked for celiac first, while still eating gluten.','If you feel better without it, that’s valid — but a dietitian can find the real trigger.'],
+ doc:'“I feel better avoiding gluten — should I be tested for celiac before cutting it out?”',
+ sources:7,related:['Celiac disease','IBS','FODMAPs'],kw:['gluten','gluten free','celiac','wheat','gluten sensitivity']},
+
+{id:'eatlate',cat:'claim',type:'Claim',title:'Does eating late at night cause weight gain?',sub:'The “don’t eat after 8pm” rule.',
+ verdict:{s:'vbadge',cls:'warn',label:'Mostly a myth',},
+ bottom:'A calorie isn’t worse at night. Total intake matters far more than the clock — but late eating can lead to mindless extra calories and worse reflux/sleep.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Total calories:</b> dominate weight change; timing is a minor factor for most people.'},{s:'weak',l:'Weak',t:'<b>Indirect effects:</b> late, large meals can worsen reflux and sleep, and late snacking is often extra calories.'}],
+ whatto:['Focus on overall intake and food quality, not a cutoff time.','If late meals hurt your sleep or reflux, an earlier dinner can help.'],
+ doc:'“I eat late because of my schedule — is that a problem for my weight or reflux?”',
+ sources:5,related:['GERD (acid reflux)','Intermittent fasting','Weight loss'],kw:['eating late','late night eating','eat after 8','night eating','weight gain']},
+
+{id:'deodorant',cat:'claim',type:'Claim',title:'Does antiperspirant cause breast cancer?',sub:'Aluminium-based deodorants and parabens.',
+ verdict:{s:'vbadge',cls:'myth',label:'A myth'},
+ bottom:'No. Large studies have found no link between antiperspirant/deodorant use and breast cancer.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Population studies:</b> consistently show no association between underarm products and breast cancer risk.'}],
+ whatto:['Use whatever product you like; choice is about preference, not cancer risk.','Real breast-cancer prevention: know your risk, screen on schedule, limit alcohol, stay active.'],
+ doc:'“Given my history, when should I start mammograms and how often?”',
+ sources:5,related:['Breast cancer screening','Parabens'],kw:['deodorant','antiperspirant','aluminum','aluminium','breast cancer','parabens']},
+
+{id:'naturalsugar',cat:'claim',type:'Claim',title:'Is honey or agave healthier than table sugar?',sub:'“Natural” sweeteners vs. white sugar.',
+ verdict:{s:'vbadge',cls:'warn',label:'Mostly a myth',},
+ bottom:'Your body treats them almost the same. Honey and agave are still sugar — small differences, no meaningful health win.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Metabolically:</b> honey, agave, maple, and cane sugar all raise blood sugar and add calories similarly.'},{s:'weak',l:'Weak',t:'<b>Trace extras:</b> honey has tiny amounts of antioxidants, but not enough to call it a health food.'}],
+ whatto:['Pick whichever you enjoy, and keep total added sugar modest.','Don’t treat “natural” sweeteners as a free pass.'],
+ doc:'“I’m trying to cut added sugar — what’s a reasonable daily target for me?”',
+ sources:4,related:['Added sugar','Type 2 diabetes','Artificial sweeteners'],kw:['honey','agave','maple syrup','natural sugar','sweetener','table sugar']},
+
+{id:'eggs',cat:'claim',type:'Claim',title:'Are eggs bad for your heart?',sub:'Dietary cholesterol and the yolk debate.',
+ verdict:{s:'vbadge',cls:'warn',label:'Overblown',},
+ bottom:'For most people, an egg a day is fine. Dietary cholesterol affects blood cholesterol less than we once thought.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Most people:</b> moderate egg intake isn’t linked to higher heart-disease risk in large studies.'},{s:'weak',l:'Weak',t:'<b>Some individuals:</b> people with diabetes or who are “cholesterol responders” may see more effect — worth personalising.'}],
+ whatto:['Eggs can be part of a healthy diet for most people.','If you have diabetes or high cholesterol, talk specifics with your doctor and watch what you eat alongside them (bacon, butter).'],
+ doc:'“With my cholesterol and history, how many eggs a week is reasonable for me?”',
+ sources:6,related:['High cholesterol','Statins','Saturated fat'],kw:['eggs','egg','cholesterol','yolk','heart']},
+
+{id:'vaccineautism',cat:'claim',type:'Claim',title:'Do vaccines cause autism?',sub:'The MMR vaccine and autism claim.',
+ verdict:{s:'vbadge',cls:'myth',label:'A myth'},
+ bottom:'No. This has been studied in millions of children and there is no link. The original claim was retracted as fraudulent.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Massive studies:</b> across millions of children in many countries, vaccinated and unvaccinated kids have the same autism rates.'},{s:'strong',l:'Strong',t:'<b>The source:</b> the 1998 paper that started the scare was retracted and its author lost his medical licence for misconduct.'}],
+ whatto:['Vaccinate on schedule — it’s one of the safest, most studied things in medicine.','Bring any specific worries to your doctor; they’re happy to talk through real data.'],
+ doc:'“I have some worries about vaccines — can we go through them so I understand the real risks and benefits?”',
+ sources:9,related:['Childhood vaccines','Measles','Autism'],kw:['vaccine','vaccines','mmr','autism','immunization','immunisation']},
+
+{id:'organic',cat:'claim',type:'Claim',title:'Is organic food much healthier?',sub:'Organic produce vs. conventional.',
+ verdict:{s:'vbadge',cls:'warn',label:'Overblown',},
+ bottom:'Organic food has lower pesticide residues, but conventional produce is also safe and nutritionally very similar. Eating more produce matters far more than organic vs. not.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Nutrition:</b> organic and conventional produce are broadly similar in nutrients.'},{s:'mod',l:'Moderate',t:'<b>Pesticides:</b> organic has fewer residues, but conventional residues are typically far below safety limits.'}],
+ whatto:['Eat more fruits and vegetables, organic or not — that’s the real win.','Wash produce; if budget is tight, don’t let “organic only” stop you eating vegetables.'],
+ doc:'“Is it worth paying more for organic for my family, or is conventional fine?”',
+ sources:6,related:['Pesticides','Ultra-processed foods'],kw:['organic','organic food','pesticides','conventional produce']},
+/* ===================== SUPPLEMENTS ===================== */
+{id:'berberine',cat:'supp',type:'Supplement',title:'Berberine',sub:'Taken for blood sugar, cholesterol, and (often) weight loss.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed'},
+ bottom:'It nudges blood sugar and cholesterol a little — but it isn’t Ozempic, and it isn’t a weight-loss shortcut.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Blood sugar:</b> small trials show modest drops in fasting glucose and HbA1c — real, but weaker and shorter-lived than metformin.'},{s:'mod',l:'Moderate',t:'<b>Cholesterol:</b> small reductions in LDL and triglycerides across several studies.'},{s:'weak',l:'Weak',t:'<b>Weight loss:</b> minimal and inconsistent — not a meaningful weight-loss tool.'}],
+ safety:['Commonly causes stomach upset, cramping, or diarrhea, especially at higher doses.','<b>Interacts with several prescription medicines</b> (metformin, blood thinners, some blood-pressure and immune drugs).','Not recommended in pregnancy or breastfeeding.'],
+ whatto:['Reasonable to try for blood-sugar or cholesterol support if your doctor agrees — alongside, not instead of, proven care.','Keep expectations modest; never use it to replace a prescribed medication.'],
+ doc:'“I’m considering berberine for my blood sugar — does it interact with anything I take, and is it reasonable alongside my plan?”',
+ sources:6,related:['Metformin','Ozempic (semaglutide)','Type 2 diabetes'],kw:['berberine','blood sugar','cholesterol']},
+
+{id:'vitamind',cat:'supp',type:'Supplement',title:'Vitamin D',sub:'The “sunshine vitamin” — and one of the most-taken supplements.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed (helps if you’re low)'},
+ bottom:'Worth taking if you’re actually deficient — common in winter, darker skin, or little sun. For people who aren’t low, high doses haven’t delivered the broad benefits once hoped.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Bone health:</b> with calcium, it helps prevent deficiency-related bone problems and supports older adults.'},{s:'weak',l:'Weak',t:'<b>Heart, cancer, infections:</b> big trials in non-deficient people mostly found no major benefit from extra vitamin D.'}],
+ safety:['Very high doses over time can raise calcium and harm the kidneys — more is not better.'],
+ whatto:['If you’re low or at risk (winter, indoors, darker skin, older age), a standard daily dose is reasonable.','Don’t megadose; a simple blood test can tell you if you actually need it.'],
+ doc:'“Should I get my vitamin D checked, and what dose makes sense for me?”',
+ sources:8,related:['Vitamin D testing','Magnesium','Osteoporosis'],kw:['vitamin d','vit d','sunshine vitamin','d3','deficiency']},
+
+{id:'magnesium',cat:'supp',type:'Supplement',title:'Magnesium',sub:'For sleep, cramps, constipation, and anxiety.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed (a few real uses)'},
+ bottom:'Genuinely useful for constipation and for people who are low; the popular sleep and anxiety claims are weaker but it’s low-risk to try.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Constipation:</b> magnesium (e.g., citrate, oxide) reliably helps as an osmotic laxative.'},{s:'weak',l:'Weak',t:'<b>Sleep & anxiety:</b> some small studies suggest mild benefit, especially if you’re deficient — not a proven treatment.'},{s:'mod',l:'Moderate',t:'<b>Deficiency:</b> correcting a true low level helps muscle cramps and more.'}],
+ safety:['Most common side effect is loose stools/diarrhea (dose-dependent).','People with kidney disease should ask a doctor before taking it.'],
+ whatto:['Low-risk to try a standard dose for sleep or cramps; glycinate is gentler on the gut, citrate is more laxative.','Stop if it loosens your stools too much.'],
+ doc:'“I want to try magnesium for sleep/cramps — is it safe with my kidneys and medications?”',
+ sources:6,related:['Melatonin','Constipation','Muscle cramps'],kw:['magnesium','mag','glycinate','citrate','cramps','sleep']},
+
+{id:'creatine',cat:'supp',type:'Supplement',title:'Creatine',sub:'The gym staple — and increasingly studied for the brain.',
+ verdict:{s:'ev',cls:'strong',label:'Strong'},
+ bottom:'One of the most evidence-backed, safe supplements there is — it genuinely helps strength and muscle, and may help in older adults.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Strength & muscle:</b> consistently improves performance and lean mass with resistance training.'},{s:'mod',l:'Moderate',t:'<b>Older adults:</b> may help preserve muscle and strength alongside exercise.'},{s:'weak',l:'Weak',t:'<b>Brain/cognition:</b> early, promising, not yet proven.'}],
+ safety:['Very safe for healthy people; may cause minor water-weight gain or mild stomach upset.','If you have kidney disease, check with your doctor first.'],
+ whatto:['A standard daily dose (≈3–5 g of creatine monohydrate) is effective — no loading needed.','Pair it with actual strength training for the real benefit.'],
+ doc:'“I want to start creatine — any reason it’s a problem with my kidneys or medications?”',
+ sources:9,related:['Protein supplements','Muscle loss with age'],kw:['creatine','monohydrate','muscle','strength','gym']},
+
+{id:'ashwagandha',cat:'supp',type:'Supplement',title:'Ashwagandha',sub:'An herb marketed for stress, sleep, and energy.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed (some signal for stress)'},
+ bottom:'Small studies suggest it may modestly reduce stress and improve sleep — promising but early, and quality/safety of products varies.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Stress/anxiety:</b> several small trials show modest reductions in stress scores.'},{s:'weak',l:'Weak',t:'<b>Sleep & “energy”:</b> limited, lower-quality evidence.'}],
+ safety:['Rare but real reports of liver injury — stop and seek care if you get nausea, dark urine, or yellowing.','Avoid in pregnancy; can affect thyroid medication and sedatives.'],
+ whatto:['If you try it, use a reputable brand, give it a few weeks, and don’t combine it with sedatives without advice.','It’s a stress-support add-on, not a treatment for an anxiety disorder.'],
+ doc:'“I’m thinking about ashwagandha for stress — is it safe with my thyroid/meds, and what should I watch for?”',
+ sources:6,related:['Anxiety','Melatonin','Magnesium'],kw:['ashwagandha','adaptogen','stress','cortisol']},
+
+{id:'melatonin',cat:'supp',type:'Supplement',title:'Melatonin',sub:'The popular sleep aid.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed (best for timing issues)'},
+ bottom:'Most helpful for jet lag and shifting your body clock; for ordinary insomnia it works modestly. Lower doses, taken earlier, often work better than the big ones.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Jet lag / delayed sleep:</b> genuinely helps reset timing.'},{s:'weak',l:'Weak',t:'<b>General insomnia:</b> small benefit — falls asleep a bit faster, modest overall.'}],
+ safety:['Generally safe short-term; can cause grogginess, vivid dreams, headache.','Product doses are often much higher than needed and labels can be inaccurate.','Talk to a doctor before giving it to children regularly.'],
+ whatto:['Try a low dose (≈0.5–1 mg) 1–2 hours before your target bedtime, not a 10 mg gummy at lights-out.','For ongoing insomnia, sleep habits and CBT-I work better long-term.'],
+ doc:'“I’m using melatonin most nights — is that okay long-term, and is my dose right?”',
+ sources:7,related:['Insomnia','Sleep apnea','Magnesium'],kw:['melatonin','sleep aid','jet lag','insomnia']},
+
+{id:'fishoil',cat:'supp',type:'Supplement',title:'Fish oil (omega-3)',sub:'For heart health, triglycerides, and joints.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed'},
+ bottom:'Eating fish is great. As a pill for the general population, routine fish oil hasn’t clearly prevented heart attacks — but prescription-strength omega-3 does lower high triglycerides.',
+ ev:[{s:'strong',l:'Strong',t:'<b>High triglycerides:</b> prescription-strength omega-3 reliably lowers them.'},{s:'weak',l:'Weak',t:'<b>Heart prevention (general use):</b> most large trials of standard supplements show little benefit.'},{s:'weak',l:'Weak',t:'<b>Joint pain:</b> modest help for some with inflammatory arthritis.'}],
+ safety:['Can cause fishy burps; high doses thin the blood slightly.'],
+ whatto:['Aim for 1–2 servings of oily fish a week before reaching for pills.','If your triglycerides are high, ask about prescription omega-3 specifically.'],
+ doc:'“Would omega-3 help my cholesterol/triglycerides, or should I just eat more fish?”',
+ sources:8,related:['High cholesterol','Statins'],kw:['fish oil','omega 3','omega-3','epa','dha','triglycerides']},
+
+{id:'probiotics',cat:'supp',type:'Supplement',title:'Probiotics',sub:'“Good bacteria” for gut health.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed (strain-specific)'},
+ bottom:'Helpful for a few specific situations (like antibiotic-associated diarrhea); for “general gut health” the evidence is thin and depends heavily on the exact strain.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Antibiotic-associated diarrhea & some IBS symptoms:</b> certain strains help.'},{s:'weak',l:'Weak',t:'<b>“General wellness”/immunity:</b> weak and inconsistent; benefits are strain- and condition-specific.'}],
+ safety:['Generally safe for healthy people; avoid in severely immunocompromised or critically ill patients without advice.'],
+ whatto:['Match the strain to the goal rather than grabbing any product.','Fermented foods and fibre feed your own gut bacteria too.'],
+ doc:'“Is a probiotic worth it for my symptoms, and which strain?”',
+ sources:7,related:['IBS','Antibiotics','Fibre'],kw:['probiotic','probiotics','gut bacteria','microbiome']},
+
+{id:'turmeric',cat:'supp',type:'Supplement',title:'Turmeric / curcumin',sub:'Marketed for inflammation and joint pain.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed'},
+ bottom:'Some signal for arthritis pain, but curcumin is poorly absorbed and study quality is uneven. It’s no substitute for proven treatment.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Osteoarthritis pain:</b> some trials show modest relief, similar in size to mild pain relievers.'},{s:'weak',l:'Weak',t:'<b>Other “anti-inflammatory” claims:</b> mostly lab/animal data, not strong human outcomes.'}],
+ safety:['Can upset the stomach; may thin the blood and interact with some drugs — caution before surgery or with blood thinners.'],
+ whatto:['Reasonable to try for joint pain if your doctor agrees; look for a formulation designed for absorption.','Don’t expect it to replace proven arthritis care.'],
+ doc:'“I want to try turmeric for my joints — is it safe with my medications?”',
+ sources:6,related:['Osteoarthritis','Fish oil (omega-3)'],kw:['turmeric','curcumin','inflammation','joint pain']},
+
+{id:'zinccold',cat:'supp',type:'Supplement',title:'Zinc for colds',sub:'Lozenges at the first sniffle.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed (timing matters)'},
+ bottom:'Zinc lozenges started within a day of symptoms may shorten a cold slightly. Not a cure, and high doses have downsides.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Cold duration:</b> lozenges taken early may trim a cold by about a day in some studies.'},{s:'weak',l:'Weak',t:'<b>Prevention:</b> weaker evidence for stopping colds entirely.'}],
+ safety:['Lozenges can cause nausea and a bad taste; long-term high-dose zinc can cause copper deficiency.','Avoid intranasal zinc — linked to loss of smell.'],
+ whatto:['If you try it, use lozenges at the very first symptoms, short-term only.','Rest, fluids, and time still do most of the work.'],
+ doc:'“Is it safe for me to take zinc when I feel a cold coming on?”',
+ sources:6,related:['Vitamin C for colds','Common cold'],kw:['zinc','cold','lozenge','zinc for colds']},
+
+{id:'vitc',cat:'supp',type:'Supplement',title:'Vitamin C for colds',sub:'Mega-dosing at the first sneeze.',
+ verdict:{s:'ev',cls:'weak',label:'Weak'},
+ bottom:'For most people, vitamin C doesn’t prevent colds and barely shortens them. Taking it only once you’re sick does little.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Prevention (general public):</b> regular vitamin C doesn’t prevent colds.'},{s:'weak',l:'Weak',t:'<b>Duration:</b> regular use may shorten colds slightly; starting it after you’re sick doesn’t help much.'}],
+ safety:['High doses can cause stomach upset and diarrhea, and may raise kidney-stone risk in some people.'],
+ whatto:['Don’t rely on vitamin C to prevent colds; a normal diet covers your needs.','Rest, fluids, and time remain the mainstays.'],
+ doc:'“Is high-dose vitamin C worth it for me, or a waste?”',
+ sources:5,related:['Zinc for colds','Common cold'],kw:['vitamin c','vit c','ascorbic acid','cold']},
+
+{id:'multivitamin',cat:'supp',type:'Supplement',title:'Multivitamins',sub:'The daily “insurance” pill.',
+ verdict:{s:'ev',cls:'weak',label:'Weak (for most people)'},
+ bottom:'For well-fed adults, a daily multivitamin hasn’t been shown to prevent disease or help you live longer. Specific deficiencies are a different story.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>General population:</b> large trials show no clear benefit for heart disease, cancer, or longevity.'},{s:'strong',l:'Strong',t:'<b>Targeted needs:</b> specific groups (pregnancy, certain diets/conditions, deficiencies) genuinely benefit from the right supplement.'}],
+ whatto:['Spend your effort on food first; a multivitamin is rarely the missing piece.','If you have a specific risk (pregnancy, vegan diet, malabsorption), target the actual nutrient.'],
+ doc:'“Do I actually need a multivitamin, or a specific nutrient based on my diet and health?”',
+ sources:6,related:['Vitamin D','Iron','Vitamin B12'],kw:['multivitamin','multivitamins','daily vitamin','supplement']},
+
+{id:'collagen',cat:'supp',type:'Supplement',title:'Collagen supplements',sub:'Powders and drinks for skin, hair, and joints.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed (early)'},
+ bottom:'Some small studies hint at modest skin and joint benefits, but the field is young and industry-funded. Your body breaks collagen into amino acids — it doesn’t go straight to your face.',
+ ev:[{s:'weak',l:'Weak',t:'<b>Skin elasticity/hydration:</b> a few short trials suggest mild improvement.'},{s:'weak',l:'Weak',t:'<b>Joint pain:</b> small, mixed evidence.'}],
+ whatto:['Low-risk to try if you want, but keep expectations modest and budget in mind.','Adequate protein, sun protection, and not smoking do more for skin.'],
+ doc:'“Is a collagen supplement worth it, or is there something better for my skin/joints?”',
+ sources:5,related:['Protein supplements','Vitamin D'],kw:['collagen','collagen peptides','skin','hair','joints']},
+
+{id:'iron',cat:'supp',type:'Supplement',title:'Iron supplements',sub:'For fatigue and low iron / anemia.',
+ verdict:{s:'ev',cls:'good',label:'Good (when you’re low)'},
+ bottom:'Very effective and important if you’re iron-deficient — but you shouldn’t take it routinely without knowing your levels, because too much iron is harmful.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Iron deficiency/anemia:</b> supplementing corrects it and relieves fatigue, when that’s the real cause.'},{s:'strong',l:'Strong',t:'<b>Without deficiency:</b> no benefit and potential harm — iron overload damages organs.'}],
+ safety:['Commonly causes constipation, dark stools, and stomach upset.','Iron deficiency in adults can signal bleeding (gut, heavy periods) that needs investigating.'],
+ whatto:['Get tested before taking iron long-term; treat the cause, not just the number.','Take with vitamin C, away from coffee/tea, to absorb better.'],
+ doc:'“I’m always tired — can we check my iron and find out why it’s low before I supplement?”',
+ sources:7,related:['Anemia','Fatigue (always tired)','Heavy periods'],kw:['iron','ferritin','anemia','anaemia','iron deficiency','tired']},
+/* ===================== CONDITIONS ===================== */
+{id:'gerd',cat:'dx',type:'Condition',title:'GERD (acid reflux)',sub:'Stomach acid backing up into the esophagus.',
+ verdict:{s:'condtag',label:'● Well understood'},
+ bottom:'Very common, very treatable. Persistent heartburn deserves a proper look — simple steps plus the right medicine help most people.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Lifestyle + medication:</b> weight loss, smaller/earlier meals, and acid-reducers (like PPIs) control symptoms for most.'},{s:'mod',l:'Moderate',t:'<b>Trigger foods:</b> vary by person (coffee, alcohol, spicy, fatty, late meals).'}],
+ safety:['<b>Red flags — see a doctor promptly:</b> trouble swallowing, weight loss, vomiting blood, black stools, or chest pain you’re unsure about.'],
+ whatto:['Try smaller meals, not eating 3 hours before bed, raising the head of the bed, and limiting triggers.','See a doctor if symptoms are frequent, severe, or you have any red-flag symptom.'],
+ doc:'“My heartburn is frequent — should I be on treatment, and do I need any tests?”',
+ sources:9,related:['PPIs (omeprazole)','Hiatal hernia','Chest pain'],kw:['gerd','acid reflux','reflux','heartburn','acid']},
+
+{id:'hypertension',cat:'dx',type:'Condition',title:'High blood pressure',sub:'Hypertension — the “silent” risk factor.',
+ verdict:{s:'condtag',label:'● Common & very treatable'},
+ bottom:'Usually causes no symptoms but quietly raises the risk of heart attack, stroke, and kidney disease. The good news: it’s very treatable.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Lowering it works:</b> treating high blood pressure clearly reduces strokes and heart attacks.'},{s:'strong',l:'Strong',t:'<b>Lifestyle matters:</b> less salt, weight loss, activity, and less alcohol all help, sometimes a lot.'}],
+ safety:['<b>Emergency:</b> very high readings with chest pain, severe headache, vision changes, or trouble speaking need urgent care.'],
+ whatto:['Know your numbers — check at home and bring readings to your doctor.','Reduce salt, move more, limit alcohol; take medication as prescribed if needed.'],
+ doc:'“What’s my target blood pressure, and do I need medication or can we try lifestyle first?”',
+ sources:9,related:['High cholesterol','Stroke','Type 2 diabetes'],kw:['high blood pressure','hypertension','bp','blood pressure']},
+
+{id:'cholesterol',cat:'dx',type:'Condition',title:'High cholesterol',sub:'LDL, HDL, and heart-disease risk.',
+ verdict:{s:'condtag',label:'● Common & manageable'},
+ bottom:'High “bad” (LDL) cholesterol raises heart-attack and stroke risk over years. It’s about your overall risk, not a single number — and it’s very manageable.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Lowering LDL:</b> reduces heart attacks and strokes, especially in higher-risk people.'},{s:'mod',l:'Moderate',t:'<b>Diet & activity:</b> help; for many at higher risk, statins add the biggest proven benefit.'}],
+ whatto:['Ask for your overall cardiovascular risk, not just the cholesterol number.','Improve diet and activity; discuss whether a statin is right based on your risk.'],
+ doc:'“Based on my overall risk, do I need a statin, or can we manage this with lifestyle?”',
+ sources:8,related:['Statins','High blood pressure','Fish oil (omega-3)'],kw:['cholesterol','ldl','hdl','high cholesterol','lipids']},
+
+{id:'diabetes2',cat:'dx',type:'Condition',title:'Type 2 diabetes & prediabetes',sub:'High blood sugar — and the window to prevent it.',
+ verdict:{s:'condtag',label:'● Common & often preventable'},
+ bottom:'Prediabetes is a warning you can often reverse; type 2 diabetes is serious but very manageable with the right plan. Early action makes a big difference.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Prevention:</b> modest weight loss and activity sharply cut the chance of prediabetes becoming diabetes.'},{s:'strong',l:'Strong',t:'<b>Treatment:</b> lifestyle plus medications (like metformin, and newer drugs) control sugar and protect the heart and kidneys.'}],
+ whatto:['If you have prediabetes, focus on activity, weight, and food now — it’s the best window.','If you have diabetes, get regular eye, kidney, and foot checks and know your targets.'],
+ doc:'“My blood sugar is borderline — what’s my real risk, and what plan makes sense for me?”',
+ sources:9,related:['Metformin','Ozempic (semaglutide)','High blood pressure'],kw:['diabetes','type 2 diabetes','prediabetes','blood sugar','a1c','insulin resistance']},
+
+{id:'anxiety',cat:'dx',type:'Condition',title:'Anxiety',sub:'When worry becomes hard to control.',
+ verdict:{s:'condtag',label:'● Common & treatable'},
+ bottom:'Anxiety disorders are common and very treatable. Everyday worry is normal — it’s worth help when it’s persistent and interferes with your life.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Therapy (especially CBT):</b> a first-line, effective treatment.'},{s:'strong',l:'Strong',t:'<b>Medication:</b> SSRIs and related drugs help many people, often alongside therapy.'},{s:'mod',l:'Moderate',t:'<b>Lifestyle:</b> exercise, sleep, and cutting back caffeine/alcohol genuinely help.'}],
+ safety:['If you ever have thoughts of harming yourself, reach out now — in the US call or text 988; elsewhere contact local crisis services.'],
+ whatto:['Start with therapy and lifestyle; medication is a good option if symptoms are moderate-to-severe.','You don’t have to wait until it’s unbearable to get help.'],
+ doc:'“My anxiety is affecting my daily life — what are my treatment options?”',
+ sources:8,related:['Depression','SSRIs (antidepressants)','Ashwagandha'],kw:['anxiety','panic','worry','generalized anxiety','panic attacks']},
+
+{id:'depression',cat:'dx',type:'Condition',title:'Depression',sub:'More than feeling down.',
+ verdict:{s:'condtag',label:'● Common & treatable'},
+ bottom:'A real, common medical condition — not a weakness. It’s very treatable, and most people improve with the right care.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Therapy and/or medication:</b> both work; combined often works best for moderate-to-severe depression.'},{s:'mod',l:'Moderate',t:'<b>Exercise and social support:</b> add real benefit.'}],
+ safety:['If you’re having thoughts of suicide or self-harm, please get help now — in the US call or text 988; elsewhere contact local crisis services. You deserve support.'],
+ whatto:['Reach out to a clinician — depression is treatable and you don’t have to push through alone.','Small steps (sleep, movement, connection) help alongside treatment.'],
+ doc:'“I’ve been feeling persistently low — can we talk about whether this is depression and what could help?”',
+ sources:8,related:['Anxiety','SSRIs (antidepressants)','Thyroid testing'],kw:['depression','depressed','low mood','sad','mdd']},
+
+{id:'adhd',cat:'dx',type:'Condition',title:'ADHD',sub:'Attention and focus — in kids and adults.',
+ verdict:{s:'condtag',label:'● Real & treatable'},
+ bottom:'A genuine, well-studied condition that affects focus, organisation, and impulse control — in adults too. Proper diagnosis matters because treatment helps a lot.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Medication:</b> stimulants are highly effective for core symptoms in most people.'},{s:'mod',l:'Moderate',t:'<b>Behavioural strategies & coaching:</b> add real benefit, especially for organisation.'}],
+ safety:['Self-diagnosis from social media is common — a proper evaluation rules out other causes (sleep, anxiety, thyroid).'],
+ whatto:['If focus problems are lifelong and affect work/relationships, seek a proper assessment.','Treatment is individualised; medication plus strategies works best for many.'],
+ doc:'“I think I might have ADHD — how do I get properly assessed?”',
+ sources:7,related:['Anxiety','Sleep apnea','Thyroid testing'],kw:['adhd','add','attention','focus','hyperactivity','adult adhd']},
+
+{id:'hypothyroid',cat:'dx',type:'Condition',title:'Hypothyroidism (underactive thyroid)',sub:'A common cause of fatigue and weight changes.',
+ verdict:{s:'condtag',label:'● Common & very treatable'},
+ bottom:'An underactive thyroid is common, easy to test for, and very treatable with a once-daily pill — but symptoms are vague, so it’s worth confirming with a blood test.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Diagnosis:</b> a simple TSH blood test reliably detects it.'},{s:'strong',l:'Strong',t:'<b>Treatment:</b> daily levothyroxine restores normal levels for most people.'}],
+ whatto:['If you have fatigue, weight gain, cold intolerance, or constipation, ask for a thyroid test.','Take levothyroxine consistently and recheck levels as advised.'],
+ doc:'“I’m tired and run-down — can we check my thyroid?”',
+ sources:7,related:['Thyroid testing','Fatigue (always tired)','Anemia'],kw:['thyroid','hypothyroidism','underactive thyroid','tsh','levothyroxine']},
+
+{id:'pcos',cat:'dx',type:'Condition',title:'PCOS',sub:'Polycystic ovary syndrome.',
+ verdict:{s:'condtag',label:'● Common & manageable'},
+ bottom:'A common hormonal condition causing irregular periods, acne or extra hair, and sometimes trouble conceiving. It’s manageable, and addressing it lowers long-term risks.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Lifestyle & weight:</b> even modest weight loss can restore cycles and improve symptoms.'},{s:'mod',l:'Moderate',t:'<b>Medications:</b> birth control, metformin, and fertility treatments target specific goals.'}],
+ whatto:['See a doctor for irregular periods or fertility concerns — a clear diagnosis guides treatment.','Address blood sugar and weight; PCOS raises long-term diabetes risk.'],
+ doc:'“My periods are irregular — could this be PCOS, and what should we check?”',
+ sources:7,related:['Type 2 diabetes & prediabetes','Metformin','Birth control pills'],kw:['pcos','polycystic ovary','irregular periods','hormones']},
+
+{id:'ibs',cat:'dx',type:'Condition',title:'IBS (irritable bowel syndrome)',sub:'Cramping, bloating, and changing bowel habits.',
+ verdict:{s:'condtag',label:'● Common & manageable'},
+ bottom:'A real, common gut-brain condition — uncomfortable but not dangerous. It’s manageable once other causes are ruled out.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Diet (e.g., low-FODMAP), fibre, and stress management:</b> help many people.'},{s:'mod',l:'Moderate',t:'<b>Targeted medications & some probiotics:</b> help specific symptoms.'}],
+ safety:['<b>Not IBS until checked — red flags:</b> bleeding, weight loss, anemia, nighttime symptoms, or onset after 50 need evaluation.'],
+ whatto:['See a doctor to rule out other causes, then work on diet, stress, and targeted treatment.','A dietitian-guided low-FODMAP trial helps many.'],
+ doc:'“My gut symptoms come and go — could this be IBS, and what should we rule out first?”',
+ sources:7,related:['Probiotics','GERD (acid reflux)','Bloating'],kw:['ibs','irritable bowel','bloating','cramping','diarrhea','constipation']},
+
+{id:'uti',cat:'dx',type:'Condition',title:'Urinary tract infections (UTIs)',sub:'Burning, urgency, and frequent urination.',
+ verdict:{s:'condtag',label:'● Common & treatable'},
+ bottom:'Common, usually straightforward, and treated with antibiotics when truly bacterial. Knowing when it’s more serious matters.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Antibiotics:</b> effective for confirmed bacterial UTIs.'},{s:'weak',l:'Weak',t:'<b>Cranberry/prevention:</b> may modestly help prevent recurrent UTIs in some women; not a treatment.'}],
+ safety:['<b>Seek care urgently</b> with fever, back/flank pain, nausea/vomiting, or blood in urine — it may be a kidney infection.'],
+ whatto:['See a clinician for testing and treatment rather than guessing; hydrate and don’t hold urine.','For frequent UTIs, ask about prevention strategies.'],
+ doc:'“I keep getting UTIs — can we test properly and talk about preventing them?”',
+ sources:6,related:['Antibiotics (when you need them)','Kidney stones'],kw:['uti','urinary tract infection','bladder infection','burning urination','cystitis']},
+
+{id:'migraine',cat:'dx',type:'Condition',title:'Migraine',sub:'More than a bad headache.',
+ verdict:{s:'condtag',label:'● Common & treatable'},
+ bottom:'A real neurological condition — throbbing pain often with nausea and light sensitivity. Today there are excellent treatments, both for attacks and prevention.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Acute treatment:</b> triptans and newer drugs stop attacks for many.'},{s:'strong',l:'Strong',t:'<b>Prevention:</b> for frequent migraines, preventive medicines (including new CGRP drugs) cut attack frequency.'}],
+ safety:['<b>See a doctor urgently</b> for a sudden “worst headache of your life,” headache with fever and stiff neck, weakness, or confusion.'],
+ whatto:['Track triggers and treat attacks early; if you’re using painkillers often, ask about prevention.','Don’t overuse over-the-counter painkillers — it can cause rebound headaches.'],
+ doc:'“My migraines are frequent — am I a candidate for preventive treatment?”',
+ sources:8,related:['Headache','MSG','Magnesium'],kw:['migraine','migraines','aura','throbbing headache']},
+
+{id:'sleepapnea',cat:'dx',type:'Condition',title:'Sleep apnea',sub:'Breathing pauses during sleep.',
+ verdict:{s:'condtag',label:'● Common & under-diagnosed'},
+ bottom:'Common and often missed — loud snoring, gasping, and daytime exhaustion. Untreated, it strains the heart; treated, people often feel transformed.',
+ ev:[{s:'strong',l:'Strong',t:'<b>CPAP and other treatments:</b> reduce symptoms and lower blood pressure and cardiovascular strain.'},{s:'mod',l:'Moderate',t:'<b>Weight loss & positional changes:</b> help, sometimes substantially.'}],
+ whatto:['If you snore loudly, gasp at night, or are exhausted by day, ask about a sleep study.','Treatment (often CPAP) can dramatically improve energy and health.'],
+ doc:'“I snore and I’m exhausted during the day — should I be tested for sleep apnea?”',
+ sources:7,related:['Hypertension','Fatigue (always tired)','Melatonin'],kw:['sleep apnea','apnea','snoring','cpap','osa']},
+
+{id:'anemia',cat:'dx',type:'Condition',title:'Anemia',sub:'Low red blood cells / hemoglobin.',
+ verdict:{s:'condtag',label:'● Common — find the cause'},
+ bottom:'Anemia causes fatigue, pallor, and breathlessness. The key isn’t just treating the low number — it’s finding why, because the cause can matter more than the anemia.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Iron-deficiency anemia:</b> the most common type; correcting iron helps, but the source of loss must be found.'},{s:'mod',l:'Moderate',t:'<b>Other causes:</b> B12/folate deficiency, chronic disease, and others need different treatment.'}],
+ safety:['New iron-deficiency anemia in adults can signal bleeding (gut, heavy periods) — don’t skip the workup.'],
+ whatto:['Get tested to identify the type and cause before just taking iron.','Treat the underlying cause, not only the number.'],
+ doc:'“My blood count is low — can we find out why, not just treat the number?”',
+ sources:7,related:['Iron','Fatigue (always tired)','Heavy periods'],kw:['anemia','anaemia','low hemoglobin','iron deficiency','tired','pale']},
+/* ===================== MEDICATIONS ===================== */
+{id:'ozempic',cat:'med',type:'Medication',title:'Ozempic (semaglutide)',sub:'A once-weekly injection for type 2 diabetes — and, as Wegovy, for weight loss.',
+ verdict:{s:'ev',cls:'strong',label:'Strong'},
+ bottom:'A genuinely powerful drug for blood sugar and weight — with real side effects, a high price, and weight that tends to return if you stop. Not a casual quick fix.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Blood sugar & weight:</b> large trials show substantial, reliable improvements.'},{s:'strong',l:'Strong',t:'<b>Heart:</b> lowers cardiovascular events in higher-risk patients.'},{s:'mod',l:'Moderate',t:'<b>Durability:</b> works while you take it; weight tends to return after stopping.'}],
+ safety:['Common: nausea, vomiting, constipation/diarrhea, especially when starting.','Rare but serious: pancreatitis, gallbladder problems; avoid with certain thyroid-cancer history.','Compounded/online “semaglutide” can be risky — source matters.'],
+ whatto:['Best used with a doctor’s plan, for the right reasons, alongside nutrition and activity.','Plan for the long term and discuss what happens if you stop.'],
+ doc:'“Am I a good candidate for a GLP-1 like Ozempic, and what’s the plan if I start — including cost and stopping?”',
+ sources:9,related:['Type 2 diabetes & prediabetes','Berberine','Metformin'],kw:['ozempic','semaglutide','wegovy','glp','weight loss','mounjaro']},
+
+{id:'statins',cat:'med',type:'Medication',title:'Statins',sub:'Cholesterol-lowering drugs for heart protection.',
+ verdict:{s:'ev',cls:'strong',label:'Strong'},
+ bottom:'Among the most studied, proven medicines we have — they meaningfully lower heart attacks and strokes in the right people. Side effects are real but often overstated.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Prevention:</b> reduce heart attacks and strokes, with bigger benefit at higher risk.'},{s:'mod',l:'Moderate',t:'<b>Muscle aches:</b> real for some, but blinded studies show many “statin” symptoms also occur on placebo — worth testing carefully before quitting.'}],
+ safety:['Rarely cause serious muscle or liver problems; report severe muscle pain or weakness.'],
+ whatto:['Decide based on your overall cardiovascular risk, not the number alone.','If you get side effects, don’t just stop — there are ways to test and adjust.'],
+ doc:'“Given my risk, do the benefits of a statin outweigh the risks for me — and what if I get muscle aches?”',
+ sources:9,related:['High cholesterol','High blood pressure','Fish oil (omega-3)'],kw:['statin','statins','atorvastatin','rosuvastatin','lipitor','crestor','cholesterol medication']},
+
+{id:'metformin',cat:'med',type:'Medication',title:'Metformin',sub:'First-line medication for type 2 diabetes.',
+ verdict:{s:'ev',cls:'strong',label:'Strong'},
+ bottom:'A safe, inexpensive, well-proven first choice for type 2 diabetes — and useful in prediabetes and PCOS. Decades of track record.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Blood sugar:</b> reliably lowers it without causing low blood sugar on its own.'},{s:'mod',l:'Moderate',t:'<b>Prediabetes & PCOS:</b> helps prevent progression and improves cycles for some.'}],
+ safety:['Common: stomach upset/diarrhea, often better with the extended-release form and taking it with food.','Can lower vitamin B12 over years; needs dose adjustment in kidney disease.'],
+ whatto:['If side effects bother you, ask about extended-release and taking it with meals.','Have B12 and kidney function checked periodically.'],
+ doc:'“Is metformin the right starting medication for me, and how do we manage the stomach side effects?”',
+ sources:8,related:['Type 2 diabetes & prediabetes','Ozempic (semaglutide)','PCOS'],kw:['metformin','glucophage','diabetes medication','blood sugar']},
+
+{id:'ssri',cat:'med',type:'Medication',title:'Antidepressants (SSRIs)',sub:'Common medicines for depression and anxiety.',
+ verdict:{s:'ev',cls:'good',label:'Good'},
+ bottom:'Genuinely help many people with moderate-to-severe depression or anxiety. They’re not “happy pills” or instant — they take weeks, and finding the right one can take patience.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Moderate-to-severe depression/anxiety:</b> meaningfully more effective than placebo.'},{s:'weak',l:'Weak',t:'<b>Mild symptoms:</b> benefit over placebo is smaller; therapy may be enough.'}],
+ safety:['Early side effects (nausea, sleep changes, sexual side effects) are common; many ease over time.','Don’t stop abruptly — taper with your doctor.','Watch for worsening mood early on, especially in young people — stay in contact with your prescriber.'],
+ whatto:['Give it 4–6 weeks and stay in touch about side effects and dose.','Pair with therapy for the best results; never stop suddenly.'],
+ doc:'“If I start an antidepressant, how long until it works, what side effects should I watch for, and how would we stop later?”',
+ sources:8,related:['Depression','Anxiety','Ashwagandha'],kw:['ssri','antidepressant','antidepressants','sertraline','escitalopram','prozac','zoloft','lexapro']},
+
+{id:'ppi',cat:'med',type:'Medication',title:'PPIs (omeprazole and similar)',sub:'Strong acid-reducers for reflux and ulcers.',
+ verdict:{s:'ev',cls:'good',label:'Good (use the right length)'},
+ bottom:'Very effective for reflux, ulcers, and protecting the stomach — best used at the lowest dose for the time you actually need, not endlessly by default.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Reflux & ulcers:</b> reliably heal and control symptoms.'},{s:'weak',l:'Weak',t:'<b>Long-term risks:</b> associations (nutrient absorption, infections, bone) are mostly small and uncertain, but argue for using them only as long as needed.'}],
+ safety:['Stopping suddenly after long use can cause rebound acid — taper.','Long-term use can lower B12/magnesium in some people.'],
+ whatto:['Use for the recommended course; if you’ve been on one for months, ask whether you can step down.','Combine with the reflux lifestyle steps so you need less medication.'],
+ doc:'“I’ve been on omeprazole a while — can we try to step down, or do I still need it?”',
+ sources:7,related:['GERD (acid reflux)','Ibuprofen / NSAIDs'],kw:['ppi','omeprazole','esomeprazole','prilosec','nexium','acid reducer','proton pump inhibitor']},
+
+{id:'nsaids',cat:'med',type:'Medication',title:'Ibuprofen / NSAIDs',sub:'Everyday pain relievers — and their quiet risks.',
+ verdict:{s:'ev',cls:'good',label:'Effective — use carefully'},
+ bottom:'Great for short-term pain and inflammation, but not as harmless as they feel. Frequent or long-term use can harm the stomach, kidneys, and heart.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Pain & inflammation:</b> effective for many aches, injuries, and arthritis flares.'},{s:'mod',l:'Moderate',t:'<b>Risks with regular use:</b> stomach bleeding, kidney strain, raised blood pressure, and some cardiovascular risk.'}],
+ safety:['Higher risk with age, kidney disease, heart failure, ulcers, or blood thinners.','Take the lowest dose for the shortest time, with food.'],
+ whatto:['Fine for occasional pain; avoid daily long-term use without medical guidance.','If you need pain control often, see a doctor about the cause and safer options.'],
+ doc:'“I take ibuprofen often — is that safe for my stomach, kidneys, and blood pressure?”',
+ sources:7,related:['GERD (acid reflux)','High blood pressure','Osteoarthritis'],kw:['ibuprofen','nsaid','nsaids','advil','motrin','naproxen','aleve','painkiller']},
+
+{id:'antibiotics',cat:'med',type:'Medication',title:'Antibiotics (when you need them)',sub:'Powerful for bacteria — useless for viruses.',
+ verdict:{s:'ev',cls:'good',label:'Use only when truly needed'},
+ bottom:'Life-saving for bacterial infections, but they do nothing for colds and flu. Taking them when you don’t need them causes side effects and fuels resistance.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Bacterial infections:</b> highly effective and sometimes critical.'},{s:'strong',l:'Strong',t:'<b>Viruses (colds, most sore throats, flu):</b> antibiotics don’t help.'}],
+ safety:['Cause diarrhea, yeast infections, allergic reactions, and (rarely) serious gut infections.','Overuse drives antibiotic resistance — a real public-health threat.'],
+ whatto:['Don’t pressure for antibiotics for a viral illness; ask “is this actually bacterial?”','If prescribed, finish the course as directed unless told otherwise.'],
+ doc:'“Is my infection actually bacterial — do I really need an antibiotic, or will it pass on its own?”',
+ sources:6,related:['UTIs','Common cold','Probiotics'],kw:['antibiotic','antibiotics','amoxicillin','antibiotic resistance','infection']},
+
+{id:'birthcontrol',cat:'med',type:'Medication',title:'Birth control pills',sub:'Contraception — and more.',
+ verdict:{s:'ev',cls:'strong',label:'Strong (well understood)'},
+ bottom:'Highly effective and well-studied. Beyond contraception, the pill helps with heavy or painful periods, acne, and PCOS — with some risks worth knowing.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Contraception & cycle control:</b> very effective; also reduces ovarian and uterine cancer risk over time.'},{s:'mod',l:'Moderate',t:'<b>Risks:</b> a small increased risk of blood clots, higher with smoking, age over 35, or certain conditions.'}],
+ safety:['Seek urgent care for leg swelling/pain, chest pain, severe headache, or vision changes.','Tell your doctor if you smoke, have migraines with aura, or a clot history — options differ.'],
+ whatto:['Many options exist (pills, IUDs, implants) — choose based on your goals and risks.','Be honest about smoking and migraines so you get a safe method.'],
+ doc:'“Given my history, which birth control is safest and best for what I want?”',
+ sources:8,related:['PCOS','Migraine','Heavy periods'],kw:['birth control','the pill','contraception','oral contraceptive','iud']},
+
+/* ===================== TESTS & SCREENING ===================== */
+{id:'fullbodymri',cat:'test',type:'Test',title:'Full-body MRI scans',sub:'Pay-out-of-pocket “preventive” whole-body scans.',
+ verdict:{s:'ev',cls:'weak',label:'Weak (for healthy people)'},
+ bottom:'Marketed as catching everything early, but for people without symptoms they mostly find harmless “incidentalomas” that lead to worry, more tests, and procedures — without clearly saving lives.',
+ ev:[{s:'weak',l:'Weak',t:'<b>Healthy, no symptoms:</b> no good evidence whole-body MRI reduces deaths; high rate of false alarms.'},{s:'mod',l:'Moderate',t:'<b>Downstream harm:</b> incidental findings trigger biopsies and anxiety, sometimes for things that would never have mattered.'}],
+ whatto:['Skip routine whole-body scans if you’re healthy and symptom-free.','Do the screening that’s actually proven (e.g., colon, breast, cervical, blood pressure) on schedule.'],
+ doc:'“Is a whole-body MRI worth it for me, or should I focus on the screenings proven to help?”',
+ sources:6,related:['PSA test (prostate)','Continuous glucose monitors','Cancer screening'],kw:['full body mri','full-body mri','mri','body scan','prenuvo','preventive scan']},
+
+{id:'vitdtest',cat:'test',type:'Test',title:'Vitamin D testing',sub:'Should everyone get their vitamin D checked?',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed (test if at risk)'},
+ bottom:'Useful if you’re at risk of deficiency or have certain conditions — not as a routine test for everyone, and not something to chase to a perfect number.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>At-risk groups:</b> testing helps (limited sun, darker skin, older age, malabsorption, osteoporosis).'},{s:'weak',l:'Weak',t:'<b>Healthy general public:</b> routine universal testing isn’t clearly beneficial.'}],
+ whatto:['Get tested if you have risk factors or symptoms; otherwise a sensible dose may be reasonable without testing.','Avoid repeatedly testing to optimise a number with no symptoms.'],
+ doc:'“Do I actually need my vitamin D tested, based on my risk factors?”',
+ sources:5,related:['Vitamin D','Osteoporosis'],kw:['vitamin d test','vitamin d testing','25-oh vitamin d','vit d level']},
+
+{id:'foodsensitivity',cat:'test',type:'Test',title:'Food sensitivity (IgG) tests',sub:'Direct-to-consumer “food intolerance” blood tests.',
+ verdict:{s:'ev',cls:'weak',label:'Not recommended'},
+ bottom:'IgG food “sensitivity” tests aren’t validated. A positive usually just means you eat that food — and acting on them can lead to needless, restrictive diets.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Major allergy bodies advise against them:</b> IgG reflects exposure, not intolerance or allergy.'},{s:'mod',l:'Moderate',t:'<b>Harm:</b> can drive unnecessarily restrictive eating and miss the real cause.'}],
+ whatto:['Skip IgG sensitivity panels.','For true food allergy, see an allergist; for gut symptoms, a doctor or dietitian can find the real trigger.'],
+ doc:'“I’m reacting to foods — what’s the right way to find the actual cause instead of an IgG test?”',
+ sources:5,related:['Gluten','IBS','Bloating'],kw:['food sensitivity','igg test','food intolerance test','everlywell','allergy test']},
+
+{id:'psa',cat:'test',type:'Test',title:'PSA test (prostate)',sub:'A blood test for prostate cancer screening.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed (a personal decision)'},
+ bottom:'It can catch prostate cancer earlier, but also flags slow cancers that may never have caused harm — leading to biopsies and treatment with real side effects. It’s a shared decision, not automatic.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Benefit:</b> may modestly reduce prostate-cancer deaths in some men.'},{s:'mod',l:'Moderate',t:'<b>Harm:</b> false alarms, biopsies, and over-treatment causing incontinence or impotence.'}],
+ whatto:['Discuss your age, family history, and preferences with your doctor before deciding.','There’s no single right answer — it depends on what matters to you.'],
+ doc:'“Given my age and family history, do the pros of PSA screening outweigh the cons for me?”',
+ sources:7,related:['Full-body MRI scans','Cancer screening'],kw:['psa','psa test','prostate','prostate cancer screening']},
+
+{id:'thyroidtest',cat:'test',type:'Test',title:'Thyroid testing',sub:'When a TSH blood test makes sense.',
+ verdict:{s:'ev',cls:'good',label:'Useful when indicated'},
+ bottom:'A simple, worthwhile test when you have symptoms (fatigue, weight or mood changes) or risk factors — less useful as a random check with no reason.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Symptomatic/at-risk people:</b> TSH reliably detects under- or over-active thyroid.'},{s:'weak',l:'Weak',t:'<b>Routine in everyone:</b> lower yield without symptoms or risk factors.'}],
+ whatto:['Ask for a thyroid test if you have suggestive symptoms or a family history.','Mild abnormalities are common — interpret with your doctor before treating.'],
+ doc:'“My symptoms could be thyroid-related — should we test, and what would the results mean?”',
+ sources:5,related:['Hypothyroidism (underactive thyroid)','Fatigue (always tired)'],kw:['thyroid test','tsh','thyroid testing','t4','thyroid panel']},
+
+{id:'cgm',cat:'test',type:'Test',title:'Continuous glucose monitors (for non-diabetics)',sub:'Wearable sensors tracking blood sugar in real time.',
+ verdict:{s:'ev',cls:'mixed',label:'Mixed / early (without diabetes)'},
+ bottom:'Invaluable for many people with diabetes. For healthy people, the “spikes” are mostly normal physiology, and there’s little evidence wearing one improves health — though it can be educational.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Diabetes:</b> strong evidence CGMs improve control and safety.'},{s:'weak',l:'Weak',t:'<b>Non-diabetics:</b> normal glucose “spikes” are expected; no clear health benefit yet from chasing flat lines.'}],
+ whatto:['If you have diabetes/prediabetes, a CGM can be very helpful — ask your doctor.','If you’re curious as a healthy person, treat it as a learning tool, not a verdict on every meal.'],
+ doc:'“Would a continuous glucose monitor actually help me, given my situation?”',
+ sources:6,related:['Type 2 diabetes & prediabetes','Full-body MRI scans'],kw:['cgm','continuous glucose monitor','glucose monitor','levels','blood sugar spikes']},
+
+/* ===================== SYMPTOMS ===================== */
+{id:'headache',cat:'sym',type:'Symptom',title:'Headache',sub:'When a headache is ordinary — and when it isn’t.',
+ verdict:{s:'condtag',label:'● Usually benign — know the red flags'},
+ bottom:'Most headaches are tension-type or migraine and not dangerous. A few patterns, though, need urgent attention.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Common causes:</b> tension, migraine, dehydration, eye strain, and medication-overuse headaches.'},{s:'mod',l:'Moderate',t:'<b>Triggers:</b> stress, poor sleep, skipped meals, screens, and (for some) certain foods or alcohol.'}],
+ safety:['<b>Seek urgent care</b> for a sudden “worst headache ever,” headache with fever and stiff neck, weakness, confusion, vision loss, or after a head injury.'],
+ whatto:['For ordinary headaches: hydrate, rest, manage stress, and limit painkillers to a few days a week.','If headaches are frequent or worsening, see a doctor about prevention.'],
+ doc:'“My headaches are frequent — what type are they, and do I need any tests or preventive treatment?”',
+ sources:6,related:['Migraine','MSG','Magnesium'],kw:['headache','head pain','tension headache']},
+
+{id:'fatigue',cat:'sym',type:'Symptom',title:'Fatigue (always tired)',sub:'Tiredness that doesn’t lift with rest.',
+ verdict:{s:'condtag',label:'● Common — usually findable'},
+ bottom:'Constant tiredness is one of the most common reasons people see a doctor — and it usually has a findable cause, from sleep and stress to thyroid, iron, or blood sugar.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Common drivers:</b> poor sleep (including sleep apnea), stress/depression, anemia, thyroid problems, and medications.'},{s:'mod',l:'Moderate',t:'<b>Basics first:</b> sleep, activity, hydration, and alcohol/caffeine often matter more than supplements.'}],
+ safety:['<b>See a doctor sooner</b> if fatigue comes with weight loss, breathlessness, chest pain, or it’s severe and new.'],
+ whatto:['Track your sleep and habits; ask for basic bloods (iron, thyroid, blood sugar) if it persists.','Don’t just self-treat with energy supplements — find the cause.'],
+ doc:'“I’m exhausted all the time — can we check the common causes like iron, thyroid, and sleep?”',
+ sources:6,related:['Anemia','Hypothyroidism (underactive thyroid)','Sleep apnea'],kw:['fatigue','tired','always tired','exhausted','low energy','tiredness']},
+
+{id:'bloating',cat:'sym',type:'Symptom',title:'Bloating',sub:'That uncomfortable, full, gassy feeling.',
+ verdict:{s:'condtag',label:'● Usually benign'},
+ bottom:'Very common and usually harmless — often diet, swallowed air, constipation, or IBS. A few warning signs mean it’s worth a closer look.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Common causes:</b> gas-producing foods, carbonated drinks, constipation, IBS, and eating quickly.'},{s:'weak',l:'Weak',t:'<b>Less common:</b> food intolerances (e.g., lactose), and occasionally other conditions.'}],
+ safety:['<b>See a doctor</b> if bloating is persistent and new (especially after 50), or comes with weight loss, bleeding, or feeling full quickly — particularly important for women (ovarian causes).'],
+ whatto:['Try eating slowly, cutting fizzy drinks, and treating constipation; a food-and-symptom diary helps.','Persistent or alarming bloating deserves evaluation, not just remedies.'],
+ doc:'“My bloating is persistent — should we look into it, and what can I try meanwhile?”',
+ sources:5,related:['IBS','Gluten','Food sensitivity (IgG) tests'],kw:['bloating','bloated','gas','distension','stomach bloating']},
+
+{id:'chestpain',cat:'sym',type:'Symptom',title:'Chest pain',sub:'When chest pain is an emergency.',
+ verdict:{s:'condtag',label:'● Could be serious — act fast'},
+ red:'If you have chest pain or pressure with shortness of breath, sweating, nausea, or pain spreading to the arm, jaw, or back — call emergency services now. Don’t wait, and don’t drive yourself.',
+ bottom:'Many causes of chest pain are not the heart (muscle, reflux, anxiety) — but because heart attacks are dangerous and time-critical, new or severe chest pain should be treated as an emergency until proven otherwise.',
+ ev:[{s:'strong',l:'Strong',t:'<b>Heart attack:</b> time matters enormously — early treatment saves heart muscle and lives.'},{s:'mod',l:'Moderate',t:'<b>Non-cardiac causes:</b> reflux, muscle strain, anxiety, and lung issues are common, but shouldn’t be assumed.'}],
+ safety:['Call emergency services for chest pressure with breathlessness, sweating, nausea, or pain to the arm/jaw — especially with risk factors.'],
+ whatto:['When in doubt about chest pain, get emergency help — it’s the right call even if it turns out to be nothing.','For recurrent, clearly non-emergency chest discomfort, see a doctor to sort out the cause.'],
+ doc:'“I’ve had chest discomfort — what should I watch for, and what could be causing it?” (But if it’s acute and severe, seek emergency care first.)',
+ sources:7,related:['GERD (acid reflux)','High blood pressure','Anxiety'],kw:['chest pain','chest pressure','heart attack','angina','chest tightness']},
+
+{id:'dizziness',cat:'sym',type:'Symptom',title:'Dizziness',sub:'Lightheaded, off-balance, or spinning.',
+ verdict:{s:'condtag',label:'● Usually benign, sometimes not'},
+ bottom:'Most dizziness is benign — inner-ear issues, dehydration, low blood pressure on standing, or medications. The type of dizziness, and a few red flags, guide how worried to be.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Common causes:</b> inner-ear (BPPV, vestibular), dehydration, blood-pressure drops on standing, anxiety, and medication effects.'},{s:'weak',l:'Weak',t:'<b>Spinning (vertigo):</b> often inner-ear and treatable with specific manoeuvres.'}],
+ safety:['<b>Seek urgent care</b> if dizziness comes with slurred speech, face/arm weakness, double vision, severe headache, fainting, or chest symptoms.'],
+ whatto:['Note whether it’s spinning, faintness, or imbalance — it helps pinpoint the cause.','Hydrate, stand up slowly, and review medications; see a doctor if it persists or has red flags.'],
+ doc:'“My dizziness feels like [spinning / faintness / off-balance] — what’s likely causing it and how do we treat it?”',
+ sources:6,related:['High blood pressure','Anemia','Anxiety'],kw:['dizziness','dizzy','vertigo','lightheaded','off balance']},
+
+{id:'brainfog',cat:'sym',type:'Symptom',title:'Brain fog',sub:'Fuzzy thinking, poor focus, forgetfulness.',
+ verdict:{s:'condtag',label:'● A symptom, not a diagnosis'},
+ bottom:'“Brain fog” is real but isn’t a disease — it’s a clue. It usually traces back to sleep, stress, mood, hormones, medications, or recovering from an illness.',
+ ev:[{s:'mod',l:'Moderate',t:'<b>Common drivers:</b> poor sleep, stress/anxiety/depression, thyroid issues, perimenopause, anemia, and post-viral recovery.'},{s:'weak',l:'Weak',t:'<b>Supplements:</b> little evidence “nootropics” fix it; treat the cause instead.'}],
+ safety:['<b>See a doctor sooner</b> if there’s real memory loss, confusion, or it’s rapidly worsening — that’s different from foggy focus.'],
+ whatto:['Start with sleep, stress, mood, and basic bloods (thyroid, iron, B12).','Treat the underlying cause rather than chasing brain supplements.'],
+ doc:'“My thinking feels foggy lately — can we look at sleep, mood, thyroid, and iron to find why?”',
+ sources:5,related:['Fatigue (always tired)','Hypothyroidism (underactive thyroid)','Depression'],kw:['brain fog','foggy','concentration','focus','memory','forgetful']}
+];
+
+</script>
 <script>
-  document.querySelectorAll('.navhost').forEach(function(h){ h.appendChild(document.getElementById('navtpl').content.cloneNode(true)); });
-  var VIEWS=['home','noresult','supp','claim','dx','med','test','sym','partner'];
-  var KIND={claim:'Claim',supp:'Supplement',dx:'Condition',med:'Medication',test:'Test',sym:'Symptom'};
-  var TOPICS=[
-    {t:'Do seed oils cause inflammation?',v:'claim',k:['seed oil','seed oils','inflammation','canola','soybean','sunflower','vegetable oil']},
-    {t:'Berberine',v:'supp',k:['berberine','blood sugar','cholesterol']},
-    {t:'GERD (acid reflux)',v:'dx',k:['gerd','acid reflux','reflux','heartburn','acid']},
-    {t:'Ozempic (semaglutide)',v:'med',k:['ozempic','semaglutide','wegovy','glp','weight loss','mounjaro']},
-    {t:'Full-body MRI',v:'test',k:['mri','full body','full-body','scan','prenuvo','body scan']},
-    {t:'Headache',v:'sym',k:['headache','migraine','head pain']}
+  var TOPICS = window.TOPICS || [];
+  var BYID = {}; TOPICS.forEach(function(T){ BYID[T.id]=T; });
+  var CATS = [
+    {k:'claim', label:'Claims &amp; trends', crumb:'Claims & trends'},
+    {k:'supp',  label:'Supplements',        crumb:'Supplements'},
+    {k:'dx',    label:'Conditions',         crumb:'Conditions'},
+    {k:'med',   label:'Medications',        crumb:'Medications'},
+    {k:'test',  label:'Tests &amp; screening', crumb:'Tests & screening'},
+    {k:'sym',   label:'Symptoms',           crumb:'Symptoms'}
   ];
+  var CRUMB = {}; CATS.forEach(function(c){ CRUMB[c.k]=c.crumb; });
+  var VIEWS = ['home','answer','topics','mission','partner','noresult'];
+  var curTopicId = null;
+
+  // build nav + footer from templates
+  document.querySelectorAll('.navhost').forEach(function(h){ h.appendChild(document.getElementById('navtpl').content.cloneNode(true)); });
+  document.querySelectorAll('.foothost').forEach(function(h){ h.appendChild(document.getElementById('foottpl').content.cloneNode(true)); });
+
   function pickRole(el){ el.parentNode.querySelectorAll('.rolechip').forEach(function(c){c.classList.remove('on');}); el.classList.add('on'); }
+  function esc(s){ return (s==null?'':String(s)); }
+
   function show(v){ if(VIEWS.indexOf(v)<0) v='home'; VIEWS.forEach(function(id){ var n=document.getElementById(id); if(n) n.classList.toggle('hide', id!==v); }); document.querySelectorAll('.wdsug').forEach(function(d){d.classList.remove('on');}); window.scrollTo(0,0); }
+
+  // ----- verdict + answer rendering -----
+  function verdictHTML(v, big){
+    if(!v) return '';
+    if(v.s==='ev'){ return '<div class="ev '+v.cls+'" style="margin-bottom:12px;"><span class="meter"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="lab">Overall evidence: '+esc(v.label)+'</span></div>'; }
+    if(v.s==='vbadge'){ return '<span class="vbadge '+v.cls+(big?' big':'')+'">'+(big?'Verdict: ':'')+esc(v.label)+'</span>'; }
+    if(v.s==='condtag'){ return '<span class="condtag">'+esc(v.label)+'</span>'; }
+    return '';
+  }
+  function evRows(ev){ if(!ev||!ev.length) return ''; return ev.map(function(r){ return '<div class="erow"><span class="etag '+r.s+'">'+esc(r.l)+'</span><span class="et">'+r.t+'</span></div>'; }).join(''); }
+  function listHTML(arr){ return '<ul>'+arr.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>'; }
+
+  function renderAnswer(T){
+    curTopicId = T.id;
+    var main = '';
+    main += '<span class="typetag">'+esc(T.type)+'</span>';
+    main += '<h1>'+esc(T.title)+'</h1>';
+    if(T.sub){ main += '<p class="muted" style="margin:-4px 0 10px;">'+esc(T.sub)+'</p>'; }
+    main += verdictHTML(T.verdict, true);
+    main += '<p class="ans-bottom">'+esc(T.bottom)+'</p>';
+    if(T.red){ main += '<div class="callout red"><b>Seek emergency care:</b> '+esc(T.red)+'</div>'; }
+    if(T.ev && T.ev.length){ main += '<div class="asec"><h2>What the evidence shows</h2>'+evRows(T.ev)+'</div>'; }
+    if(T.safety && T.safety.length){ main += '<div class="safety"><h2><svg class="warnico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Safety &amp; cautions</h2>'+listHTML(T.safety)+'</div>'; }
+    if(T.whatto && T.whatto.length){ main += '<div class="asec"><h2>What to do</h2>'+listHTML(T.whatto)+'</div>'; }
+    if(T.doc){ main += '<div class="callout doc"><b>How to talk to your doctor:</b> '+esc(T.doc)+'</div>'; }
+    main += '<div class="actionbar">'
+      + '<a class="act" data-act="doctor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>'
+      + '<a class="act love" data-act="love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>'
+      + '<a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print / bring to your doctor</a>'
+      + '<span class="srcs" style="margin-left:auto;">Sources ('+esc(T.sources)+')</span></div>';
+    document.getElementById('ans-main').innerHTML = main;
+
+    var rail = '<div class="railbox"><h4>How this was reviewed</h4>'
+      + '<p class="railnote">Reviewed by the <b>WDWYK doctors</b> and backed by '+esc(T.sources)+' credentialed sources.</p>'
+      + '<span class="verbadge">&#10003; Doctor-reviewed</span></div>'
+      + '<div class="railbox"><h4>Expert videos</h4>'
+      + '<p class="railnote">We&rsquo;re curating credentialed expert videos for this topic &mdash; each one doctor-reviewed before it appears.</p>'
+      + '<a class="act" data-nav="partner" style="cursor:pointer;">Are you a verified expert? Contribute &rarr;</a></div>';
+    document.getElementById('ans-rail').innerHTML = rail;
+
+    document.getElementById('ans-crumb').innerHTML = 'Search &rsaquo; '+(CRUMB[T.cat]||'')+' &rsaquo; <b>'+esc(T.title)+'</b>';
+    var rel = (T.related||[]).map(function(r){ return '<span class="rchip">'+esc(r)+'</span>'; }).join('');
+    document.getElementById('ans-related').innerHTML = rel;
+    var inp = document.querySelector('#answer .topsearch input'); if(inp){ inp.value=''; inp.setAttribute('placeholder', T.title); }
+  }
+
+  function openTopic(id, fromHash){ var T=BYID[id]; if(!T){ show('home'); return; } renderAnswer(T); show('answer'); if(!fromHash && window.history && history.replaceState){ history.replaceState(null,'','#t='+id); } }
+
+  // ----- search ranking over all topics -----
   function rankHits(q){ q=(q||'').toLowerCase().trim(); if(!q) return []; var out=[];
-    TOPICS.forEach(function(T){ var tl=T.t.toLowerCase(), s=99;
-      if(tl.indexOf(q)===0) s=0; else T.k.forEach(function(k){ if(k.indexOf(q)===0) s=Math.min(s,1); });
-      if(s>1){ if(tl.indexOf(q)>-1) s=2; else T.k.forEach(function(k){ if(k.indexOf(q)>-1||q.indexOf(k)>-1) s=Math.min(s,3); }); }
+    TOPICS.forEach(function(T){ var tl=T.title.toLowerCase(), s=99;
+      if(tl.indexOf(q)===0) s=0; else (T.kw||[]).forEach(function(k){ if(k.indexOf(q)===0) s=Math.min(s,1); });
+      if(s>1){ if(tl.indexOf(q)>-1) s=2; else (T.kw||[]).forEach(function(k){ if(k.indexOf(q)>-1||q.indexOf(k)>-1) s=Math.min(s,3); }); }
       if(s<99) out.push({T:T,s:s}); });
-    out.sort(function(a,b){return a.s-b.s;}); return out.slice(0,6).map(function(o){return o.T;}); }
+    out.sort(function(a,b){return a.s-b.s;}); return out.slice(0,7).map(function(o){return o.T;}); }
   function match(q){ var h=rankHits(q); return h.length?h[0]:null; }
-  function route(q){ var T=match(q); if(T){ show(T.v); return true; } if(!(q||'').trim()){ show('home'); return true; } var el=document.getElementById('nr-q'); if(el) el.textContent='“'+q.trim()+'”'; show('noresult'); return false; }
+  function route(q){ var T=match(q); if(T){ openTopic(T.id); return true; } if(!(q||'').trim()){ show('home'); return true; } var el=document.getElementById('nr-q'); if(el) el.textContent='\u201c'+q.trim()+'\u201d'; show('noresult'); return false; }
+
+  // ----- doctor modal: compliment + mission link (never a specific card) -----
   var DOC=null;
-  function ensureDoc(){ if(DOC) return DOC; DOC=document.createElement('div'); DOC.className='docmask'; DOC.innerHTML='<div class="docbox"><button class="x" aria-label="Close">×</button><div class="eyebrow" style="text-align:left;color:var(--teal);">Send to your doctor</div><h3 style="font-family:var(--serif);font-size:22px;margin:4px 0 6px;color:var(--ink);">Paste this into your patient portal</h3><p class="muted" style="margin:0;font-size:14px;">MyChart, Athena, FollowMyHealth — wherever you message your doctor. Pre-written so you don\u2019t have to think about it.</p><div class="docmsg"><span class="m"></span><div class="u"></div></div><button class="btn warm" style="margin-top:14px;width:100%;" data-copy>Copy message</button></div>'; document.body.appendChild(DOC); DOC.addEventListener('click',function(e){ if(e.target===DOC||e.target.classList.contains('x')) DOC.classList.remove('on'); }); DOC.querySelector('[data-copy]').addEventListener('click',function(){ var b=this,txt=DOC.querySelector('.m').textContent+'\n'+DOC.querySelector('.u').textContent; if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(function(){ b.textContent='Copied \u2713'; setTimeout(function(){b.textContent='Copy message';},2200); }); } else { alert(txt); } }); return DOC; }
-  function openDoc(title){ var d=ensureDoc(), t=title&&title.length?title:'this'; d.querySelector('.m').textContent='Hi — I\u2019ve been reading about '+t+' on What Doctors Wish You Knew, a doctor-reviewed, ad-free health site. Could we talk about whether it applies to me? Here\u2019s the summary I read:'; d.querySelector('.u').textContent=location.origin+location.pathname; d.classList.add('on'); }
-  function curTitle(){ for(var i=0;i<VIEWS.length;i++){ var n=document.getElementById(VIEWS[i]); if(n && !n.classList.contains('hide')){ var h=n.querySelector('h1,h3'); return h?h.textContent.trim():''; } } return ''; }
-  function shareThis(title){ var url=location.origin+location.pathname, text=(title?title+' — ':'')+'Honest health answers, no ads. WhatDoctorsWishYouKnew.com'; if(navigator.share){ navigator.share({title:'What Doctors Wish You Knew',text:text,url:url}).catch(function(){}); } else if(navigator.clipboard){ navigator.clipboard.writeText(text+' '+url).then(function(){ alert('Link copied — share it with someone who needs it.'); }); } }
-  function thanks(node,msg){ var p=document.createElement('p'); p.textContent=msg; p.style.cssText='color:var(--teal-deep);font-size:13.5px;margin:10px 0 0;font-weight:600;'; node.replaceWith(p); }
+  function missionURL(){ return location.origin+location.pathname+'#mission'; }
+  function ensureDoc(){ if(DOC) return DOC; DOC=document.createElement('div'); DOC.className='docmask';
+    DOC.innerHTML='<div class="docbox"><button class="x" aria-label="Close">&times;</button>'
+      +'<div class="eyebrow" style="text-align:left;color:var(--teal);">Share with your doctor</div>'
+      +'<h3 style="font-family:var(--serif);font-size:22px;margin:4px 0 6px;color:var(--ink);">Paste this into your patient portal</h3>'
+      +'<p class="muted" style="margin:0;font-size:14px;">MyChart, Athena, FollowMyHealth &mdash; wherever you message your doctor. A friendly note that points them to our mission, pre-written so you don&rsquo;t have to think about it.</p>'
+      +'<div class="docmsg"><span class="m"></span><div class="u"></div></div>'
+      +'<button class="btn warm" style="margin-top:14px;width:100%;" data-copy>Copy message</button></div>';
+    document.body.appendChild(DOC);
+    DOC.addEventListener('click',function(e){ if(e.target===DOC||e.target.classList.contains('x')) DOC.classList.remove('on'); });
+    DOC.querySelector('[data-copy]').addEventListener('click',function(){ var b=this,txt=DOC.querySelector('.m').textContent+'\n'+DOC.querySelector('.u').textContent; if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(function(){ b.textContent='Copied \u2713'; setTimeout(function(){b.textContent='Copy message';},2200); }); } else { alert(txt); } });
+    return DOC; }
+  function openDoc(){ var d=ensureDoc();
+    d.querySelector('.m').textContent='Hi Doctor \u2014 thank you for the care you give me; I really value your guidance. I\u2019ve been learning from What Doctors Wish You Knew, a free, ad-free, doctor-reviewed health site, and thought you might appreciate what they\u2019re building. Here\u2019s their mission:';
+    d.querySelector('.u').textContent=missionURL();
+    d.classList.add('on'); }
+
+  function curTitle(){ if(curTopicId && BYID[curTopicId]) return BYID[curTopicId].title; for(var i=0;i<VIEWS.length;i++){ var n=document.getElementById(VIEWS[i]); if(n && !n.classList.contains('hide')){ var h=n.querySelector('h1,h3'); return h?h.textContent.trim():''; } } return ''; }
+  function shareThis(title){ var hash = (curTopicId? '#t='+curTopicId : ''); var url=location.origin+location.pathname+hash, text=(title?title+' \u2014 ':'')+'Honest, doctor-reviewed health answers, no ads. WhatDoctorsWishYouKnew.com'; if(navigator.share){ navigator.share({title:'What Doctors Wish You Knew',text:text,url:url}).catch(function(){}); } else if(navigator.clipboard){ navigator.clipboard.writeText(text+' '+url).then(function(){ alert('Link copied \u2014 share it with someone who needs it.'); }); } }
+  function thanks(node,msg){ var p=document.createElement('p'); p.textContent=msg; p.style.cssText='color:#fff;font-size:14px;margin:12px 0 0;font-weight:600;'; node.replaceWith(p); }
+
+  // ----- home featured cards -----
+  function cardSmall(T){
+    var v = verdictHTML(T.verdict, false);
+    var first = (T.whatto && T.whatto[0]) ? T.whatto[0] : '';
+    return '<div class="card topic-card" data-id="'+T.id+'">'
+      + '<div class="kind">'+esc(T.type)+'</div>'
+      + v
+      + '<h3>'+esc(T.title)+'</h3>'
+      + '<p class="bottomline">'+esc(T.bottom)+'</p>'
+      + (first? '<p class="whatto"><b>What to do:</b> '+esc(first)+'</p>' : '')
+      + '<div class="cardfoot">'
+      + '<a class="act" data-act="doctor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Your doctor</a>'
+      + '<a class="act love" data-act="love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Share</a>'
+      + '<span class="srcs">Sources ('+esc(T.sources)+')</span></div></div>';
+  }
+  function buildHome(){ var feat=['seedoils','berberine','ozempic']; var html=feat.map(function(id){ return BYID[id]?cardSmall(BYID[id]):''; }).join(''); document.getElementById('home-cards').innerHTML=html; }
+
+  // ----- topics browse -----
+  var topicFilter='all';
+  function buildFilters(){ var f='<button class="fchip on" data-filter="all">All</button>'+CATS.map(function(c){ return '<button class="fchip" data-filter="'+c.k+'">'+c.label+'</button>'; }).join(''); document.getElementById('topic-filters').innerHTML=f; document.getElementById('topic-count').textContent=TOPICS.length+' topics'; }
+  function buildTopics(){ var host=document.getElementById('topic-list'); var html='';
+    CATS.forEach(function(c){ if(topicFilter!=='all' && topicFilter!==c.k) return; var items=TOPICS.filter(function(T){return T.cat===c.k;}); if(!items.length) return;
+      html += '<div class="cat-head">'+c.label+'</div><p class="cat-sub">'+items.length+' topics</p><div class="cards">'+items.map(cardSmall).join('')+'</div>'; });
+    host.innerHTML=html; }
+  function goTopics(fromHash){ buildTopics(); show('topics'); if(!fromHash && window.history && history.replaceState){ history.replaceState(null,'','#topics'); } }
+
+  // ----- live suggestions -----
+  var KIND={claim:'Claim',supp:'Supplement',dx:'Condition',med:'Medication',test:'Test',sym:'Symptom'};
   function attachSuggest(inp){ var box=inp.closest('.search'); if(!box) return; var dd=document.createElement('div'); dd.className='wdsug'; box.appendChild(dd); var items=[],active=-1;
     function close(){ dd.classList.remove('on'); dd.innerHTML=''; items=[]; active=-1; }
     function paint(){ Array.prototype.forEach.call(dd.querySelectorAll('button'),function(b,i){ b.classList.toggle('active', i===active); }); }
     function render(){ var hits=rankHits(inp.value); items=hits; if(!hits.length){ close(); return; } active=-1;
-      dd.innerHTML=hits.map(function(T,i){ return '<button type="button" data-i="'+i+'" data-v="'+T.v+'"><span>'+T.t+'</span><span class="sg-kind">'+(KIND[T.v]||'')+'</span></button>'; }).join('');
-      Array.prototype.forEach.call(dd.querySelectorAll('button'),function(b){ b.addEventListener('mousedown',function(e){ e.preventDefault(); show(b.getAttribute('data-v')); close(); }); b.addEventListener('mouseenter',function(){ active=+b.getAttribute('data-i'); paint(); }); });
+      dd.innerHTML=hits.map(function(T,i){ return '<button type="button" data-i="'+i+'" data-id="'+T.id+'"><span>'+esc(T.title)+'</span><span class="sg-kind">'+(KIND[T.cat]||'')+'</span></button>'; }).join('');
+      Array.prototype.forEach.call(dd.querySelectorAll('button'),function(b){ b.addEventListener('mousedown',function(e){ e.preventDefault(); openTopic(b.getAttribute('data-id')); close(); }); b.addEventListener('mouseenter',function(){ active=+b.getAttribute('data-i'); paint(); }); });
       dd.classList.add('on'); }
     inp.addEventListener('input',render); inp.addEventListener('focus',render);
     inp.addEventListener('blur',function(){ setTimeout(close,150); });
     inp.addEventListener('keydown',function(e){
       if(e.key==='ArrowDown'){ if(items.length){ e.preventDefault(); active=Math.min(active+1,items.length-1); paint(); } }
       else if(e.key==='ArrowUp'){ if(items.length){ e.preventDefault(); active=Math.max(active-1,0); paint(); } }
-      else if(e.key==='Enter'){ e.preventDefault(); if(active>=0&&items[active]){ show(items[active].v); } else { route(inp.value); } close(); }
+      else if(e.key==='Enter'){ e.preventDefault(); if(active>=0&&items[active]){ openTopic(items[active].id); } else { route(inp.value); } close(); }
       else if(e.key==='Escape'){ close(); } });
   }
+
+  // ----- hash routing for shareable links -----
+  function applyHash(){ var h=(location.hash||'').replace(/^#/,''); if(!h) return; if(h.indexOf('t=')===0){ openTopic(h.slice(2), true); return; } if(h==='topics'){ goTopics(true); return; } if(['home','mission','partner'].indexOf(h)>-1){ show(h); } }
+
+  function navTo(v){ if(v==='join'){ show('home'); var b=document.querySelector('#home .band.join'); if(b) b.scrollIntoView({behavior:'smooth'}); return; } if(v==='topics'){ goTopics(); return; } show(v); if(window.history&&history.replaceState){ history.replaceState(null,'','#'+v); } }
+
   function wireSite(){
+    // search inputs (static ones present at load)
     document.querySelectorAll('.search').forEach(function(s){ var inp=s.querySelector('input'), btn=s.querySelector('button'); if(inp){ attachSuggest(inp); } if(btn && /search/i.test(btn.textContent)){ btn.addEventListener('click',function(){ route(inp?inp.value:''); }); } });
-    document.querySelectorAll('#home .card').forEach(function(c){ var h=c.querySelector('h3'); if(!h) return; c.style.cursor='pointer'; c.addEventListener('click',function(e){ if(e.target.closest('a')) return; route(h.textContent); }); });
-    document.querySelectorAll('.tries a').forEach(function(a){ a.style.cursor='pointer'; a.addEventListener('click',function(){ route(a.textContent); }); });
-    document.querySelectorAll('.brand').forEach(function(b){ b.style.cursor='pointer'; b.addEventListener('click',function(){ show('home'); }); });
-    document.querySelectorAll('.navlinks a').forEach(function(a){ a.style.cursor='pointer'; a.addEventListener('click',function(){ var t=a.textContent.toLowerCase(); show(t.indexOf('clinician')>-1?'partner':'home'); }); });
-    document.querySelectorAll('footer a').forEach(function(a){ if(a.getAttribute('href')) return; a.style.cursor='pointer'; a.addEventListener('click',function(){ var t=a.textContent.toLowerCase(); show((t.indexOf('clinic')>-1||t.indexOf('hospital')>-1||t.indexOf('foundation')>-1||t.indexOf('health system')>-1||t.indexOf('contribute')>-1)?'partner':'home'); }); });
-    document.querySelectorAll('.btn.warm').forEach(function(b){ var t=b.textContent.trim().toLowerCase();
-      if(t==='join'){ b.style.cursor='pointer'; b.addEventListener('click',function(){ show('partner'); }); }
-      else if(t.indexOf('become a founding')>-1){ b.addEventListener('click',function(e){ e.preventDefault(); thanks(b.closest('.joinform')||b,'You\u2019re in. Welcome, founding member — we\u2019ll email you as we clarify new topics.'); }); }
-      else if(t.indexOf('register interest')>-1){ b.addEventListener('click',function(e){ e.preventDefault(); thanks(b.closest('.pform')||b,'Thanks — we\u2019ve registered your interest and will be in touch.'); }); }
-      else if(t.indexOf('request')>-1){ b.addEventListener('click',function(e){ e.preventDefault(); thanks(b.closest('.nrform')||b,'Thank you — we\u2019ve logged your request and will email you when it\u2019s ready.'); }); }
-    });
-    document.querySelectorAll('a.act').forEach(function(a){ var t=a.textContent.toLowerCase(); if(t.indexOf('print')>-1||t.indexOf('one-pager')>-1) return; a.style.cursor='pointer'; a.addEventListener('click',function(){ var card=a.closest('.card'); var title=card&&card.querySelector('h3')?card.querySelector('h3').textContent.trim():curTitle(); if(t.indexOf('doctor')>-1){ openDoc(title); } else { shareThis(title); } }); });
+    // tries links
+    document.querySelectorAll('.tries a').forEach(function(a){ if(a.getAttribute('data-nav')) return; a.style.cursor='pointer'; a.addEventListener('click',function(){ route(a.textContent); }); });
+    // brand -> home
+    document.querySelectorAll('.brand').forEach(function(b){ b.style.cursor='pointer'; b.addEventListener('click',function(){ navTo('home'); }); });
+    // join / founding forms
+    document.querySelectorAll('.joinform').forEach(function(f){ var b=f.querySelector('button'); if(b){ b.addEventListener('click',function(e){ e.preventDefault(); thanks(f,'You\u2019re in \u2014 welcome to the movement. We\u2019ll email you as we clarify new topics.'); }); } });
+    document.querySelectorAll('.pform .btn.warm').forEach(function(b){ if(/register/i.test(b.textContent)){ b.addEventListener('click',function(e){ e.preventDefault(); thanks(b.closest('.pform')||b,'Thanks \u2014 we\u2019ve registered your interest and will be in touch.'); }); } });
+    document.querySelectorAll('.nrform .btn.warm').forEach(function(b){ b.addEventListener('click',function(e){ e.preventDefault(); thanks(b.closest('.nrform')||b,'Thank you \u2014 we\u2019ve logged your request and will email you when it\u2019s ready.'); }); });
+    // enter-to-submit on email inputs
     document.querySelectorAll('.joinform input,.nrform input').forEach(function(inp){ inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); var b=inp.parentNode.querySelector('button'); if(b) b.click(); } }); });
+
+    // delegated clicks (covers dynamic content)
+    document.addEventListener('click',function(e){
+      var act=e.target.closest('a.act'); if(act){ var tt=act.textContent.toLowerCase(); if(tt.indexOf('print')>-1||tt.indexOf('contribute')>-1) { if(tt.indexOf('contribute')>-1) navTo('partner'); return; } if(tt.indexOf('doctor')>-1){ openDoc(); } else { shareThis(curTitle()); } return; }
+      var nav=e.target.closest('[data-nav]'); if(nav){ e.preventDefault(); navTo(nav.getAttribute('data-nav')); return; }
+      var tc=e.target.closest('.topic-card'); if(tc){ openTopic(tc.getAttribute('data-id')); return; }
+      var chip=e.target.closest('.rchip'); if(chip){ route(chip.textContent); return; }
+      var fc=e.target.closest('.fchip'); if(fc){ topicFilter=fc.getAttribute('data-filter'); document.querySelectorAll('#topic-filters .fchip').forEach(function(x){x.classList.toggle('on',x===fc);}); buildTopics(); return; }
+    });
+    window.addEventListener('hashchange', applyHash);
   }
+
+  buildHome();
+  buildFilters();
   wireSite();
+  applyHash();
 </script>
+
 </body>
 </html>
