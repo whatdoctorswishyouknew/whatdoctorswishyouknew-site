@@ -98,7 +98,9 @@
 
   footer{background:#15273C;color:#cdd8e2;margin-top:46px;padding:38px 0 28px;}
   footer .top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;}
-  footer .pledge2{font-family:var(--serif);font-size:20px;color:#fff;max-width:300px;}
+  footer .pledge2{font-family:var(--serif);font-size:20px;color:#fff;max-width:340px;}
+footer .pledgecol{max-width:360px;}
+footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;}
   footer .cols{display:flex;gap:44px;flex-wrap:wrap;}
   footer h5{color:#fff;font-size:12px;letter-spacing:.05em;margin:0 0 10px;text-transform:uppercase;}
   footer a{color:#cdd8e2;display:block;font-size:13.5px;margin-bottom:7px;}
@@ -220,7 +222,10 @@
 <template id="foottpl">
 <footer><div class="wrap">
   <div class="top">
-    <div class="pledge2">No ads. No sponsors. No affiliates. Ever.</div>
+    <div class="pledgecol">
+      <div class="pledge2">No ads. No sponsors. No affiliates. Ever.</div>
+      <p class="pledgenote">Every answer is reviewed by our doctors and backed by credentialed sources &mdash; including the expert videos we link. We sell nothing and never sell your data. If the science changes, the answer changes. If we don&rsquo;t know, we say so.</p>
+    </div>
     <div class="cols">
       <div><h5>About</h5><a data-nav="mission">How it works</a><a data-nav="mission">Our mission</a><a data-nav="mission">Where we&rsquo;re going</a><a data-nav="partner">Contact</a></div>
       <div><h5>Trust</h5><a data-nav="mission">Evidence policy</a><a data-nav="mission">Conflicts of interest</a><a data-nav="mission">Editorial standards</a></div>
@@ -247,11 +252,6 @@
   <div class="eyebrow">Recently clarified &middot; <a data-nav="topics" style="cursor:pointer;">browse all topics &rarr;</a></div>
   <div class="cards" id="home-cards"></div>
 </div>
-
-<div class="wrap"><div class="band trust">
-  <div class="pledge">No ads. No sponsors. No affiliates. Ever.</div>
-  <p class="muted" style="margin:8px 0 0;max-width:760px;">Every answer is reviewed by our doctors and backed by credentialed sources &mdash; including the expert videos we link. We sell nothing and never sell your data. If the science changes, the answer changes. If we don&rsquo;t know, we say so.</p>
-</div></div>
 
 <div class="wrap"><div class="band join">
   <h3>Join the movement to protect those you love</h3>
