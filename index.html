@@ -219,9 +219,26 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   .legal .updated{font-size:12.5px;color:var(--muted);margin:0 0 4px;}
   .legal .ph{background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);border-radius:6px;padding:1px 7px;font-size:13px;}
   .legal .pledgeline{font-family:var(--serif);font-style:italic;color:var(--teal-deep);font-size:18px;margin-top:24px;}
+  #betabar{background:var(--tint);border-bottom:1px solid var(--tint-line);color:var(--teal-deep);font-size:13.5px;padding:8px 16px;display:flex;align-items:center;justify-content:center;gap:8px 16px;flex-wrap:wrap;text-align:center;}
+  #betabar .bb-txt{font-weight:500;}
+  #betabar form{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0;}
+  #betabar input{font:inherit;font-size:13px;border:1px solid var(--tint-line);border-radius:8px;padding:6px 10px;min-width:170px;background:#fff;color:var(--ink);}
+  #betabar button{font:inherit;font-size:13px;font-weight:500;border:none;border-radius:8px;padding:6px 13px;background:var(--teal);color:#fff;cursor:pointer;}
+  #betabar button:hover{background:var(--teal-deep);}
+  #betabar .bb-msg{font-size:13px;color:var(--teal-deep);}
+  @media print{#betabar{display:none !important;}}
 </style>
 </head>
 <body>
+
+<div id="betabar">
+  <span class="bb-txt">This site is in beta &mdash; still building.</span>
+  <form id="betaNotify" novalidate>
+    <input type="email" required placeholder="your@email.com" aria-label="Your email" />
+    <button type="submit">Get an email when we&rsquo;re fully live &rarr;</button>
+  </form>
+  <span class="bb-msg" id="betaNotifyMsg" role="status" aria-live="polite"></span>
+</div>
 
 <svg width="0" height="0" style="position:absolute"><defs>
   <g id="i-share"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></g>
@@ -1249,5 +1266,24 @@ window.TOPICS = [
   applyHash();
 </script>
 
+<script>
+(function(){
+  var ENDPOINT = "https://wdwyk-subscribe.benjaminfinchmed.workers.dev";
+  var f = document.getElementById('betaNotify'); if(!f) return;
+  var msg = document.getElementById('betaNotifyMsg');
+  var EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var inp = f.querySelector('input'); var email = (inp.value||'').trim();
+    if(!EMAIL.test(email)){ msg.textContent = 'Please enter a valid email.'; return; }
+    if(ENDPOINT.indexOf('REPLACE') > -1){ msg.textContent = 'Almost ready — sign-up turns on shortly.'; return; }
+    msg.textContent = 'One moment…';
+    fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: email, source: 'beta-banner' }) })
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+      .then(function(){ f.reset(); msg.textContent = 'Thanks! Check your inbox to confirm.'; })
+      .catch(function(){ msg.textContent = 'Hmm, that didn’t work — please try again.'; });
+  });
+})();
+</script>
 </body>
 </html>
