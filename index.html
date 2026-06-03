@@ -209,6 +209,16 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   .railnote{font-size:12.5px;color:var(--muted);margin:0 0 10px;line-height:1.5;}
   .ans-main h1{margin-top:6px;}
   @media print{ nav.site,.rail,.actionbar,.topsearch,.related,.eyebrow,footer,.navpill,.btn{display:none !important;} .ans-grid{grid-template-columns:1fr;} .ans-main{border:none;padding:0;} body{background:#fff;} }
+  .footlegal{margin-top:18px;font-size:13px;}
+  .footlegal a{display:inline;color:#fff;margin:0 3px;cursor:pointer;}
+  .footlegal a:first-child{margin-left:0;}
+  .footlegal a:hover{text-decoration:underline;}
+  .footbeta{color:#90a1b3;font-size:12px;margin-top:7px;}
+  .legal{max-width:760px;margin:0 auto;}
+  .legal .lead-box{background:var(--tint);border:1px solid var(--tint-line);border-radius:14px;padding:16px 18px;margin:6px 0 18px;font-size:15.5px;line-height:1.55;}
+  .legal .updated{font-size:12.5px;color:var(--muted);margin:0 0 4px;}
+  .legal .ph{background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);border-radius:6px;padding:1px 7px;font-size:13px;}
+  .legal .pledgeline{font-family:var(--serif);font-style:italic;color:var(--teal-deep);font-size:18px;margin-top:24px;}
 </style>
 </head>
 <body>
@@ -269,7 +279,7 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   <h3>Join the movement to protect those you love</h3>
   <p style="margin:0;opacity:.85;">Free. Be the first to know when we clarify a new topic &mdash; and help decide what we clarify next.</p>
   <div class="joinform"><input placeholder="your@email.com" /><button class="btn warm">Join the movement</button></div>
-  <div style="font-size:12.5px;opacity:.7;">#TruthMatters &middot; no spam, ever</div>
+  <div style="font-size:12.5px;opacity:.7;">#TruthMatters &middot; no spam, ever &middot; <a data-nav="privacy" style="color:#fff;text-decoration:underline;">Privacy</a></div>
 </div></div>
 
 <div class="foothost"></div>
@@ -309,7 +319,7 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   <div class="pulls">Our mission</div>
   <h1>Truth matters. Protect it. Share it. &mdash; Say it loud.</h1>
   <p class="mlead">What Doctors Wish You Knew is a free, ad-free search bar for health truth &mdash; the honest answer your doctor would give you if they had all the time in the world.</p>
-  <p class="mlead">Every answer is reviewed by doctors and backed by credentialed sources. We sell nothing, we take no ads, and we never sell your data. When the science is clear, we say so plainly. When it isn&rsquo;t, we say that too.</p>
+  <p class="mlead">Every answer is reviewed by doctors and backed by credentialed sources. We sell nothing, we take no ads, and we never sell your data &mdash; see our <a data-nav="privacy">Privacy Policy</a>. When the science is clear, we say so plainly. When it isn&rsquo;t, we say that too.</p>
 
   <h2>How it works</h2>
   <div class="steps" style="margin-top:6px;">
@@ -328,7 +338,7 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
     <h3>Join the movement to protect those you love</h3>
     <p style="margin:0;opacity:.85;">Free. Be the first to know when we clarify a new topic &mdash; and help decide what we clarify next.</p>
     <div class="joinform"><input placeholder="your@email.com" /><button class="btn warm">Join the movement</button></div>
-    <div style="font-size:12.5px;opacity:.7;">#TruthMatters &middot; no spam, ever</div>
+    <div style="font-size:12.5px;opacity:.7;">#TruthMatters &middot; no spam, ever &middot; <a data-nav="privacy" style="color:#fff;text-decoration:underline;">Privacy</a></div>
   </div>
 </div></div>
 <footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
@@ -347,6 +357,7 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
         <button class="btn warm" type="button">Request it</button>
       </div>
     </div>
+    <p class="muted small" style="margin:14px 0 0;">We use your email only to reply about this topic, and we never sell your data. <a data-nav="privacy">Privacy Policy</a>.</p>
     <p class="muted small" style="margin:24px 0 6px;">Or browse what we&rsquo;ve already clarified:</p>
     <div class="tries"><a data-nav="topics" style="cursor:pointer;">See all topics &rarr;</a></div>
   </div>
@@ -375,7 +386,7 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
       <button class="btn warm">Register interest</button>
       <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print this page</a>
     </div>
-    <p class="pnote">We read every message. No ads, no sponsors, and we never sell your data.</p>
+    <p class="pnote">We read every message. No ads, no sponsors, and we never sell your data. <a data-nav="privacy">See our Privacy Policy</a>.</p>
   </div>
   <div class="eyebrow" style="text-align:left;margin:6px 0 14px;">What you get</div>
   <div class="vpgrid">
@@ -386,6 +397,130 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
     <div class="vpcard"><h4>Credentialed creators</h4><p>Contribute verified videos and be cited with your credentials &mdash; judged on expertise, never follower count.</p></div>
     <div class="vpcard"><h4>Everyone</h4><p>Join a movement that puts honest answers &mdash; and patients &mdash; first.</p></div>
   </div>
+</div></div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
+</div>
+
+<div id="privacy" class="hide">
+<div class="navhost"></div>
+<div class="wrap"><div class="mpage legal">
+  <div class="pulls">Privacy</div>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: June 3, 2026</p>
+  <div class="lead-box"><b>The short version:</b> we collect almost nothing. If you join our email list or ask us to cover a topic, we get your email address and any note you add &mdash; and we use it only to send you what you asked for. We don&rsquo;t sell, rent, or trade your information to anyone, ever. No ads, no ad trackers.</div>
+  <p>What Doctors Wish You Knew (&ldquo;WDWYK,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;) is in beta &mdash; we&rsquo;re still building, so this policy may grow as we add features. We&rsquo;ll keep it honest and current. This policy covers whatdoctorswishyouknew.com. It doesn&rsquo;t cover other sites we link to, which have their own policies.</p>
+
+  <h2>What we collect</h2>
+  <p><b>Email you give us.</b> If you join the list or use a &ldquo;request a topic&rdquo; form, we collect your email address and any optional message you type. No name required.</p>
+  <p><b>Anonymous site statistics.</b> We use Cloudflare Web Analytics, which Cloudflare states does not use cookies or other client-side storage and does not collect or use visitors&rsquo; personal data to identify them. It tells us things like how many people viewed a page &mdash; not who they are.</p>
+  <p><b>Ordinary technical data.</b> Like every website, our host and security provider, Cloudflare, processes basic technical information your browser sends (such as your IP address and browser type) to deliver the site and protect it from abuse. We don&rsquo;t use this to build a profile of you.</p>
+
+  <h2>How we use it</h2>
+  <p>Only to send you the updates or answers you asked for, to see which topics to prioritise, to understand in aggregate which pages help, and to keep the site secure. We do not use your information for advertising, and we never sell or share it for cross-context behavioural advertising.</p>
+
+  <h2>Who helps us run this</h2>
+  <p>We keep this list short on purpose. Each company acts on our behalf under its own privacy terms:</p>
+  <p><b>MailerLite</b> stores our email list and sends our emails. MailerLite states it &ldquo;will never sell, rent, or lease your Personal Data,&rdquo; stores data in the EU, and is ISO/IEC&nbsp;27001 certified. See <a href="https://www.mailerlite.com/legal/privacy-policy">MailerLite&rsquo;s privacy policy</a>.<br>
+  <b>Cloudflare</b> hosts the site, protects it, and provides our cookieless analytics. See <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare&rsquo;s privacy policy</a>.</p>
+  <p>If we add a donation or payment tool later, we&rsquo;ll name it here before turning it on.</p>
+
+  <h2>Cookies and &ldquo;Do Not Track&rdquo;</h2>
+  <p>We don&rsquo;t use cookies to advertise to you or follow you around the web; our analytics are cookieless. If your browser sends a &ldquo;Do Not Track&rdquo; signal, there&rsquo;s nothing for us to stop, because we don&rsquo;t track you across other sites and don&rsquo;t sell or share your data for behavioural advertising.</p>
+
+  <h2>Your choices and rights</h2>
+  <p>You can unsubscribe anytime &mdash; every email has a one-click link. You can also ask us to show, correct, or delete what we have, and we extend these choices to everyone, wherever you live. If you&rsquo;re in California, you have rights under California law, and we don&rsquo;t sell your information. To make any request, email <a href="mailto:privacy@whatdoctorswishyouknew.com">privacy@whatdoctorswishyouknew.com</a>.</p>
+
+  <h2>For visitors in the EU/EEA &amp; UK (GDPR)</h2>
+  <p>Because many of our visitors are in Europe, we apply these protections to everyone&rsquo;s data here.</p>
+  <p><b>Who&rsquo;s responsible.</b> The data controller is What Doctors Wish You Knew, a US-based service that&rsquo;s open to the world &mdash; contact <a href="mailto:privacy@whatdoctorswishyouknew.com">privacy@whatdoctorswishyouknew.com</a> with any data question.</p>
+  <p><b>Why we use your data (lawful basis).</b> We use your email to send what you asked for, on the basis of your <b>consent</b> &mdash; withdraw anytime via the unsubscribe link. We use cookieless, aggregate analytics and basic security on the basis of our <b>legitimate interests</b> in running and protecting the site.</p>
+  <p><b>Your rights.</b> You can access, correct, delete, restrict, object to, or port your data, and withdraw consent at any time. You can also complain to your data-protection authority &mdash; in the Netherlands, the Autoriteit Persoonsgegevens. Email <a href="mailto:privacy@whatdoctorswishyouknew.com">privacy@whatdoctorswishyouknew.com</a> to exercise any of these.</p>
+  <p><b>Where your data is processed.</b> Our email provider (MailerLite) stores data in the EU; some providers such as Cloudflare may process data in the US under recognised safeguards (Standard Contractual Clauses or the EU&ndash;U.S. Data Privacy Framework).</p>
+
+  <h2>Children</h2>
+  <p>This is general health information for a broad audience, and parts of it are written for parents. It is not directed to children under 13, and we don&rsquo;t knowingly collect their information. Our email list is for adults &mdash; you must be at least 16 to subscribe. If you believe a child gave us their information, email us and we&rsquo;ll delete it.</p>
+
+  <h2>How long we keep your email</h2>
+  <p>We keep your email until you unsubscribe or ask us to delete it &mdash; then we remove it. We don&rsquo;t keep what we don&rsquo;t need.</p>
+
+  <h2>Security &amp; changes</h2>
+  <p>We take reasonable steps to protect the little information we hold, and we keep our footprint small to keep your risk small. No service can promise perfect security. If we change this policy, we&rsquo;ll post the new version here with a new date, and flag anything that really matters.</p>
+
+  <h2>Contact</h2>
+  <p>Questions, or want to exercise a privacy right? Email <a href="mailto:privacy@whatdoctorswishyouknew.com">privacy@whatdoctorswishyouknew.com</a>.</p>
+  <div class="pledgeline">Nothing to sell. Nothing to hide. Nothing but the truth.</div>
+</div></div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
+</div>
+
+<div id="disclaimer" class="hide">
+<div class="navhost"></div>
+<div class="wrap"><div class="mpage legal">
+  <div class="pulls">Important to know</div>
+  <h1>Medical Disclaimer</h1>
+  <p class="updated">Last updated: June 3, 2026</p>
+  <div class="lead-box">What Doctors Wish You Knew gives you honest, doctor-reviewed health information so you can understand the evidence and have a better conversation with your own doctor. It&rsquo;s here to <b>complement the care your doctor gives you &mdash; never to replace it.</b> We can&rsquo;t see you, examine you, or know your history, so nothing here is personal medical advice.</div>
+
+  <h2>Information, not personal medical advice</h2>
+  <p>Our answers are general health information based on published sources. They are not a diagnosis, a treatment plan, or advice for your particular situation, and reading them doesn&rsquo;t create a doctor&ndash;patient relationship between you and WDWYK or anyone who reviews our content.</p>
+
+  <h2>Your own doctor comes first</h2>
+  <p>Only a professional who can examine you and knows your history can give advice that truly fits you. Always talk to your doctor, pharmacist, or another qualified clinician before you start, stop, or change any treatment, medicine, supplement, or test &mdash; and bring your questions. We even give you the words to raise a topic; the point is to use them <i>with</i> your own doctor, not instead of one.</p>
+
+  <h2>In an emergency, don&rsquo;t wait</h2>
+  <p>If you think you may have a medical emergency, call your local emergency number (911 in the U.S.) or go to the nearest emergency room right now. Never delay getting care, and never ignore advice from your own clinician, because of something you read here. If you&rsquo;re in the U.S. and thinking about harming yourself, or you&rsquo;re in emotional crisis, call or text 988 &mdash; the Suicide &amp; Crisis Lifeline.</p>
+
+  <h2>How we keep answers honest</h2>
+  <p>Every answer is reviewed by one of the WDWYK doctors before we publish it. But medicine changes quickly and no source is ever perfect, so we keep updating our answers as the evidence changes. If you&rsquo;re a clinician or expert and you spot something that needs fixing or a closer look, please tell us &mdash; we&rsquo;ll review it. Getting it right matters more to us than being right.</p>
+
+  <h2>Your decisions are your own</h2>
+  <p>We share information to help you decide <i>with</i> your doctor. To the fullest extent the law allows, this site and its content are provided &ldquo;as is,&rdquo; and What Doctors Wish You Knew is not liable for choices made based on this general information.</p>
+  <div class="pledgeline">Nothing to sell. Nothing to hide. Nothing but the truth.</div>
+</div></div>
+<footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
+</div>
+
+<div id="terms" class="hide">
+<div class="navhost"></div>
+<div class="wrap"><div class="mpage legal">
+  <div class="pulls">The fine print</div>
+  <h1>Terms of Use</h1>
+  <p class="updated">Last updated: June 3, 2026</p>
+  <div class="lead-box"><b>The short version:</b> WDWYK is a free service that shares honest, doctor-reviewed health information. Use it to get informed and to talk with your own doctor. It&rsquo;s not personal medical advice (see our <a data-nav="disclaimer">Medical Disclaimer</a>). Be decent, don&rsquo;t misuse it, and understand we share information in good faith but can&rsquo;t guarantee it&rsquo;s right for your situation.</div>
+
+  <h2>1. Accepting these terms</h2>
+  <p>By using whatdoctorswishyouknew.com, you agree to these Terms, our <a data-nav="privacy">Privacy Policy</a>, and our <a data-nav="disclaimer">Medical Disclaimer</a>. If you don&rsquo;t agree, please don&rsquo;t use the site. The site is in beta and still being built.</p>
+
+  <h2>2. What WDWYK is</h2>
+  <p>A free, ad-free service that explains what the evidence says about health claims, supplements, medicines, conditions, tests, and symptoms. Our answers are general information, not personal medical advice, and they don&rsquo;t replace your own clinician.</p>
+
+  <h2>3. Using the site fairly</h2>
+  <p>Please don&rsquo;t use the site to break the law or harm others; reuse our content to suggest we endorse you, your product, or your claim when we don&rsquo;t; scrape, overload, hack, or disrupt the site; or present our content in a misleading or altered way. You&rsquo;re welcome to share answers using our built-in tools and to use the site for your own personal, non-commercial learning.</p>
+
+  <h2>4. Our content</h2>
+  <p>The text, design, name, and logo of What Doctors Wish You Knew are owned by us or our licensors. We cite outside sources so you can check our work; those belong to their owners. Sharing via our tools and personal use is fine; republishing our content commercially or implying endorsement needs our written permission.</p>
+
+  <h2>5. Things you send us</h2>
+  <p>If you send us an email, a topic request, or a message, you give us permission to use it to operate and improve the service. Please don&rsquo;t send us sensitive personal health details &mdash; we don&rsquo;t need them, and the site isn&rsquo;t built to receive them. Don&rsquo;t send anything you don&rsquo;t have the right to share.</p>
+
+  <h2>6. No warranty</h2>
+  <p>We work hard to be accurate and current, but the site and its content are provided &ldquo;as is,&rdquo; without warranties of any kind, to the fullest extent the law allows. We don&rsquo;t promise the site will always be available, error-free, or right for your specific situation.</p>
+
+  <h2>7. Limit on liability</h2>
+  <p>To the fullest extent the law allows, What Doctors Wish You Knew and the people who work on it are not liable for losses or harms arising from your use of &mdash; or reliance on &mdash; the site or its content. Health decisions should be made with your own clinician. This does not limit anything that can&rsquo;t be limited by law.</p>
+
+  <h2>8. Links to other sites</h2>
+  <p>We link to outside sources and may link to partners. We&rsquo;re not responsible for their content or their privacy practices. Visiting them is at your own discretion.</p>
+
+  <h2>9. Changes</h2>
+  <p>We may update these terms. We&rsquo;ll post the new version here with a new date. If you keep using the site after a change, that means you accept the update.</p>
+
+  <h2>10. The legal basics</h2>
+  <p>These Terms are governed by the laws of the State of Utah, without regard to its conflict-of-law rules. We&rsquo;ve written these Terms and our Privacy Policy to meet the most protective state standards, so they&rsquo;re meant to be fair to users in every U.S. state &mdash; and nothing here takes away rights you have under your own state&rsquo;s laws. If any part is unenforceable, the rest still applies.</p>
+
+  <h2>11. Contact</h2>
+  <p>Questions about these terms? Email <a href="mailto:privacy@whatdoctorswishyouknew.com">privacy@whatdoctorswishyouknew.com</a>.</p>
+  <div class="pledgeline">Nothing to sell. Nothing to hide. Nothing but the truth.</div>
 </div></div>
 <footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
 </div>
@@ -934,12 +1069,20 @@ window.TOPICS = [
     {k:'sym',   label:'Symptoms',           crumb:'Symptoms'}
   ];
   var CRUMB = {}; CATS.forEach(function(c){ CRUMB[c.k]=c.crumb; });
-  var VIEWS = ['home','answer','topics','mission','partner','noresult'];
+  var VIEWS = ['home','answer','topics','mission','partner','noresult','privacy','disclaimer','terms'];
   var curTopicId = null;
 
   // build nav + footer from templates
   document.querySelectorAll('.navhost').forEach(function(h){ h.appendChild(document.getElementById('navtpl').content.cloneNode(true)); });
   document.querySelectorAll('.foothost').forEach(function(h){ h.appendChild(document.getElementById('foottpl').content.cloneNode(true)); });
+  // legal links + beta note on every footer
+  document.querySelectorAll('footer').forEach(function(f){
+    var disc=f.querySelector('.disc'); if(!disc||f.querySelector('.footlegal')) return;
+    var row=document.createElement('div'); row.className='footlegal';
+    row.innerHTML='<a data-nav="privacy">Privacy</a> &middot; <a data-nav="disclaimer">Disclaimer</a> &middot; <a data-nav="terms">Terms</a>';
+    var beta=document.createElement('div'); beta.className='footbeta'; beta.innerHTML='What Doctors Wish You Knew is in beta — we’re still building and improving.';
+    disc.parentNode.insertBefore(row,disc); disc.parentNode.insertBefore(beta,disc);
+  });
 
   function pickRole(el){ el.parentNode.querySelectorAll('.rolechip').forEach(function(c){c.classList.remove('on');}); el.classList.add('on'); }
   function esc(s){ return (s==null?'':String(s)); }
@@ -1071,7 +1214,7 @@ window.TOPICS = [
   }
 
   // ----- hash routing for shareable links -----
-  function applyHash(){ var h=(location.hash||'').replace(/^#/,''); if(!h) return; if(h.indexOf('t=')===0){ openTopic(h.slice(2), true); return; } if(h==='topics'){ goTopics(true); return; } if(['home','mission','partner'].indexOf(h)>-1){ show(h); } }
+  function applyHash(){ var h=(location.hash||'').replace(/^#/,''); if(!h) return; if(h.indexOf('t=')===0){ openTopic(h.slice(2), true); return; } if(h==='topics'){ goTopics(true); return; } if(['home','mission','partner','privacy','disclaimer','terms'].indexOf(h)>-1){ show(h); } }
 
   function navTo(v){ if(v==='join'){ show('home'); var b=document.querySelector('#home .band.join'); if(b) b.scrollIntoView({behavior:'smooth'}); return; } if(v==='topics'){ goTopics(); return; } show(v); if(window.history&&history.replaceState){ history.replaceState(null,'','#'+v); } }
 
