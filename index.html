@@ -83,6 +83,12 @@
   .brandhero .bm{font-family:var(--serif);font-size:clamp(26px,6vw,38px);color:var(--navy);letter-spacing:.004em;line-height:1.05;text-align:center;}
   .tries{font-size:14px;color:var(--muted);margin-top:13px;} .tries a{font-weight:500;}
   .eyebrow{text-align:center;font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin:22px 0 18px;}
+  .nr-res{display:flex;flex-direction:column;gap:10px;max-width:520px;margin:16px 0 12px;}
+  .nr-rescard{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--tint-line);border-left:4px solid var(--teal-deep);border-radius:10px;padding:12px 15px;text-decoration:none;color:var(--ink);min-height:44px;}
+  .nr-rescard:hover{background:var(--tint);text-decoration:none;}
+  .nr-rescard .rt{font-size:14.5px;font-weight:600;line-height:1.3;}
+  .nr-rescard .rs{font-size:12.5px;color:var(--muted);}
+  .nr-rescard svg{flex-shrink:0;}
 
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;}
@@ -389,19 +395,38 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
 <div id="noresult" class="hide">
   <div class="navhost"></div>
   <div class="wrap" style="padding-top:36px;padding-bottom:44px;max-width:780px;">
-    <div class="eyebrow" style="text-align:left;color:var(--warm-deep);margin:0 0 8px;">Not clarified yet</div>
-    <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">We haven&rsquo;t clarified <span id="nr-q">that</span> yet.</h1>
-    <p class="muted" style="margin:0 0 18px;max-width:640px;">We clarify topics carefully. Want this one next? Tell us and we&rsquo;ll prioritise it &mdash; and email you the moment it&rsquo;s ready.</p>
-    <div class="card" style="max-width:540px;">
-      <b>Request this topic</b>
-      <div class="nrform" style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
-        <input type="email" placeholder="your@email.com" style="flex:1;min-width:200px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;" />
-        <button class="btn warm" type="button">Request it</button>
+    <!-- STATE: no answer yet (safe query) -->
+    <div id="nr-normal">
+      <div class="eyebrow" style="text-align:left;color:var(--warm-deep);margin:0 0 8px;">Not clarified yet</div>
+      <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">We haven&rsquo;t covered <span id="nr-q">that</span> yet.</h1>
+      <p class="muted" style="margin:0 0 18px;max-width:640px;">Good question &mdash; and it&rsquo;s on our list now. Want us to clarify it? Leave your email and we&rsquo;ll tell you the moment a doctor-reviewed answer is ready &mdash; <b>only for this topic</b>.</p>
+      <div class="card" style="max-width:540px;">
+        <b>Email me when it&rsquo;s ready</b>
+        <form class="nrform" id="nrRequest" novalidate style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+          <input type="email" placeholder="your@email.com" aria-label="Your email" style="flex:1;min-width:200px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;" />
+          <button class="btn teal" type="submit">Email me when it&rsquo;s ready</button>
+        </form>
+        <span id="nrMsg" role="status" aria-live="polite" class="muted small" style="display:block;margin-top:9px;"></span>
       </div>
+      <p class="muted small" style="margin:14px 0 0;">Only about this topic. No spam, never sold. <a data-nav="privacy">Privacy Policy</a>.</p>
+      <p class="muted small" style="margin:8px 0 0;">Your request also helps decide what we cover next.</p>
+      <p class="muted small" style="margin:24px 0 6px;">Or browse what we&rsquo;ve already clarified:</p>
+      <div class="tries"><a data-nav="topics" style="cursor:pointer;">See all topics &rarr;</a></div>
     </div>
-    <p class="muted small" style="margin:14px 0 0;">We use your email only to reply about this topic, and we never sell your data. <a data-nav="privacy">Privacy Policy</a>.</p>
-    <p class="muted small" style="margin:24px 0 6px;">Or browse what we&rsquo;ve already clarified:</p>
-    <div class="tries"><a data-nav="topics" style="cursor:pointer;">See all topics &rarr;</a></div>
+
+    <!-- STATE: crisis query — safe-query gate (no request form; query never echoed) -->
+    <div id="nr-crisis" class="hide">
+      <div class="eyebrow" style="text-align:left;color:var(--teal-deep);margin:0 0 8px;">You&rsquo;re not alone</div>
+      <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">Please reach out &mdash; help is available right now.</h1>
+      <p class="muted" style="margin:0 0 6px;max-width:640px;">This is bigger than a search. If you&rsquo;re thinking about harming yourself, or someone may be in danger, people who can help are here any time.</p>
+      <div class="nr-res">
+        <a class="nr-rescard" href="tel:988"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg><span><span class="rt">988 &mdash; Suicide &amp; Crisis Lifeline</span><br><span class="rs">Call or text 988 (US)</span></span></a>
+        <a class="nr-rescard" href="tel:18002221222"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg><span><span class="rt">Poison Control</span><br><span class="rs">1-800-222-1222 (overdose or poisoning)</span></span></a>
+        <a class="nr-rescard" href="tel:911"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg><span><span class="rt">Emergency? Call 911 (US)</span><br><span class="rs">or your local emergency number</span></span></a>
+      </div>
+      <p class="muted small" style="margin:4px 0 0;">Outside the US? Contact your local crisis line or emergency services.</p>
+      <p class="muted" style="margin:12px 0 0;">You deserve support. You&rsquo;re not alone.</p>
+    </div>
   </div>
 <footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
 </div>
@@ -1185,7 +1210,11 @@ window.TOPICS = [
       if(s<99) out.push({T:T,s:s}); });
     out.sort(function(a,b){return a.s-b.s;}); return out.slice(0,7).map(function(o){return o.T;}); }
   function match(q){ var h=rankHits(q); return h.length?h[0]:null; }
-  function route(q){ var T=match(q); if(T){ openTopic(T.id); return true; } if(!(q||'').trim()){ show('home'); return true; } var el=document.getElementById('nr-q'); if(el) el.textContent='\u201c'+q.trim()+'\u201d'; show('noresult'); return false; }
+  // ----- crisis safe-query gate (the no-result page is the crisis surface; task #81) -----
+  var CRISIS_PHRASES = ['suicide','suicidal','kill myself','killing myself','kill my self','end my life','end it all','take my life','want to die','wanna die','ready to die','better off dead',"don't want to live",'do not want to live','no reason to live','nothing to live for','no point in living','self harm','self-harm','selfharm','cut myself','cutting myself','hurt myself','harm myself','harming myself','hang myself','hanging myself','overdose to die','want to overdose','how to overdose'];
+  var CRISIS_PATTERNS = [/\bhow (to|do i|can i|should i)\b.*\b(die|kill myself|kill my self|end (it|my life)|overdose)\b/, /\b(easiest|painless|quick(est)?|fastest|best|surest) way to (die|kill myself|end (it|my life))\b/, /\bways? to (die|kill myself|end my life)\b/, /\bhow (much|many)\b.*\b(to die|to kill myself|to overdose|lethal|fatal|will kill( me)?)\b/, /\b(lethal|fatal|deadly) (dose|amount|quantity)\b/, /\bjump off (a |the )?(bridge|building|roof)\b/];
+  function isCrisis(q){ q=(q||'').toLowerCase(); for(var i=0;i<CRISIS_PHRASES.length;i++){ if(q.indexOf(CRISIS_PHRASES[i])>-1) return true; } for(var j=0;j<CRISIS_PATTERNS.length;j++){ if(CRISIS_PATTERNS[j].test(q)) return true; } return false; }
+  function route(q){ var T=match(q); if(T){ openTopic(T.id); return true; } if(!(q||'').trim()){ show('home'); return true; } var query=q.trim(); var nrn=document.getElementById('nr-normal'), nrc=document.getElementById('nr-crisis'); if(isCrisis(query)){ if(nrn) nrn.classList.add('hide'); if(nrc) nrc.classList.remove('hide'); } else { if(nrc) nrc.classList.add('hide'); if(nrn) nrn.classList.remove('hide'); window.__nrTopic=query; var el=document.getElementById('nr-q'); if(el) el.textContent='\u201c'+query+'\u201d'; var m=document.getElementById('nrMsg'); if(m) m.textContent=''; var ip=document.querySelector('#nrRequest input'); if(ip) ip.value=''; } show('noresult'); return false; }
 
   // ----- doctor modal: compliment + mission link (never a specific card) -----
   var DOC=null;
@@ -1316,6 +1345,26 @@ window.TOPICS = [
       .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
       .then(function(){ f.reset(); msg.textContent = 'Thanks! Check your inbox to confirm — we’ll email you the moment we’re fully live.'; })
       .catch(function(){ msg.textContent = 'Hmm, that didn’t work — please try again.'; });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var ENDPOINT = "https://wdwyk-subscribe.benjaminfinchmed.workers.dev";
+  var f = document.getElementById('nrRequest'); if(!f) return;
+  var msg = document.getElementById('nrMsg');
+  var EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var inp = f.querySelector('input'); var email = (inp.value||'').trim();
+    if(!EMAIL.test(email)){ if(msg) msg.textContent = 'Please enter a valid email.'; return; }
+    var topic = (window.__nrTopic||'').slice(0,80);
+    if(msg) msg.textContent = 'One moment…';
+    fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: email, source: 'no-result: ' + topic }) })
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+      .then(function(){ f.reset(); if(msg) msg.textContent = 'Thanks! Check your inbox to confirm — we’ll email you when this topic is ready.'; })
+      .catch(function(){ if(msg) msg.textContent = 'Hmm, that didn’t work — please try again.'; });
   });
 })();
 </script>
