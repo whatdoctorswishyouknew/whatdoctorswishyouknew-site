@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Clear health answers, reviewed by doctors — with nothing to sell · What Doctors Wish You Knew</title>
+<title>Clear health answers, built on evidence — with nothing to sell · What Doctors Wish You Knew</title>
 <link rel="icon" type="image/png" href="/logo-bookmark.png" />
 <link rel="apple-touch-icon" href="/logo-bookmark.png" />
 <meta name="msapplication-TileImage" content="/logo-bookmark.png" />
 <meta name="msapplication-TileColor" content="#ffffff" />
-<meta property="og:title" content="Clear health answers, reviewed by doctors — with nothing to sell · What Doctors Wish You Knew" />
-<meta property="og:description" content="Honest, doctor-reviewed health answers. No ads, and no one can buy our answers." />
+<meta property="og:title" content="Clear health answers, built on evidence — with nothing to sell · What Doctors Wish You Knew" />
+<meta property="og:description" content="Honest, evidence-based health answers. Free, ad-free — and no one can buy our answers." />
 <meta property="og:image" content="https://whatdoctorswishyouknew.com/share-card.png" />
 <meta property="og:url" content="https://whatdoctorswishyouknew.com/" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Clear health answers, reviewed by doctors — with nothing to sell · What Doctors Wish You Knew" />
-<meta name="twitter:description" content="Honest, doctor-reviewed health answers. No ads, and no one can buy our answers." />
+<meta name="twitter:title" content="Clear health answers, built on evidence — with nothing to sell · What Doctors Wish You Knew" />
+<meta name="twitter:description" content="Honest, evidence-based health answers. Free, ad-free — and no one can buy our answers." />
 <meta name="twitter:image" content="https://whatdoctorswishyouknew.com/share-card.png" />
 <style>
   :root{
@@ -51,6 +51,9 @@
 
   nav.site{background:#fff;border-bottom:1px solid var(--line);}
   nav.site .wrap{display:flex;align-items:center;height:70px;gap:26px;}
+  .navlinks{margin-left:auto;display:flex;align-items:center;gap:22px;}
+  .navlinks a{font-size:15px;color:var(--ink);cursor:pointer;white-space:nowrap;}
+  .navlinks a:hover{color:var(--teal-deep);}
   .brand{display:flex;align-items:center;gap:11px;flex-shrink:0;}
   .brand .mark{width:52px;height:52px;flex-shrink:0;display:block;}
   .brand .bm{font-family:var(--serif);font-size:22px;color:var(--navy);letter-spacing:.004em;line-height:1.08;}
@@ -81,18 +84,28 @@
   .brandhero{display:flex;flex-direction:column;align-items:center;gap:12px;margin:8px 0 2px;}
   .brandhero .mark{width:64px;height:64px;flex-shrink:0;}
   .brandhero .bm{font-family:var(--serif);font-size:clamp(26px,6vw,38px);color:var(--navy);letter-spacing:.004em;line-height:1.05;text-align:center;}
-  .heroband{background:var(--navy);padding:26px 0 30px;}
+  h1.bm{margin:0;font-weight:400;}
+  h2.trustline{margin:12px 0 0;font-weight:400;}
+  .heroband{background:var(--navy);padding:26px 0 30px;text-align:center;}
   .heroband.thin{padding:18px 0 20px;}
   .heroband .heroSearch{margin:0 auto;}
   .heroband .brandhero .bm{color:#fff;}
   .heroband .trustline{color:#C7D2DB;} .heroband .trustline b{color:#fff;}
   .heroband .tries{color:#9FB0C2;}
+  .heroband .heronote{font-size:12.5px;color:#C7D2DB;margin:13px auto 0;max-width:540px;line-height:1.5;}
   .heroband .tries a{display:inline-block;border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:999px;padding:3px 13px;margin:4px 3px;font-weight:500;}
   .heroband .tries a:hover{background:#fff;color:var(--navy);text-decoration:none;}
   .heroband .tries a:focus-visible{outline:3px solid #fff;outline-offset:2px;}
   .heroband .search.big{box-shadow:0 10px 30px -12px rgba(0,0,0,.5);}
   .tries{font-size:14px;color:var(--muted);margin-top:13px;} .tries a{font-weight:500;}
   .eyebrow{text-align:center;font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin:22px 0 18px;}
+  .homeintro{max-width:640px;margin:20px auto 2px;text-align:center;font-size:13.5px;line-height:1.5;color:var(--muted);}
+  .homeintro a{color:var(--teal-deep);font-weight:500;}
+  .starthere{text-align:center;font-size:14px;color:var(--muted);margin:16px 0 4px;}
+  .starthere .lbl{color:var(--ink);font-weight:600;}
+  .starthere a{display:inline-block;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:7px 14px;margin:4px 4px;font-weight:500;cursor:pointer;}
+  .starthere a:hover{border-color:var(--teal);color:var(--teal-deep);text-decoration:none;}
+  .starthere a:focus-visible{outline:3px solid var(--teal);outline-offset:2px;}
   .nr-res{display:flex;flex-direction:column;gap:10px;max-width:520px;margin:16px 0 12px;}
   .nr-rescard{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--tint-line);border-left:4px solid var(--teal-deep);border-radius:10px;padding:12px 15px;text-decoration:none;color:var(--ink);min-height:44px;}
   .nr-rescard:hover{background:var(--tint);text-decoration:none;}
@@ -125,6 +138,8 @@
   .act:hover{background:var(--tint);text-decoration:none;}
   .act svg{width:15px;height:15px;flex-shrink:0;}
   .act.love{color:var(--warm-deep);border-color:#ECD6C6;} .act.love:hover{background:#FBF1EA;}
+  .act.primary{color:#fff;background:var(--teal-deep);border-color:var(--teal-deep);} .act.primary:hover{background:#0c5f57;}
+  .indev{display:inline-block;font-size:10px;font-weight:700;color:#6f7c83;background:#EEF1F2;border:1px solid #E0E6E8;border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:middle;}
 
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
   .step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;}
@@ -175,6 +190,8 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   .callout b{font-weight:500;}
   .vbadge.big{font-size:15px;padding:6px 15px;margin:2px 0 12px;}
   .actionbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line-soft);margin-top:22px;padding-top:16px;}
+  .crisisline{margin-top:18px;background:var(--tint);border:1px solid var(--tint-line);border-radius:12px;padding:12px 15px;font-size:13.5px;color:var(--ink);line-height:1.5;}
+  .crisisline a{color:var(--teal-deep);font-weight:600;}
   .rail h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;}
   .railbox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 16px 6px;margin-bottom:16px;}
   .rvid{display:flex;gap:11px;margin-bottom:14px;}
@@ -204,8 +221,11 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   @media(max-width:900px){.cards,.steps{grid-template-columns:1fr;}.ans-grid{grid-template-columns:1fr;}.navlinks{display:none;}}
   @media(max-width:480px){
     .wrap{padding:0 16px;}
-    nav.site .wrap{height:58px;gap:12px;} .brand .mark{width:38px;height:38px;} .brand .bm{font-size:16px;}
-    .brandhero{gap:9px;margin:4px 0 2px;} .brandhero .mark{width:50px;height:50px;}
+    nav.site .wrap{height:auto;min-height:58px;gap:8px 12px;flex-wrap:wrap;padding-top:7px;padding-bottom:7px;} .brand .mark{width:38px;height:38px;} .brand .bm{font-size:16px;} .navlinks{margin-left:0;width:100%;gap:18px;} .navlinks a{font-size:14px;}
+    .brandhero{gap:7px;margin:2px 0 0;} .brandhero .mark{width:44px;height:44px;} .brandhero .bm{font-size:clamp(22px,6.4vw,30px);}
+    #betabar{padding:6px 12px;font-size:12.5px;gap:5px 10px;}
+    .hero{padding:12px 0 4px;}
+    .heroband{padding:16px 0 18px;}
     .band{padding:22px 18px;}
     .joinform{flex-direction:column;} .joinform input,.joinform button{width:100%;}
     .ans-main{padding:18px 16px 22px;} .ans-main h1{font-size:25px;} .ans-bottom{font-size:17px;}
@@ -274,28 +294,26 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
 </head>
 <body>
 
-<div id="betabar">
-  <span class="bb-txt">This site is in beta &mdash; new doctor-reviewed answers added every week.</span>
-  <form id="betaNotify" novalidate>
-    <input type="email" required placeholder="your@email.com" aria-label="Your email" />
-    <button type="submit">Get an email when we&rsquo;re fully live &rarr;</button>
-  </form>
-  <span class="bb-msg" id="betaNotifyMsg" role="status" aria-live="polite"></span>
-</div>
+<!-- Beta-email bar removed 2026-06-05 (full-committee consensus): no general broadcast list, ever. Notifications are strictly opt-in, per-card ("Notify me if this answer changes") or per-topic (Phase A no-result) only. Dead #betabar CSS + betaNotify handler to be tidied with #78. -->
 
 <svg width="0" height="0" style="position:absolute"><defs>
   <g id="i-share"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></g>
   <g id="i-doc"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></g>
   <g id="i-print"><polyline points="6 9 6 3 18 3 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7"/></g>
   <g id="i-warn"><path d="M12 3 2 20h20L12 3z"/><line x1="12" y1="9" x2="12" y2="14"/><line x1="12" y1="17.5" x2="12" y2="17.6"/></g>
+  <g id="i-link"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></g>
 </defs></svg>
 
 
 <template id="navtpl">
 <nav class="site"><div class="wrap">
   <span class="brand">
-    <img class="mark" src="logo.png" alt="What Doctors Wish You Knew logo" />
+    <img class="mark" src="logo.png" alt="What Doctors Wish You Knew" />
     <span class="bm">What Doctors Wish You Knew</span>
+  </span>
+  <span class="navlinks">
+    <a href="#topics" data-nav="topics">Browse topics</a>
+    <a href="#mission" data-nav="mission" data-scroll="how-we-review">How we review</a>
   </span>
 </div></nav>
 </template>
@@ -306,15 +324,16 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   <div class="top">
     <div class="pledgecol">
       <div class="pledge2">The truth is not for sale.</div>
-      <p class="pledgenote">Influenced by no one. Every answer is reviewed by our doctors and backed by credentialed sources. If the science changes, the answer changes. If we don&rsquo;t know, we say so.</p>
+      <p class="pledgenote">No advertisers. No sponsors shaping our answers. Every answer is written from published evidence &mdash; and review by a licensed physician is the standard we&rsquo;re building toward. If the science changes, the answer changes. If we don&rsquo;t know, we say so.</p>
     </div>
     <div class="cols">
-      <div><h5>About</h5><a data-nav="mission">How it works</a><a data-nav="mission">Our mission</a><a data-nav="mission">Where we&rsquo;re going</a><a data-nav="partner">Contact</a></div>
-      <div><h5>Trust</h5><a data-nav="mission">Evidence policy</a><a data-nav="mission">Conflicts of interest</a><a data-nav="mission">Editorial standards</a></div>
-      <div><h5>Partners</h5><a data-nav="partner">For clinicians</a><a data-nav="partner">For clinics &amp; hospitals</a><a data-nav="partner">For health systems</a><a data-nav="partner">For foundations</a><a data-nav="partner">Contribute (credentialed creators)</a></div>
+      <div><h5>About</h5><a href="#mission" data-nav="mission">How it works</a><a href="#mission" data-nav="mission">Our mission</a><a href="#partner" data-nav="partner">Contact</a></div>
+      <div><h5>Browse topics</h5><a href="#t=ozempic">Ozempic (semaglutide)</a><a href="#t=vitamind">Vitamin D</a><a href="#t=statins">Statins</a><a href="#t=magnesium">Magnesium</a><a href="#t=hypertension">High blood pressure</a><a href="#topics" data-nav="topics">All topics &rarr;</a></div>
+      <div><h5>Trust</h5><a href="#mission" data-nav="mission" data-scroll="how-we-review">How we review</a></div>
+      <div><h5>Partners</h5><a href="#partner" data-nav="partner">For clinicians</a><a href="#partner" data-nav="partner">For clinics &amp; hospitals</a><a href="#partner" data-nav="partner">For health systems</a><a href="#partner" data-nav="partner">For foundations</a><a href="#partner" data-nav="partner">Contribute (credentialed creators)</a></div>
     </div>
   </div>
-  <div class="disc">Educational information, not medical advice &mdash; always talk to your doctor.</div>
+  <div class="disc">Educational information, not medical advice &mdash; always talk to your doctor. In an emergency, call 911 or your local emergency number.</div>
 </div></footer>
 </template>
 
@@ -322,24 +341,26 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
 <div id="home">
 <!-- home: top nav hidden; brand shown as centered lockup in the hero below (2026-06-04) -->
 <div class="wrap hero">
-  <h1 class="sr-only">What Doctors Wish You Knew &mdash; clear, evidence-based health answers, reviewed by doctors.</h1>
   <div class="brandhero">
-    <img class="mark" src="logo.png" alt="What Doctors Wish You Knew logo" width="64" height="64" />
-    <div class="bm">What Doctors Wish You Knew</div>
+    <img class="mark" src="logo.png" alt="What Doctors Wish You Knew" width="64" height="64" />
+    <h1 class="bm">What Doctors Wish You Knew</h1>
   </div>
 </div>
 <div class="heroband">
 <div class="wrap">
   <div class="heroSearch">
-    <div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask a health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Search</button></div>
-    <div class="trustline">Clear answers. Physician-reviewed. Nothing to sell.</div>
+    <div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask any health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Get the answer</button></div>
+    <h2 class="trustline">Clear answers. Evidence-based. Nothing to sell.</h2>
     <div class="tries">Try: <a>Seed oils</a> &middot; <a>Berberine</a> &middot; <a>Ozempic</a> &middot; <a>Creatine</a> &middot; <a>Magnesium</a></div>
+    <p class="heronote">Don&rsquo;t see your question yet? Search it anyway &mdash; we&rsquo;ll tell you the moment an answer is ready.</p>
   </div>
 </div>
 </div>
 
 <div class="wrap">
-  <div class="eyebrow">Recently clarified &middot; <a data-nav="topics" style="cursor:pointer;">browse all topics &rarr;</a></div>
+  <p class="homeintro">So much conflicting health information out there. Here&rsquo;s <a data-nav="mission">what the evidence actually says</a>.</p>
+  <div class="starthere" role="group" aria-label="Start here — common topics"><span class="lbl">Start here:</span> <a>High blood pressure</a> <a data-q="cholesterol">Cholesterol (statins)</a> <a>Type 2 diabetes</a> <a>Anxiety</a> <a>Vitamin D</a> <a>Antibiotics</a></div>
+  <div class="eyebrow">Recently answered &middot; <a data-nav="topics" style="cursor:pointer;">browse all topics &rarr;</a></div>
   <div class="cards" id="home-cards"></div>
 </div>
 
@@ -351,7 +372,7 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
 
 <div id="answer" class="hide">
 <div class="navhost"></div>
-<div class="heroband thin"><div class="wrap"><div class="heroSearch"><div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask a health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Search</button></div><div class="trustline">Clear answers. Physician-reviewed. Nothing to sell.</div></div></div></div>
+<div class="heroband thin"><div class="wrap"><div class="heroSearch"><div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask any health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Get the answer</button></div><div class="trustline">Clear answers. Evidence-based. Nothing to sell.</div></div></div></div>
 <div class="wrap">
   <div class="crumb" id="ans-crumb"></div>
   <div class="ans-grid">
@@ -366,10 +387,10 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
 
 <div id="topics" class="hide">
 <div class="navhost"></div>
-<div class="heroband thin"><div class="wrap"><div class="heroSearch"><div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask a health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Search</button></div><div class="trustline">Clear answers. Physician-reviewed. Nothing to sell.</div></div></div></div>
+<div class="heroband thin"><div class="wrap"><div class="heroSearch"><div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask any health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Get the answer</button></div><div class="trustline">Clear answers. Evidence-based. Nothing to sell.</div></div></div></div>
 <div class="wrap">
-  <h1 style="font-family:var(--serif);font-size:30px;color:var(--navy);margin:14px 0 4px;">Browse every topic</h1>
-  <p class="muted" style="margin:0 0 4px;">Honest, doctor-reviewed answers &mdash; <span id="topic-count"></span> and growing.</p>
+  <h1 style="font-family:var(--serif);font-size:30px;color:var(--navy);margin:14px 0 4px;">Browse every topic we&rsquo;ve covered</h1>
+  <p class="muted" style="margin:0 0 4px;">Honest, evidence-based answers &mdash; <span id="topic-count"></span> covered so far, and growing.</p>
   <div class="filterbar" id="topic-filters"></div>
   <div id="topic-list"></div>
 </div>
@@ -378,25 +399,31 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
 
 <div id="mission" class="hide">
 <div class="navhost"></div>
-<div class="heroband thin"><div class="wrap"><div class="heroSearch"><div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask a health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Search</button></div><div class="trustline">Clear answers. Physician-reviewed. Nothing to sell.</div></div></div></div>
+<div class="heroband thin"><div class="wrap"><div class="heroSearch"><div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask any health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Get the answer</button></div><div class="trustline">Clear answers. Evidence-based. Nothing to sell.</div></div></div></div>
 <div class="wrap"><div class="mpage">
   <div class="pulls">Our mission</div>
-  <h1>Clear, doctor-reviewed health answers &mdash; for any question.</h1>
-  <p class="mlead">What Doctors Wish You Knew is a free, ad-free search bar for health truth &mdash; the honest answer your doctor would give you if they had all the time in the world.</p>
-  <p class="mlead">Every answer is reviewed by doctors and backed by credentialed sources. We sell nothing, we take no ads, and we never sell your data &mdash; see our <a data-nav="privacy">Privacy Policy</a>. When the science is clear, we say so plainly. When it isn&rsquo;t, we say that too.</p>
+  <h1>Clear, evidence-based health answers &mdash; to the questions that matter most to you.</h1>
+  <p class="mlead">What Doctors Wish You Knew is a free, ad-free search engine for honest health answers &mdash; the kind of clear, honest answer a doctor would give if they had all the time in the world.</p>
+  <p class="mlead">Our answers are written from published evidence. Doctor review of every answer &mdash; by a licensed physician &mdash; is the standard we&rsquo;re building toward. When the science is clear, we say so plainly. When it isn&rsquo;t, we say that too. We sell nothing, run no ads, and never sell your data &mdash; see our <a data-nav="privacy">Privacy Policy</a>.</p>
 
   <h2>How it works</h2>
   <div class="steps" style="margin-top:6px;">
-    <div class="step"><div class="stepn">1</div><h4>Search</h4><p>Type any claim, supplement, medication, condition, test, or symptom.</p></div>
-    <div class="step"><div class="stepn">2</div><h4>See the evidence</h4><p>A calm Strong / Mixed / Weak rating, what the studies actually show, and safety notes &mdash; no scare tactics.</p></div>
-    <div class="step"><div class="stepn">3</div><h4>Get the bottom line</h4><p>One plain-English takeaway, what to do, and the words to raise it with your own doctor.</p></div>
+    <div class="step"><div class="stepn">1</div><h4>Search</h4><p>Type any claim, supplement, medication, condition, test, or symptom &mdash; or just ask in your own words.</p></div>
+    <div class="step"><div class="stepn">2</div><h4>See the evidence</h4><p>A plain Strong / Mixed / Weak rating, what the studies actually show, and safety notes.</p></div>
+    <div class="step"><div class="stepn">3</div><h4>Get the bottom line</h4><p>One plain-language takeaway, what to do next, and the words to bring it up with your own doctor.</p></div>
   </div>
 
-  <h2>Who reviews the answers</h2>
-  <p>Answers are reviewed by the WDWYK doctors and supported by named, credentialed experts &mdash; judged on expertise, never follower count. We don&rsquo;t name individual reviewing physicians publicly: it protects our clinicians and keeps answers from going stale as credentials change. The science leads; the people stay in the background.</p>
+  <h2 id="how-we-review">How we review</h2>
+  <p>Every answer here follows the same steps.</p>
+  <p><b>1. We start with the evidence.</b> We find the strongest research we can &mdash; large clinical trials, reviews that combine many studies, and guidance from major medical groups &mdash; and write it in plain language. When the science is clear, we say so. When it&rsquo;s limited or experts disagree, we say that too.</p>
+  <p><b>2. Doctor review &mdash; the standard we&rsquo;re building toward.</b> Before an answer carries a doctor-reviewed mark, a licensed physician checks that it reflects the evidence fairly, leaves nothing important out, and doesn&rsquo;t overstate what&rsquo;s known &mdash; logged with a date. We&rsquo;re working through the library to that bar now. If the evidence changes, we change the answer.</p>
+  <p><b>Why we don&rsquo;t publish reviewer names.</b> Our reviewers give their time as a public service. Putting their names on a public site creates professional and liability complications that would make it hard to keep recruiting them &mdash; so <b>we</b> carry the editorial responsibility, not them. The trust here rests on the process every answer goes through, not on any one name &mdash; the same model peer-reviewed journals use.</p>
+  <p><b>Sources.</b> We list the sources behind each answer. <span class="muted">(Clickable links are coming; for now the titles are enough to find them.)</span></p>
+  <p><b>This is health information, not personal medical advice.</b> Our review checks that answers fairly reflect the evidence for general questions &mdash; it isn&rsquo;t a review of your situation. Nothing here replaces a clinician who knows you. And if an answer looks wrong or out of date, we want to know and fix it.</p>
 
   <h2>Our pledge</h2>
-  <p>No ads, and no one can buy our answers. We exist to inform people and protect those they love, not to sell anything. This is education, not medical advice; always talk to your own doctor.</p>
+  <p>No ads, and no one can buy our answers. We&rsquo;re here to inform &mdash; not to sell. This is health education &mdash; your own doctor knows your full picture.</p>
+  <p style="font-weight:600;color:var(--ink);background:var(--tint);border:1px solid var(--tint-line);border-radius:12px;padding:13px 16px;margin:16px 0 0;">Partners and supporters never shape our answers &mdash; the best available evidence does.</p>
 
   <!-- Mission join band removed 2026-06-05 — no-blast model; topic-specific request/notify (Phase A) handles this. -->
 </div></div>
@@ -408,9 +435,9 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   <div class="wrap" style="padding-top:36px;padding-bottom:44px;max-width:780px;">
     <!-- STATE: no answer yet (safe query) -->
     <div id="nr-normal">
-      <div class="eyebrow" style="text-align:left;color:var(--warm-deep);margin:0 0 8px;">Not clarified yet</div>
-      <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">We haven&rsquo;t covered <span id="nr-q">that</span> yet.</h1>
-      <p class="muted" style="margin:0 0 18px;max-width:640px;">Good question &mdash; and it&rsquo;s on our list now. Want us to clarify it? Leave your email and we&rsquo;ll tell you the moment a doctor-reviewed answer is ready &mdash; <b>only for this topic</b>.</p>
+      <div class="eyebrow" style="text-align:left;color:var(--warm-deep);margin:0 0 8px;">Not answered yet</div>
+      <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">We haven&rsquo;t answered <span id="nr-q">that</span> yet.</h1>
+      <p class="muted" style="margin:0 0 18px;max-width:640px;">Good question &mdash; and it&rsquo;s on our list now. Leave your email and we&rsquo;ll let you know the moment an answer is ready &mdash; <b>only for this topic</b>.</p>
       <div class="card" style="max-width:540px;">
         <b>Email me when it&rsquo;s ready</b>
         <form class="nrform" id="nrRequest" novalidate style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
@@ -419,21 +446,21 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
         </form>
         <span id="nrMsg" role="status" aria-live="polite" class="muted small" style="display:block;margin-top:9px;"></span>
       </div>
-      <p class="muted small" style="margin:14px 0 0;">Only about this topic. No spam, never sold. <a data-nav="privacy">Privacy Policy</a>.</p>
-      <p class="muted small" style="margin:8px 0 0;">Your request also helps decide what we cover next.</p>
-      <p class="muted small" style="margin:24px 0 6px;">Or browse what we&rsquo;ve already clarified:</p>
+      <p class="muted small" style="margin:14px 0 0;">Only about this topic. No spam. We never sell your data. <a data-nav="privacy">Privacy Policy</a>.</p>
+      <p class="muted small" style="margin:8px 0 0;">Your request also helps us decide what to answer next.</p>
+      <p class="muted small" style="margin:24px 0 6px;">Or browse what we&rsquo;ve already answered:</p>
       <div class="tries"><a data-nav="topics" style="cursor:pointer;">See all topics &rarr;</a></div>
     </div>
 
     <!-- STATE: crisis query — safe-query gate (no request form; query never echoed) -->
     <div id="nr-crisis" class="hide">
-      <div class="eyebrow" style="text-align:left;color:var(--teal-deep);margin:0 0 8px;">You&rsquo;re not alone</div>
-      <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">Please reach out &mdash; help is available right now.</h1>
-      <p class="muted" style="margin:0 0 6px;max-width:640px;">This is bigger than a search. If you&rsquo;re thinking about harming yourself, or someone may be in danger, people who can help are here any time.</p>
+      <div class="eyebrow" style="text-align:left;color:var(--teal-deep);margin:0 0 8px;">If you need support right now</div>
+      <h1 style="font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 10px;color:var(--ink);">Help is here, whenever you need it.</h1>
+      <p class="muted" style="margin:0 0 6px;max-width:640px;">These resources are available around the clock &mdash; for you or for someone you&rsquo;re worried about.</p>
       <div class="nr-res">
-        <a class="nr-rescard" href="tel:988"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg><span><span class="rt">988 &mdash; Suicide &amp; Crisis Lifeline</span><br><span class="rs">Call or text 988 (US)</span></span></a>
-        <a class="nr-rescard" href="tel:18002221222"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg><span><span class="rt">Poison Control</span><br><span class="rs">1-800-222-1222 (overdose or poisoning)</span></span></a>
-        <a class="nr-rescard" href="tel:911"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg><span><span class="rt">Emergency? Call 911 (US)</span><br><span class="rs">or your local emergency number</span></span></a>
+        <a class="nr-rescard" href="tel:988"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg><span><span class="rt">988 &mdash; Suicide &amp; Crisis Lifeline</span><br><span class="rs">Free &amp; confidential &middot; call or text 988 (US)</span></span></a>
+        <a class="nr-rescard" href="tel:18002221222"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg><span><span class="rt">Poison Control</span><br><span class="rs">Free &amp; confidential &middot; 1-800-222-1222</span></span></a>
+        <a class="nr-rescard" href="tel:911"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.27a2 2 0 0 1 2.11-.45c.74.34 1.53.57 2.34.7A2 2 0 0 1 22 16.92z"/></svg><span><span class="rt">Emergency? Call 911 (US)</span><br><span class="rs">Emergency services &middot; or your local number</span></span></a>
       </div>
       <p class="muted small" style="margin:4px 0 0;">Outside the US? Contact your local crisis line or emergency services.</p>
       <p class="muted" style="margin:12px 0 0;">You deserve support. You&rsquo;re not alone.</p>
@@ -444,37 +471,54 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
 
 <div id="partner" class="hide">
 <div class="navhost"></div>
-<div class="heroband thin"><div class="wrap"><div class="heroSearch"><div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask a health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Search</button></div><div class="trustline">Clear answers. Physician-reviewed. Nothing to sell.</div></div></div></div>
+<div class="heroband thin"><div class="wrap"><div class="heroSearch"><div class="search big"><span class="mag">&#9099;</span><input placeholder="Ask any health question&hellip;" aria-label="Search health topics" /><button class="btn teal">Get the answer</button></div><div class="trustline">Clear answers. Evidence-based. Nothing to sell.</div></div></div></div>
 <div class="wrap"><div class="ppage">
-  <h1>Partner with us</h1>
-  <p class="pintro">We&rsquo;re building the trusted home for honest health answers &mdash; free for patients, forever, with no ads. Here&rsquo;s how you can help, and what you get.</p>
-  <div class="pform">
-    <h3>Tell us who you are</h3>
-    <div class="roleopts">
-      <button class="rolechip on" onclick="pickRole(this)">Clinician</button>
-      <button class="rolechip" onclick="pickRole(this)">Clinic</button>
-      <button class="rolechip" onclick="pickRole(this)">Hospital</button>
-      <button class="rolechip" onclick="pickRole(this)">Health system</button>
-      <button class="rolechip" onclick="pickRole(this)">Foundation</button>
-      <button class="rolechip" onclick="pickRole(this)">Credentialed creator</button>
-    </div>
-    <div class="frow"><input placeholder="Your name" /><input placeholder="Work email" /></div>
-    <div class="frow"><input placeholder="Organization (optional)" /></div>
-    <textarea placeholder="Anything you&rsquo;d like us to know (optional)"></textarea>
-    <div style="margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-      <button class="btn warm">Register interest</button>
-      <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print this page</a>
-    </div>
-    <p class="pnote">We read every message. No ads, no sponsors, and we never sell your data. <a data-nav="privacy">See our Privacy Policy</a>.</p>
-  </div>
-  <div class="eyebrow" style="text-align:left;margin:6px 0 14px;">What you get</div>
+  <div class="pulls">Build with us</div>
+  <h1>Help build the home for honest health answers &mdash; free for everyone.</h1>
+  <p class="pintro">WDWYK is a calm, ad-free place for honest, evidence-based answers to health questions &mdash; free for everyone. We&rsquo;re in the founding stage, looking for people and organizations who want to help build it. Here&rsquo;s what&rsquo;s real today &mdash; and what we&rsquo;re building next.</p>
+  <p style="font-weight:600;color:var(--ink);background:var(--tint);border:1px solid var(--tint-line);border-radius:12px;padding:13px 16px;margin:0 0 20px;">Partners and supporters never shape our answers &mdash; the best available evidence does.</p>
+
+  <h2>Where support goes &mdash; and where it never goes</h2>
   <div class="vpgrid">
-    <div class="vpcard"><h4>Clinicians</h4><p>Recommend it to every patient, vouch for the work, and help shape what we clarify next.</p></div>
-    <div class="vpcard"><h4>Clinics</h4><p>Co-brand answers as &ldquo;Supported by [your clinic],&rdquo; with waiting-room QR codes and patient handouts.</p></div>
-    <div class="vpcard"><h4>Hospitals &amp; health systems</h4><p>Ad-free, trustworthy patient education at scale &mdash; plus pilot partnerships to roll it out.</p></div>
-    <div class="vpcard"><h4>Foundations</h4><p>Fund free, independent patient education with real, measurable reach.</p></div>
-    <div class="vpcard"><h4>Credentialed creators</h4><p>Contribute verified videos and be cited with your credentials &mdash; judged on expertise, never follower count.</p></div>
-    <div class="vpcard"><h4>Everyone</h4><p>Join a movement that puts honest answers &mdash; and patients &mdash; first.</p></div>
+    <div class="vpcard"><h4>What your support does</h4><p>Support doctor review of answers &middot; keep the site free for everyone &middot; build the library &middot; earn a site-wide &ldquo;Supported by&rdquo; acknowledgment.</p></div>
+    <div class="vpcard"><h4>What support never does</h4><p>Change or appear on a specific answer &middot; buy placement &middot; pay for referrals &middot; see what you searched.</p></div>
+  </div>
+  <p style="font-weight:600;color:var(--ink);margin:14px 0 4px;">Support pays for the work. It never buys an answer.</p>
+  <p class="muted">What we won&rsquo;t accept: no ads &middot; no money from drug, device, or supplement makers &middot; we never sell your data &middot; we&rsquo;re never paid for referrals.</p>
+
+  <h2 style="margin-top:26px;">What exists today</h2>
+  <p>A growing library of plain-language answers &mdash; each written from the best available evidence, with doctor review the standard we&rsquo;re building toward. No ads. Nothing for sale. If you want to help build what&rsquo;s next, tell us who you are.</p>
+  <div class="pform">
+    <h3>Tell us about you</h3>
+    <form id="partnerForm" novalidate>
+      <div class="roleopts">
+        <button type="button" class="rolechip on" onclick="pickRole(this)">Clinician</button>
+        <button type="button" class="rolechip" onclick="pickRole(this)">Clinic</button>
+        <button type="button" class="rolechip" onclick="pickRole(this)">Hospital</button>
+        <button type="button" class="rolechip" onclick="pickRole(this)">Health system</button>
+        <button type="button" class="rolechip" onclick="pickRole(this)">Foundation</button>
+        <button type="button" class="rolechip" onclick="pickRole(this)">Credentialed creator</button>
+      </div>
+      <div class="frow"><input id="pf-name" placeholder="Your name" /><input id="pf-email" type="email" placeholder="Work email" /></div>
+      <div class="frow"><input id="pf-org" placeholder="Organization (optional)" /></div>
+      <textarea id="pf-note" placeholder="Anything you&rsquo;d like us to know (optional)"></textarea>
+      <div style="margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <button type="submit" class="btn warm">Send my details</button>
+        <a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print this page</a>
+      </div>
+      <p class="pnote" id="pfMsg">We read every message and reply personally. No one shapes our answers, and we never sell your data. <a data-nav="privacy">See our Privacy Policy</a>.</p>
+    </form>
+  </div>
+
+  <h2 style="margin-top:26px;">What we&rsquo;re building &mdash; founding partners help shape it</h2>
+  <p class="muted">Here&rsquo;s where we&rsquo;re headed. Each piece below is in development; founding partners help decide what we build first.</p>
+  <div class="vpgrid">
+    <div class="vpcard"><h4>Clinicians <span class="indev">In development</span></h4><p>Hand any patient an evidence-based answer, tell us the questions patients ask most, and help review topics in your specialty.</p></div>
+    <div class="vpcard"><h4>Clinics <span class="indev">In development</span></h4><p>A waiting-room kit (QR + handouts) pointing patients to honest, evidence-based answers &mdash; with a site-wide acknowledgment for your clinic.</p></div>
+    <div class="vpcard"><h4>Hospitals &amp; health systems <span class="indev">In development</span></h4><p>Ad-free health information for your whole community, with a clear community-benefit narrative &mdash; your support never touches an answer.</p></div>
+    <div class="vpcard"><h4>Foundations <span class="indev">In development</span></h4><p>Catalytic funding for free, independent health information &mdash; we&rsquo;re building impact reporting so you can see real-world reach. (We&rsquo;ll send a formal brief when we&rsquo;re ready for proposals.)</p></div>
+    <div class="vpcard"><h4>Credentialed creators <span class="indev">In development</span></h4><p>A credentialed library where your work sits inside a resource people trust &mdash; cited by your credentials, never follower count.</p></div>
+    <div class="vpcard"><h4>Everyone <span class="indev">In development</span></h4><p>When we open it, even a small contribution makes you a founding supporter of something everyone can use, free.</p></div>
   </div>
 </div></div>
 <footer><div class="wrap"><div class="disc" style="border:none;padding-top:0;">Educational information, not medical advice &mdash; always talk to your doctor.</div></div></footer>
@@ -538,7 +582,8 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   <div class="pulls">Important to know</div>
   <h1>Medical Disclaimer</h1>
   <p class="updated">Last updated: June 3, 2026</p>
-  <div class="lead-box">What Doctors Wish You Knew gives you honest, doctor-reviewed health information so you can understand the evidence and have a better conversation with your own doctor. It&rsquo;s here to <b>complement the care your doctor gives you &mdash; never to replace it.</b> We can&rsquo;t see you, examine you, or know your history, so nothing here is personal medical advice.</div>
+  <div class="lead-box">What Doctors Wish You Knew gives you honest, evidence-based health information so you can understand what the science says and have a better conversation with your own doctor. It&rsquo;s here to <b>complement the care your doctor gives you &mdash; never to replace it.</b> We can&rsquo;t see you, examine you, or know your history, so nothing here is personal medical advice.</div>
+  <p style="margin:14px 0 0;font-size:15px;color:var(--ink);background:var(--tint);border-radius:10px;padding:11px 14px;"><b>In an emergency, call 911 or your local emergency number</b> &mdash; or call or text <b>988</b> for a mental-health crisis in the U.S.</p>
 
   <h2>Information, not personal medical advice</h2>
   <p>Our answers are general health information based on published sources. They are not a diagnosis, a treatment plan, or advice for your particular situation, and reading them doesn&rsquo;t create a doctor&ndash;patient relationship between you and WDWYK or anyone who reviews our content.</p>
@@ -550,7 +595,7 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   <p>If you think you may have a medical emergency, call your local emergency number (911 in the U.S.) or go to the nearest emergency room right now. Never delay getting care, and never ignore advice from your own clinician, because of something you read here. If you&rsquo;re in the U.S. and thinking about harming yourself, or you&rsquo;re in emotional crisis, call or text 988 &mdash; the Suicide &amp; Crisis Lifeline.</p>
 
   <h2>How we keep answers honest</h2>
-  <p>Every answer is reviewed by one of the WDWYK doctors before we publish it. But medicine changes quickly and no source is ever perfect, so we keep updating our answers as the evidence changes. If you&rsquo;re a clinician or expert and you spot something that needs fixing or a closer look, please tell us &mdash; we&rsquo;ll review it. Getting it right matters more to us than being right.</p>
+  <p>Every answer is written from published medical evidence, and doctor review of every answer &mdash; by a licensed physician, logged with a date &mdash; is the standard we&rsquo;re building toward. Medicine changes quickly and no source is ever perfect, so we keep updating our answers as the evidence changes. If you&rsquo;re a clinician or expert and you spot something that needs fixing or a closer look, please tell us &mdash; we&rsquo;ll review it. Getting it right matters more to us than being right.</p>
 
   <h2>Your decisions are your own</h2>
   <p>We share information to help you decide <i>with</i> your doctor. To the fullest extent the law allows, this site and its content are provided &ldquo;as is,&rdquo; and What Doctors Wish You Knew is not liable for choices made based on this general information.</p>
@@ -565,7 +610,7 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   <div class="pulls">The fine print</div>
   <h1>Terms of Use</h1>
   <p class="updated">Last updated: June 3, 2026</p>
-  <div class="lead-box"><b>The short version:</b> WDWYK is a free service that shares honest, doctor-reviewed health information. Use it to get informed and to talk with your own doctor. It&rsquo;s not personal medical advice (see our <a data-nav="disclaimer">Medical Disclaimer</a>). Be decent, don&rsquo;t misuse it, and understand we share information in good faith but can&rsquo;t guarantee it&rsquo;s right for your situation.</div>
+  <div class="lead-box"><b>The short version:</b> WDWYK is a free service that shares honest, evidence-based health information. Use it to get informed and to talk with your own doctor. It&rsquo;s not personal medical advice (see our <a data-nav="disclaimer">Medical Disclaimer</a>). Be decent, don&rsquo;t misuse it, and understand we share information in good faith but can&rsquo;t guarantee it&rsquo;s right for your situation.</div>
 
   <h2>1. Accepting these terms</h2>
   <p>By using whatdoctorswishyouknew.com, you agree to these Terms, our <a data-nav="privacy">Privacy Policy</a>, and our <a data-nav="disclaimer">Medical Disclaimer</a>. If you don&rsquo;t agree, please don&rsquo;t use the site. The site is in beta and still being built.</p>
@@ -595,7 +640,7 @@ footer .pledgenote{color:#90a1b3;font-size:13px;line-height:1.6;margin:10px 0 0;
   <p>We may update these terms. We&rsquo;ll post the new version here with a new date. If you keep using the site after a change, that means you accept the update.</p>
 
   <h2>10. The legal basics</h2>
-  <p>These Terms are governed by the laws of the State of Utah, without regard to its conflict-of-law rules. We&rsquo;ve written these Terms and our Privacy Policy to meet the most protective state standards, so they&rsquo;re meant to be fair to users in every U.S. state &mdash; and nothing here takes away rights you have under your own state&rsquo;s laws. If any part is unenforceable, the rest still applies.</p>
+  <p>These Terms are governed by the laws of the State of Utah, without regard to its conflict-of-law rules. Nothing in these Terms takes away rights you have under your own state&rsquo;s laws. If any part is unenforceable, the rest still applies.</p>
 
   <h2>11. Contact</h2>
   <p>Questions about these terms? Email <a href="mailto:privacy@whatdoctorswishyouknew.com">privacy@whatdoctorswishyouknew.com</a>.</p>
@@ -649,7 +694,7 @@ window.TOPICS = [
  sources:5,related:['Headache','Food additives','Migraine triggers'],kw:['msg','monosodium glutamate','chinese restaurant syndrome','glutamate']},
 
 {id:'water8',cat:'claim',type:'Claim',title:'Do you need 8 glasses of water a day?',sub:'The famous “8×8” rule.',
- verdict:{s:'vbadge',cls:'warn',label:'Overblown'},
+ verdict:{s:'vbadge',cls:'warn',label:'More complicated than that'},
  bottom:'There’s no magic number. Most people stay well hydrated by drinking to thirst and eating food — and other drinks count.',
  ev:[{s:'mod',l:'Moderate',t:'<b>The “8×8” rule:</b> has no real scientific origin; needs vary a lot by size, activity, heat, and health.'},{s:'mod',l:'Moderate',t:'<b>What counts:</b> coffee, tea, milk, and water-rich foods all contribute to hydration.'}],
  whatto:['Use thirst and urine colour (pale yellow is fine) as your guide.','Drink more in heat, exercise, illness, or pregnancy.','Certain conditions (kidney stones, some heart/kidney disease) need a specific target — ask your doctor.'],
@@ -689,7 +734,7 @@ window.TOPICS = [
  sources:4,related:['Added sugar','Type 2 diabetes','Artificial sweeteners'],kw:['honey','agave','maple syrup','natural sugar','sweetener','table sugar']},
 
 {id:'eggs',cat:'claim',type:'Claim',title:'Are eggs bad for your heart?',sub:'Dietary cholesterol and the yolk debate.',
- verdict:{s:'vbadge',cls:'warn',label:'Overblown',},
+ verdict:{s:'vbadge',cls:'warn',label:'More complicated than that',},
  bottom:'For most people, an egg a day is fine. Dietary cholesterol affects blood cholesterol less than we once thought.',
  ev:[{s:'mod',l:'Moderate',t:'<b>Most people:</b> moderate egg intake isn’t linked to higher heart-disease risk in large studies.'},{s:'weak',l:'Weak',t:'<b>Some individuals:</b> people with diabetes or who are “cholesterol responders” may see more effect — worth personalising.'}],
  whatto:['Eggs can be part of a healthy diet for most people.','If you have diabetes or high cholesterol, talk specifics with your doctor and watch what you eat alongside them (bacon, butter).'],
@@ -705,7 +750,7 @@ window.TOPICS = [
  sources:9,related:['Childhood vaccines','Measles','Autism'],kw:['vaccine','vaccines','mmr','autism','immunization','immunisation']},
 
 {id:'organic',cat:'claim',type:'Claim',title:'Is organic food much healthier?',sub:'Organic produce vs. conventional.',
- verdict:{s:'vbadge',cls:'warn',label:'Overblown',},
+ verdict:{s:'vbadge',cls:'warn',label:'More complicated than that',},
  bottom:'Organic food has lower pesticide residues, but conventional produce is also safe and nutritionally very similar. Eating more produce matters far more than organic vs. not.',
  ev:[{s:'mod',l:'Moderate',t:'<b>Nutrition:</b> organic and conventional produce are broadly similar in nutrients.'},{s:'mod',l:'Moderate',t:'<b>Pesticides:</b> organic has fewer residues, but conventional residues are typically far below safety limits.'}],
  whatto:['Eat more fruits and vegetables, organic or not — that’s the real win.','Wash produce; if budget is tight, don’t let “organic only” stop you eating vegetables.'],
@@ -1140,7 +1185,7 @@ window.TOPICS = [
   var TOPICS = window.TOPICS || [];
   var BYID = {}; TOPICS.forEach(function(T){ BYID[T.id]=T; });
   var CATS = [
-    {k:'claim', label:'Claims &amp; trends', crumb:'Claims & trends'},
+    {k:'claim', label:'Claims &amp; health trends', crumb:'Claims & health trends'},
     {k:'supp',  label:'Supplements',        crumb:'Supplements'},
     {k:'dx',    label:'Conditions',         crumb:'Conditions'},
     {k:'med',   label:'Medications',        crumb:'Medications'},
@@ -1153,12 +1198,14 @@ window.TOPICS = [
 
   // build nav + footer from templates
   document.querySelectorAll('.navhost').forEach(function(h){ h.appendChild(document.getElementById('navtpl').content.cloneNode(true)); });
+  // ensure every view has a footer host so the footer is consistent on every page (2026-06-07)
+  VIEWS.forEach(function(id){ var v=document.getElementById(id); if(v && !v.querySelector('.foothost')){ var fh=document.createElement('div'); fh.className='foothost'; v.appendChild(fh); } });
   document.querySelectorAll('.foothost').forEach(function(h){ h.appendChild(document.getElementById('foottpl').content.cloneNode(true)); });
   // legal links + beta note on every footer
   document.querySelectorAll('footer').forEach(function(f){
     var disc=f.querySelector('.disc'); if(!disc||f.querySelector('.footlegal')) return;
     var row=document.createElement('div'); row.className='footlegal';
-    row.innerHTML='<a data-nav="privacy">Privacy</a> &middot; <a data-nav="disclaimer">Disclaimer</a> &middot; <a data-nav="terms">Terms</a>';
+    row.innerHTML='<a href="#privacy" data-nav="privacy">Privacy</a> &middot; <a href="#disclaimer" data-nav="disclaimer">Disclaimer</a> &middot; <a href="#terms" data-nav="terms">Terms</a>';
     disc.parentNode.insertBefore(row,disc);
   });
 
@@ -1170,7 +1217,7 @@ window.TOPICS = [
   // ----- verdict + answer rendering -----
   function verdictHTML(v, big){
     if(!v) return '';
-    if(v.s==='ev'){ return '<div class="ev '+v.cls+'" style="margin-bottom:12px;"><span class="meter"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="lab">Overall evidence: '+esc(v.label)+'</span></div>'; }
+    if(v.s==='ev'){ return '<div class="ev '+v.cls+'" style="margin-bottom:12px;" role="img" aria-label="Evidence strength: '+esc(v.label)+'"><span class="meter" aria-hidden="true"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="lab">Evidence strength: '+esc(v.label)+'</span></div>'; }
     if(v.s==='vbadge'){ return '<span class="vbadge '+v.cls+(big?' big':'')+'">'+(big?'Verdict: ':'')+esc(v.label)+'</span>'; }
     if(v.s==='condtag'){ return '<span class="condtag">'+esc(v.label)+'</span>'; }
     return '';
@@ -1178,38 +1225,38 @@ window.TOPICS = [
   function evRows(ev){ if(!ev||!ev.length) return ''; return ev.map(function(r){ return '<div class="erow"><span class="etag '+r.s+'">'+esc(r.l)+'</span><span class="et">'+r.t+'</span></div>'; }).join(''); }
   function listHTML(arr){ return '<ul>'+arr.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>'; }
 
+  var CRISIS_GEN=['depression','anxiety','ssri']; var CRISIS_OD=[];
   function renderAnswer(T){
     curTopicId = T.id;
     var main = '';
     main += '<span class="typetag">'+esc(T.type)+'</span>';
     main += '<h1>'+esc(T.title)+'</h1>';
     if(T.sub){ main += '<p class="muted" style="margin:-4px 0 10px;">'+esc(T.sub)+'</p>'; }
-    main += verdictHTML(T.verdict, true);
     main += '<p class="ans-bottom">'+esc(T.bottom)+'</p>';
-    if(T.red){ main += '<div class="callout red"><b>Seek emergency care:</b> '+esc(T.red)+'</div>'; }
+    main += verdictHTML(T.verdict, true);
+    if(T.red){ main += '<div class="callout red"><b>Get emergency care now — call 911 or go to the nearest ER:</b> '+esc(T.red)+'</div>'; }
     if(T.ev && T.ev.length){ main += '<div class="asec"><h2>What the evidence shows</h2>'+evRows(T.ev)+'</div>'; }
-    if(T.safety && T.safety.length){ main += '<div class="safety"><h2><svg class="warnico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Safety &amp; cautions</h2>'+listHTML(T.safety)+'</div>'; }
+    if(T.safety && T.safety.length){ main += '<div class="safety"><h2><svg class="warnico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-warn"/></svg> Risks and warnings</h2>'+listHTML(T.safety)+'</div>'; }
     if(T.whatto && T.whatto.length){ main += '<div class="asec"><h2>What to do</h2>'+listHTML(T.whatto)+'</div>'; }
-    if(T.doc){ main += '<div class="callout doc"><b>How to talk to your doctor:</b> '+esc(T.doc)+'</div>'; }
+    if(T.doc){ main += '<div class="callout doc"><b>Bring this to your doctor:</b> '+esc(T.doc)+'</div>'; }
     main += '<div class="actionbar">'
-      + '<a class="act" data-act="doctor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Send to your doctor</a>'
-      + '<a class="act love" data-act="love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Send to someone you love</a>'
-      + '<a class="act" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print / bring to your doctor</a>'
+      + '<a class="act primary" data-act="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Share</a>'
+      + '<a class="act" data-act="copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-link"/></svg>Copy link</a>'
+      + '<a class="act" data-act="print"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-print"/></svg>Print</a>'
       + '<span class="srcs" style="margin-left:auto;">Sources ('+esc(T.sources)+')</span></div>';
+    if(CRISIS_OD.indexOf(T.id)>-1){ main += '<div class="crisisline">If this may be an overdose, call <a href="tel:18002221222">Poison Control (1-800-222-1222)</a> or <a href="tel:911">911</a> immediately. For support any time, call or text <a href="tel:988">988</a> (US).</div>'; }
+    else if(CRISIS_GEN.indexOf(T.id)>-1){ main += '<div class="crisisline">Support is always available &mdash; you can call or text <a href="tel:988">988</a> (US) any time.</div>'; }
     document.getElementById('ans-main').innerHTML = main;
 
-    var rail = '<div class="railbox"><h4>How this was reviewed</h4>'
-      + '<p class="railnote">Reviewed by the <b>WDWYK doctors</b> and backed by '+esc(T.sources)+' credentialed sources. <a data-nav="mission">How we review</a></p>'
-      + '<span class="verbadge">&#10003; Doctor-reviewed</span></div>'
-      + '<div class="railbox"><h4>Expert videos</h4>'
-      + '<p class="railnote">We&rsquo;re curating credentialed expert videos for this topic &mdash; each one doctor-reviewed before it appears.</p>'
-      + '<a class="act" data-nav="partner" style="cursor:pointer;">Are you a verified expert? Contribute &rarr;</a></div>';
+    var rail = '<div class="railbox">'
+      + '<p class="railnote">Evidence-based &middot; <a href="#mission" data-nav="mission" data-scroll="how-we-review">How we review &rarr;</a></p></div>';
+      /* "Are you a doctor? / Volunteer to review" box removed from the answer rail 2026-06-06 (founder-signed); volunteer recruiting relocates to About/Help */
     document.getElementById('ans-rail').innerHTML = rail;
 
     document.getElementById('ans-crumb').innerHTML = 'Search &rsaquo; '+(CRUMB[T.cat]||'')+' &rsaquo; <b>'+esc(T.title)+'</b>';
     var rel = (T.related||[]).map(function(r){ return '<span class="rchip">'+esc(r)+'</span>'; }).join('');
     document.getElementById('ans-related').innerHTML = rel;
-    var inp = document.querySelector('#answer .topsearch input'); if(inp){ inp.value=''; inp.setAttribute('placeholder', 'Ask a health question…'); }
+    var inp = document.querySelector('#answer .topsearch input'); if(inp){ inp.value=''; inp.setAttribute('placeholder', 'Ask any health question…'); }
   }
 
   function openTopic(id, fromHash){ var T=BYID[id]; if(!T){ show('home'); return; } renderAnswer(T); show('answer'); if(!fromHash && window.history && history.replaceState){ history.replaceState(null,'','#t='+id); } }
@@ -1226,9 +1273,9 @@ window.TOPICS = [
   var CRISIS_PHRASES = ['suicide','suicidal','kill myself','killing myself','kill my self','end my life','end it all','take my life','want to die','wanna die','ready to die','better off dead',"don't want to live",'do not want to live','no reason to live','nothing to live for','no point in living','self harm','self-harm','selfharm','cut myself','cutting myself','hurt myself','harm myself','harming myself','hang myself','hanging myself','overdose to die','want to overdose','how to overdose'];
   var CRISIS_PATTERNS = [/\bhow (to|do i|can i|should i)\b.*\b(die|kill myself|kill my self|end (it|my life)|overdose)\b/, /\b(easiest|painless|quick(est)?|fastest|best|surest) way to (die|kill myself|end (it|my life))\b/, /\bways? to (die|kill myself|end my life)\b/, /\bhow (much|many)\b.*\b(to die|to kill myself|to overdose|lethal|fatal|will kill( me)?)\b/, /\b(lethal|fatal|deadly) (dose|amount|quantity)\b/, /\bjump off (a |the )?(bridge|building|roof)\b/];
   function isCrisis(q){ q=(q||'').toLowerCase(); for(var i=0;i<CRISIS_PHRASES.length;i++){ if(q.indexOf(CRISIS_PHRASES[i])>-1) return true; } for(var j=0;j<CRISIS_PATTERNS.length;j++){ if(CRISIS_PATTERNS[j].test(q)) return true; } return false; }
-  function route(q){ var T=match(q); if(T){ openTopic(T.id); return true; } if(!(q||'').trim()){ show('home'); return true; } var query=q.trim(); var nrn=document.getElementById('nr-normal'), nrc=document.getElementById('nr-crisis'); if(isCrisis(query)){ if(nrn) nrn.classList.add('hide'); if(nrc) nrc.classList.remove('hide'); } else { if(nrc) nrc.classList.add('hide'); if(nrn) nrn.classList.remove('hide'); window.__nrTopic=query; var el=document.getElementById('nr-q'); if(el) el.textContent='\u201c'+query+'\u201d'; var m=document.getElementById('nrMsg'); if(m) m.textContent=''; var ip=document.querySelector('#nrRequest input'); if(ip) ip.value=''; } show('noresult'); return false; }
+  function route(q){ var query0=(q||'').trim(); if(query0 && isCrisis(query0)){ var nn=document.getElementById('nr-normal'), ncc=document.getElementById('nr-crisis'); if(nn) nn.classList.add('hide'); if(ncc) ncc.classList.remove('hide'); show('noresult'); return false; } var T=match(q); if(T){ openTopic(T.id); return true; } if(!(q||'').trim()){ show('home'); return true; } var query=q.trim(); var nrn=document.getElementById('nr-normal'), nrc=document.getElementById('nr-crisis'); if(isCrisis(query)){ if(nrn) nrn.classList.add('hide'); if(nrc) nrc.classList.remove('hide'); } else { if(nrc) nrc.classList.add('hide'); if(nrn) nrn.classList.remove('hide'); window.__nrTopic=query; var el=document.getElementById('nr-q'); if(el) el.textContent='\u201c'+query+'\u201d'; var m=document.getElementById('nrMsg'); if(m) m.textContent=''; var ip=document.querySelector('#nrRequest input'); if(ip) ip.value=''; } show('noresult'); return false; }
 
-  // ----- doctor modal: compliment + mission link (never a specific card) -----
+  // ----- doctor modal — RETIRED 2026-06-06 (portal-push removed, founder-signed; dead code, slated for cleanup) -----
   var DOC=null;
   function missionURL(){ return location.origin+location.pathname+'#mission'; }
   function ensureDoc(){ if(DOC) return DOC; DOC=document.createElement('div'); DOC.className='docmask';
@@ -1243,12 +1290,14 @@ window.TOPICS = [
     DOC.querySelector('[data-copy]').addEventListener('click',function(){ var b=this,txt=DOC.querySelector('.m').textContent+'\n'+DOC.querySelector('.u').textContent; if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(function(){ b.textContent='Copied \u2713'; setTimeout(function(){b.textContent='Copy message';},2200); }); } else { alert(txt); } });
     return DOC; }
   function openDoc(){ var d=ensureDoc();
-    d.querySelector('.m').textContent='Hi Doctor \u2014 thank you for the care you give me; I really value your guidance. I\u2019ve been learning from What Doctors Wish You Knew, a free, ad-free, doctor-reviewed health site, and thought you might appreciate what they\u2019re building. Here\u2019s their mission:';
+    d.querySelector('.m').textContent='Hi Doctor \u2014 thank you for the care you give me; I really value your guidance. I\u2019ve been learning from What Doctors Wish You Knew, a free, ad-free, evidence-based health site, and thought you might appreciate what they\u2019re building. Here\u2019s their mission:';
     d.querySelector('.u').textContent=missionURL();
     d.classList.add('on'); }
 
   function curTitle(){ if(curTopicId && BYID[curTopicId]) return BYID[curTopicId].title; for(var i=0;i<VIEWS.length;i++){ var n=document.getElementById(VIEWS[i]); if(n && !n.classList.contains('hide')){ var h=n.querySelector('h1,h3'); return h?h.textContent.trim():''; } } return ''; }
-  function shareThis(title){ var hash = (curTopicId? '#t='+curTopicId : ''); var url=location.origin+location.pathname+hash, text=(title?title+' \u2014 ':'')+'Honest, doctor-reviewed health answers, no ads. WhatDoctorsWishYouKnew.com'; if(navigator.share){ navigator.share({title:'What Doctors Wish You Knew',text:text,url:url}).catch(function(){}); } else if(navigator.clipboard){ navigator.clipboard.writeText(text+' '+url).then(function(){ alert('Link copied \u2014 share it with someone who needs it.'); }); } }
+  function shareThis(title){ var hash = (curTopicId? '#t='+curTopicId : ''); var url=location.origin+location.pathname+hash, text=(title?title+' \u2014 ':'')+'Honest, evidence-based health answers — free, no ads, nothing to sell. Not medical advice. WhatDoctorsWishYouKnew.com'; if(navigator.share){ navigator.share({title:'What Doctors Wish You Knew',text:text,url:url}).catch(function(){}); } else if(navigator.clipboard){ navigator.clipboard.writeText(text+' '+url).then(function(){ alert('Link copied \u2014 share it with someone who needs it.'); }); } }
+  function fallbackCopy(t){ try{ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }catch(e){} }
+  function copyLink(btn){ if(btn.__busy) return; btn.__busy=true; var hash=(curTopicId? '#t='+curTopicId : ''); var url=location.origin+location.pathname+hash; var restore=btn.innerHTML; function done(){ btn.textContent='✓ Copied'; setTimeout(function(){ btn.innerHTML=restore; btn.__busy=false; },2000); } if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(done).catch(function(){ fallbackCopy(url); done(); }); } else { fallbackCopy(url); done(); } }
   function thanks(node,msg){ var p=document.createElement('p'); p.textContent=msg; p.style.cssText='color:#fff;font-size:14px;margin:12px 0 0;font-weight:600;'; node.replaceWith(p); }
 
   // ----- home featured cards -----
@@ -1262,7 +1311,6 @@ window.TOPICS = [
       + '<p class="bottomline">'+esc(T.bottom)+'</p>'
       + (first? '<p class="whatto"><b>What to do:</b> '+esc(first)+'</p>' : '')
       + '<div class="cardfoot">'
-      + '<a class="act" data-act="doctor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-doc"/></svg>Your doctor</a>'
       + '<a class="act love" data-act="love"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-share"/></svg>Share</a>'
       + '<span class="srcs">Sources ('+esc(T.sources)+')</span></div></div>';
   }
@@ -1304,7 +1352,7 @@ window.TOPICS = [
     // search inputs (static ones present at load)
     document.querySelectorAll('.search').forEach(function(s){ var inp=s.querySelector('input'), btn=s.querySelector('button'); if(inp){ attachSuggest(inp); } if(btn && /search/i.test(btn.textContent)){ btn.addEventListener('click',function(){ route(inp?inp.value:''); }); } });
     // tries links
-    document.querySelectorAll('.tries a').forEach(function(a){ if(a.getAttribute('data-nav')) return; a.style.cursor='pointer'; a.addEventListener('click',function(){ route(a.textContent); }); });
+    document.querySelectorAll('.tries a, .starthere a').forEach(function(a){ if(a.getAttribute('data-nav')) return; a.style.cursor='pointer'; a.setAttribute('role','button'); a.setAttribute('tabindex','0'); var q=a.getAttribute('data-q')||a.textContent; a.addEventListener('click',function(){ route(q); }); a.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); route(q); } }); });
     // brand -> home
     document.querySelectorAll('.brand').forEach(function(b){ b.style.cursor='pointer'; b.addEventListener('click',function(){ navTo('home'); }); });
     // join / founding forms
@@ -1327,8 +1375,8 @@ window.TOPICS = [
 
     // delegated clicks (covers dynamic content)
     document.addEventListener('click',function(e){
-      var act=e.target.closest('a.act'); if(act){ var tt=act.textContent.toLowerCase(); if(tt.indexOf('print')>-1||tt.indexOf('contribute')>-1) { if(tt.indexOf('contribute')>-1) navTo('partner'); return; } if(tt.indexOf('doctor')>-1){ openDoc(); } else { shareThis(curTitle()); } return; }
-      var nav=e.target.closest('[data-nav]'); if(nav){ e.preventDefault(); navTo(nav.getAttribute('data-nav')); return; }
+      var act=e.target.closest('a.act'); if(act){ var a=act.getAttribute('data-act'); if(a==='copy'){ copyLink(act); return; } if(a==='print'){ window.print(); return; } if(a==='share'||a==='love'){ shareThis(curTitle()); return; } if(act.hasAttribute('data-nav')){ navTo(act.getAttribute('data-nav')); return; } if(act.getAttribute('onclick')){ return; } shareThis(curTitle()); return; }
+      var nav=e.target.closest('[data-nav]'); if(nav){ e.preventDefault(); navTo(nav.getAttribute('data-nav')); var sc=nav.getAttribute('data-scroll'); if(sc){ setTimeout(function(){ var el=document.getElementById(sc); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },60); } return; }
       var tc=e.target.closest('.topic-card'); if(tc){ openTopic(tc.getAttribute('data-id')); return; }
       var chip=e.target.closest('.rchip'); if(chip){ route(chip.textContent); return; }
       var fc=e.target.closest('.fchip'); if(fc){ topicFilter=fc.getAttribute('data-filter'); document.querySelectorAll('#topic-filters .fchip').forEach(function(x){x.classList.toggle('on',x===fc);}); buildTopics(); return; }
@@ -1355,8 +1403,8 @@ window.TOPICS = [
     msg.textContent = 'One moment…';
     fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: email, source: 'beta-banner' }) })
       .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
-      .then(function(){ f.reset(); msg.textContent = 'Thanks! Check your inbox to confirm — we’ll email you the moment we’re fully live.'; })
-      .catch(function(){ msg.textContent = 'Hmm, that didn’t work — please try again.'; });
+      .then(function(){ f.reset(); msg.textContent = 'Done. Check your inbox to confirm — we’ll email you as we add new answers.'; })
+      .catch(function(){ msg.textContent = 'That didn’t work — please try again.'; });
   });
 })();
 </script>
@@ -1375,8 +1423,28 @@ window.TOPICS = [
     if(msg) msg.textContent = 'One moment…';
     fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: email, source: 'no-result: ' + topic }) })
       .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
-      .then(function(){ f.reset(); if(msg) msg.textContent = 'Thanks! Check your inbox to confirm — we’ll email you when this topic is ready.'; })
-      .catch(function(){ if(msg) msg.textContent = 'Hmm, that didn’t work — please try again.'; });
+      .then(function(){ f.reset(); if(msg) msg.textContent = 'Done. Check your inbox to confirm — we’ll email you when this topic is ready.'; })
+      .catch(function(){ if(msg) msg.textContent = 'That didn’t work — please try again.'; });
+  });
+})();
+</script>
+<script>
+(function(){
+  var ENDPOINT = "https://wdwyk-subscribe.benjaminfinchmed.workers.dev";
+  var f = document.getElementById('partnerForm'); if(!f) return;
+  var msg = document.getElementById('pfMsg');
+  var EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var emEl = document.getElementById('pf-email'); var email = (emEl && emEl.value || '').trim();
+    if(!EMAIL.test(email)){ if(msg) msg.textContent = 'Please enter a valid work email.'; return; }
+    var roleEl = f.querySelector('.rolechip.on'); var role = roleEl ? roleEl.textContent.trim() : 'Unspecified';
+    var orgEl = document.getElementById('pf-org'); var org = (orgEl && orgEl.value || '').trim();
+    if(msg) msg.textContent = 'One moment…';
+    fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: email, source: 'partner: ' + role + (org ? ' / ' + org : '') }) })
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+      .then(function(){ f.reset(); var on=f.querySelector('.rolechip.on'); if(on) on.classList.remove('on'); var first=f.querySelector('.rolechip'); if(first) first.classList.add('on'); if(msg) msg.textContent = 'Thanks — we read every message and will reply personally.'; })
+      .catch(function(){ if(msg) msg.textContent = 'That did not work — please try again in a moment.'; });
   });
 })();
 </script>
